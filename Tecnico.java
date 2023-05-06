@@ -16,20 +16,20 @@ public class Tecnico {
 	}
 	
 	public void repararMaquina (Maquina maquina) {
-		if (maquina.daniada) {
-			maquina.daniada = false;	
+		if (maquina.getDaniada()) {
+			maquina.setDaniada(false);
 		}
 	}
 	
 	public void habilitarMaquina(Maquina maquina) {
-		if (!maquina.habilitada) {
-			maquina.habilitada = true;
+		if (!maquina.getHabilitada()) {
+			maquina.setHabilitada(true);
 		}
 	}
 	
 	public void deshabilitarMaquina(Maquina maquina) {
-		if (maquina.daniada) {
-			maquina.habilitada = false;
+		if (maquina.getDaniada()) {
+			maquina.setDaniada(false); 
 		}
 	}
 	
