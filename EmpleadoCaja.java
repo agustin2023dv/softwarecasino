@@ -1,4 +1,4 @@
-import java.util.Date;
+oimport java.util.Date;
 
 public class EmpleadoCaja extends Empleado{
 
@@ -6,8 +6,9 @@ public class EmpleadoCaja extends Empleado{
 
     private Caja caja;
 
-    public EmpleadoCaja(String idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String correoElectronico, String idEmpleado, String rol) {
-        super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico, idEmpleado, rol);
+    public EmpleadoCaja(String idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String correoElectronico, String idEmpleado, String puesto, int idEmpleadoCaja) {
+        super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico, idEmpleado, puesto);
+        this.idEmpleadoCaja = idEmpleadoCaja;
     }
 
     public int getIdEmpleadoCaja() {
