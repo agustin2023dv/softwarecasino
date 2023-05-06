@@ -1,80 +1,95 @@
-import java.util.List;
-
+package casino;
 
 public class Maquina {
-    private int idMaquina;
-    private Juego juego;
-    private int saldoTickets;
-    private boolean prendido;
-
-    private boolean habilitada;
-
-    private boolean daniada;
-
-    public Maquina(int idMaquina, Juego juego, int saldoTickets, boolean prendido) {
+	
+	private int idMaquina;
+	private Juego juego;
+	private double apuestasRecibidas;
+	private int saldoTickets;
+	private boolean daniada;
+	private boolean habilitada;
+		
+	//constructor
+	
+	public Maquina(int idMaquina, double apuestasRecibidas, int saldoTickets) {
         this.idMaquina = idMaquina;
-        this.juego = juego;
+        this.apuestasRecibidas = apuestasRecibidas;
         this.saldoTickets = saldoTickets;
-        this.prendido = prendido;
         this.habilitada = true;
         this.daniada = false;
     }
+	
+	// Verificar Saldo
+	
+	public int verificarSaldo() {
+		return saldoTickets;
+	}
+	
+	// Encender
+	
+	public void encender() {
+		this.habilitada = true;
+	}
+	
+	// Apagar
+	
+	public void apagar() {
+		this.habilitada = false;
+	}
 
-    public int getIdMaquina() {
-        return idMaquina;
-    }
+	
+		
+	//setters y getters
+	
+	public int getIdMaquina() {
+		return idMaquina;
+	}
 
-    public void setIdMaquina(int idMaquina) {
-        this.idMaquina = idMaquina;
-    }
+	public void setIdMaquina(int idMaquina) {
+		this.idMaquina = idMaquina;
+	}
 
-    public Juego getJuego() {
-        return juego;
-    }
+	public Juego getJuego() {
+		return juego;
+	}
 
-    public void setJuegos(Juego juego) {
-        this.juego = juego;
-    }
+	public void setJuego(Juego juego) {
+		this.juego = juego;
+	}
 
-    public double getSaldoTickets() {
-        return saldoTickets;
-    }
+	public double getApuestasRecibidas() {
+		return apuestasRecibidas;
+	}
 
-    public void setSaldo(int saldoTickets) {
-        this.saldoTickets = saldoTickets;
-    }
+	public void setApuestasRecibidas(double apuestasRecibidas) {
+		this.apuestasRecibidas = apuestasRecibidas;
+	}
 
-    public boolean getPrendido() {
-        return prendido;
-    }
+	public int getSaldoTickets() {
+		return saldoTickets;
+	}
 
-    public void setPrendido(boolean prendido) {
-        this.prendido = prendido;
-    }
+	public void setSaldoTickets(int saldoTickets) {
+		this.saldoTickets = saldoTickets;
+	}
+
+	public boolean isDaniada() {
+		return daniada;
+	}
+
+	public void setDaniada(boolean daniada) {
+		this.daniada = daniada;
+	}
+
+	public boolean isHabilitada() {
+		return habilitada;
+	}
+
+	public void setHabilitada(boolean habilitada) {
+		this.habilitada = habilitada;
+	}
 
 
-
-    public void apagar(){
-        this.prendido = false;
-    }
-
-    public void prender(){
-        this.prendido = true;
-    }
-
-    public boolean getHabilitada() {
-        return habilitada;
-    }
-
-    public void setHabilitada(boolean habilitada) {
-        this.habilitada = habilitada;
-    }
-
-    public boolean getDaniada() {
-        return daniada;
-    }
-
-    public void setDaniada(boolean daniada) {
-        this.daniada = daniada;
-    }
+	
+	
 }
