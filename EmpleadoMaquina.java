@@ -2,11 +2,11 @@ import java.util.Date;
 
 public class EmpleadoMaquina extends Empleado{
 
-    private String idEmpleadoMaquina;
+    private int idEmpleadoMaquina;
 
 
     public EmpleadoMaquina(String idUsuario, String nombre, String apellido, Date fecNacimiento,
-                           String contrasena, String correoElectronico, String idEmpleado, String puesto, String idEmpleadoMaquina) {
+                           String contrasena, String correoElectronico, String idEmpleado, String puesto, int idEmpleadoMaquina) {
         super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico, idEmpleado, puesto);
         this.idEmpleadoMaquina = idEmpleadoMaquina;
     }
