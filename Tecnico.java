@@ -4,8 +4,8 @@ public class Tecnico extends Empleado{
 	
 	private int idTecnico;
 
-	public Tecnico(String idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String correoElectronico, String idEmpleado, String rol, int idTecnico) {
-		super();
+	public Tecnico(String idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String correoElectronico, String idEmpleado, String puesto, int idTecnico) {
+		super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico, idEmpleado, puesto);
 		this.idTecnico = idTecnico;
 	}
 	
