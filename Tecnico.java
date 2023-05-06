@@ -1,9 +1,11 @@
+import java.util.Date;
 
-public class Tecnico {
+public class Tecnico extends Empleado{
 	
 	private int idTecnico;
 
-	public Tecnico(int idTecnico) {
+	public Tecnico(String idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String correoElectronico, String idEmpleado, String rol, int idTecnico) {
+		super();
 		this.idTecnico = idTecnico;
 	}
 	
