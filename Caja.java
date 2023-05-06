@@ -2,6 +2,8 @@
 public class Caja {
 
     private int idCaja;
+
+    
     private double saldoActual;
     private EmpleadoCaja empleadoCaja;
 

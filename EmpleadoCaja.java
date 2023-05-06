@@ -3,6 +3,7 @@ import java.util.Date;
 public class EmpleadoCaja extends Empleado{
 
     private int idEmpleadoCaja;
+
     private Caja caja;
 
     public EmpleadoCaja(String idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String correoElectronico, String idEmpleado, String rol) {
