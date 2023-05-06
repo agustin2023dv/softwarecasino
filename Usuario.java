@@ -19,8 +19,9 @@ public class Usuario {
         this.fecNacimiento = fecNacimiento;
         this.contrasena = contrasena;
         this.logueado = false;
-        this.correoElectronico= correoElectronico;
+        this.correoElectronico = correoElectronico;
     }
+
 
 
 
