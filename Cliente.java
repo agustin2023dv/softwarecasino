@@ -24,12 +24,16 @@ public class Cliente extends Usuario{
     }
 
 
-  public void jugar(Juego juego, double apuesta){
+  public void jugar(Maquina maquina, double apuesta){
         boolean resultado;
-        resultado = juego.generarResultado();
+
+        resultado = maquina.getJuego().generarResultado();
 
         if(resultado){
             this.dineroDisponible += apuesta*4;
+        }
+        else{
+            maquina.setSaldoTickets((int) (maquina.getSaldoTickets() + Math.round(apuesta)));
         }
   }
 

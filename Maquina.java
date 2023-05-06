@@ -1,22 +1,20 @@
-package casino;
 
 public class Maquina {
 	
 	private int idMaquina;
 	private Juego juego;
-	private double apuestasRecibidas;
 	private int saldoTickets;
 	private boolean daniada;
 	private boolean habilitada;
 		
 	//constructor
 	
-	public Maquina(int idMaquina, double apuestasRecibidas, int saldoTickets) {
+	public Maquina(int idMaquina, int saldoTickets, Juego juego) {
         this.idMaquina = idMaquina;
-        this.apuestasRecibidas = apuestasRecibidas;
         this.saldoTickets = saldoTickets;
         this.habilitada = true;
         this.daniada = false;
+		this.juego = juego;
     }
 	
 	// Verificar Saldo
@@ -37,8 +35,6 @@ public class Maquina {
 		this.habilitada = false;
 	}
 
-	
-		
 	//setters y getters
 	
 	public int getIdMaquina() {
@@ -57,13 +53,6 @@ public class Maquina {
 		this.juego = juego;
 	}
 
-	public double getApuestasRecibidas() {
-		return apuestasRecibidas;
-	}
-
-	public void setApuestasRecibidas(double apuestasRecibidas) {
-		this.apuestasRecibidas = apuestasRecibidas;
-	}
 
 	public int getSaldoTickets() {
 		return saldoTickets;
@@ -73,7 +62,7 @@ public class Maquina {
 		this.saldoTickets = saldoTickets;
 	}
 
-	public boolean isDaniada() {
+	public boolean getDaniada() {
 		return daniada;
 	}
 
@@ -81,7 +70,7 @@ public class Maquina {
 		this.daniada = daniada;
 	}
 
-	public boolean isHabilitada() {
+	public boolean getHabilitada() {
 		return habilitada;
 	}
 
