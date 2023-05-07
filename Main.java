@@ -1,9 +1,7 @@
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Date;
-
-import javax.swing.JOptionPane;
 
 class Main {
 
@@ -158,13 +156,248 @@ class Main {
 						opciones[0]);
 
 		// Botones de usuario
-		
 
+		String nombreIngresado = JOptionPane.showInputDialog("Ingrese su nombre:");
+		String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
+		Usuario actual = null;
 		boolean quiereJugar = true;
 
+		switch (choice) {
+			case 0: // Cliente
+
+				for (Usuario usuario : usuarioEjemplo) {
+					if (usuario.getNombre().equalsIgnoreCase(nombreIngresado) && usuario.getContrasena().equalsIgnoreCase(contrasena)) {
+						actual = usuario;
+					}
+				}
+
+				if (actual == null) {
+					JOptionPane.showMessageDialog(null, "El usuario o la contraseña ingresada es incorrecta.");
+				} else if (actual instanceof Cliente) {
+					actual.login(contrasena);
+					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Lo siento, solo los Clientes pueden iniciar sesión por este sistema.");
+				}
+				break;
+
+			case 1: // Empleado
 
 
-		if (choice == 0) { // cliente
+				for (Usuario usuario : usuarioEjemplo) {
+					if (usuario.getNombre().equalsIgnoreCase(nombreIngresado) && usuario.getContrasena().equalsIgnoreCase(contrasena)) {
+						actual = usuario;
+					}
+				}
+
+				if (actual == null) {
+					JOptionPane.showMessageDialog(null,
+							"El usuario o la contraseña ingresada es incorrecta.");
+				} else if (actual instanceof Empleado) {
+					actual.login(contrasena);
+					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Lo siento, solo los Empleados pueden iniciar sesión por este sistema.");
+				}
+				break;
+
+			case 2: // Admin
+
+
+				for (Usuario usuario : usuarioEjemplo) {
+					if (usuario.getNombre().equalsIgnoreCase(nombreIngresado) &&
+							usuario.getContrasena().equalsIgnoreCase(contrasena)) {
+						actual = usuario;
+					}
+				}
+
+				if (actual == null) {
+					JOptionPane.showMessageDialog(null,
+							"El usuario o la contraseña ingresada es incorrecta.");
+				} else if (actual instanceof Administrador) {
+					actual.login(contrasena);
+					JOptionPane.showMessageDialog(null,
+							"Inicio de sesión exitoso.");
+
+					// CHOICE ADMIN
+					boolean continuar = true;
+
+					while (continuar) {
+
+						String[] opcionesAdministrador = { "Caja", "Juego", "Maquina", "Usuario", "Visualizar Cliente", "Logout" };
+						int choiceAdministrador = JOptionPane.showOptionDialog(null, "Seleccione su Usuario", "Selección de Usuario", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesAdministrador, opcionesAdministrador[5]);
+
+						if (choiceAdministrador == 0) {
+							JOptionPane.showMessageDialog(null, "Eligió Caja");
+
+							int visualizarCaja = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Caja"));
+
+							boolean encontrado = false;
+
+							for (Caja caja : cajas) {
+								if (caja.getIdCaja() == visualizarCaja) {
+									encontrado = true;
+									admin1.visualizarCaja(caja);
+									JOptionPane.showMessageDialog(null, "ID : " + caja.getIdCaja() + " | Saldo Inicial: " + caja.getSaldoInicial() + " | Saldo Actual: " + caja.getSaldoActual());
+									break;
+								}
+							}
+
+							if (!encontrado) {
+								JOptionPane.showMessageDialog(null, "El ID " + visualizarCaja + " no existe.");
+							}
+						} else if (choiceAdministrador == 1) {
+							JOptionPane.showMessageDialog(null, "Eligió Juego");
+
+							String[] opcionesAdministradorJuego = { "Eliminar Juego", "Editar Juego", "Regresar" };
+							int choiceAdministradorJuego = JOptionPane.showOptionDialog(null, "Seleccione su Usuario", "Selección de Usuario", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesAdministradorJuego, opcionesAdministradorJuego[2]);
+
+							if (choiceAdministradorJuego == 0) {
+								JOptionPane.showMessageDialog(null, "Eligió Eliminar Juego");
+
+								String eliminarJuego = JOptionPane.showInputDialog("Ingrese el nombre del juego a eliminar");
+
+								boolean encontrado = false;
+
+								for (Juego juego : juegos) {
+									if (juego.getNombre().equalsIgnoreCase(eliminarJuego)) {
+										encontrado = true;
+										admin1.eliminarJuego(juego, juegos);
+										JOptionPane.showMessageDialog(null, "El juego " + eliminarJuego + " fue eliminado con éxito.");
+										break;
+									}
+								}
+
+								if (!encontrado) {
+									JOptionPane.showMessageDialog(null, "El juego " + eliminarJuego + " no existe.");
+								}
+							} else if (choiceAdministradorJuego == 1) {
+								JOptionPane.showMessageDialog(null, "Eligió Editar Juego");
+
+								String editarJuego = JOptionPane.showInputDialog("Ingrese el nombre del juego a editar");
+
+								boolean encontrado = false;
+
+								for (Juego juego : juegos) {
+									if (juego.getNombre().equalsIgnoreCase(editarJuego)) {
+										encontrado = true;
+										String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre del juego");
+										String nuevoDescripcion = JOptionPane.showInputDialog("Ingrese la nueva descripción del juego");
+										int nuevoJugMin = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva cantidad de jugadores mínimos del juego"));
+										int nuevoJugMax = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva cantidad de jugadores máximos del juego"));
+										admin1.editarJuego(juego, nuevoNombre, nuevoDescripcion, nuevoJugMin, nuevoJugMax);
+										JOptionPane.showMessageDialog(null,
+												"Los nuevos datos del juego son: \n" + nuevoNombre + " || "
+														+ nuevoDescripcion + " || " + nuevoJugMin + " || " + nuevoJugMax);
+										break;
+									}
+								}
+
+								if (!encontrado) {
+									JOptionPane.showMessageDialog(null, "El juego " + editarJuego + " no existe.");
+								}
+							} else if (choiceAdministradorJuego == 2) {
+								JOptionPane.showMessageDialog(null, "Eligió Regresar");
+							} else {
+								JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
+							}
+
+							if (choiceAdministradorJuego == 3) {
+								continuar = true;
+							}
+						} else if (choiceAdministrador == 2) {
+							JOptionPane.showMessageDialog(null, "Eligió Maquina");
+
+							int seleccionarMaquina = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la máquina a la que agregará un juego."));
+
+							boolean encontrado = false;
+
+							for (Maquina maquina : maquinas) {
+								if (maquina.getIdMaquina() == seleccionarMaquina) {
+									encontrado = true;
+									String seleccionarJuego = JOptionPane.showInputDialog("Ingrese el nombre del juego que agregará a la máquina.");
+									Juego juego = null;
+
+									for (Juego j : juegos) {
+										if (j.getNombre().equalsIgnoreCase(seleccionarJuego)) {
+											juego = j;
+											break;
+										}
+									}
+
+									if (juego != null) {
+										admin1.agregarJuegoaMaquina(juego, maquina);
+										JOptionPane.showMessageDialog(null, "El juego " + seleccionarJuego + " fue agregado con éxito a la máquina " + seleccionarMaquina + ".");
+									} else {
+										JOptionPane.showMessageDialog(null, "El juego " + seleccionarJuego + " no existe.");
+									}
+								}
+							}
+
+							if (!encontrado) {
+								JOptionPane.showMessageDialog(null, "El ID " + seleccionarMaquina + " de máquina no existe.");
+							}
+						} else if (choiceAdministrador == 3) {
+							JOptionPane.showMessageDialog(null, "Eligió Usuario");
+
+							String eliminarUsuario = JOptionPane.showInputDialog("Ingrese el ID del Usuario a eliminar");
+							boolean encontrado = false;
+
+							for (Usuario usuario : usuarioEjemplo) {
+								if (usuario.getIdUsuario().equalsIgnoreCase(eliminarUsuario)) {
+									encontrado = true;
+									admin1.eliminarUsuario(usuario, usuarioEjemplo);
+									JOptionPane.showMessageDialog(null, "El Usuario con ID " + eliminarUsuario + " fue eliminado con éxito.");
+									break;
+								}
+							}
+
+							if (!encontrado) {
+								JOptionPane.showMessageDialog(null, "El ID " + eliminarUsuario + " no existe.");
+							}
+						} else if (choiceAdministrador == 4) {
+							JOptionPane.showMessageDialog(null, "Eligió Visualizar Cliente");
+
+							String visualizarCliente = JOptionPane.showInputDialog("Ingrese el ID del Cliente");
+							boolean encontrado = false;
+
+							for (Cliente cliente : clientes) {
+								if (cliente.getIdCliente().equalsIgnoreCase(visualizarCliente)) {
+									encontrado = true;
+									admin1.revisarCuentaCliente(cliente);
+									JOptionPane.showMessageDialog(null, "Nombre: " + cliente.getNombre() + " | Apellido: " + cliente.getApellido() + " | Fecha de nacimiento: " + cliente.getFecNacimiento() + " | Correo Electrónico: " + cliente.getCorreoElectronico());
+									break;
+								}
+							}
+
+							if (!encontrado) {
+								JOptionPane.showMessageDialog(null, "El ID " + visualizarCliente + " no existe.");
+							}
+						} else if (choiceAdministrador == 5) {
+							JOptionPane.showMessageDialog(null, "Eligió Logout");
+
+						} else {
+							JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
+							continuar = false;
+						}
+
+
+						}
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Lo siento, solo los administradores pueden iniciar sesión por este sistema.");
+				}
+				break;
+
+			default:
+				JOptionPane.showMessageDialog(null,
+						"Acaba de cerrar la app");
+				break;
+		}
+
+	/*	if (choice == 0) { // cliente
 			
 			JOptionPane.showMessageDialog(null, "Eligio Cliente");
 			
@@ -479,5 +712,5 @@ class Main {
 			JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
 		}
 
-	} */
-}
+	}*/
+}}
