@@ -656,8 +656,66 @@ class Main {
 						empleadoM = empleado;
 					}
 				}
-				break;
+				boolean continuar = true;
+				if (empleadoM == null) {
+					JOptionPane.showMessageDialog(null, "Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Máquina.");
+				} else if (empleadoM instanceof EmpleadoMaquina) { 
+					empleadoM.login(contrasena);
+					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
 
+
+					
+					while (continuar) {
+						String[] opcionesEMaquina = { "Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Logout"};
+						String [] maquinasS = { "Máquina 1", "Máquina 2","Máquina 3", "Regresar" };
+
+						int eleccionMaquina = JOptionPane.showOptionDialog(null, "Seleccione la máquina en la que quiere trabajar",
+								"Empleado Máquina",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, maquinasS,maquinasS[0]);
+					
+							int eleccionMenuEMaquina = JOptionPane.showOptionDialog(null, "Seleccione la operación que desea realizar sobre la máquina",
+									"Empleado Máquina",
+									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesEMaquina,opcionesEMaquina[0]);
+							
+							switch (eleccionMenuEMaquina) {
+							
+								case 0: 
+									empleadoM.encenderMaquina(maquinas.get(eleccionMaquina));
+									JOptionPane.showMessageDialog(null, "Se ha encendido la máquina.");
+									break;
+								case 1:
+									empleadoM.apagarMaquina(maquinas.get(eleccionMaquina));
+									JOptionPane.showMessageDialog(null, "Se ha apagado la máquina.");
+									break;
+								case 2:
+									int cantidadTicketsARetirar;
+									cantidadTicketsARetirar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese cantidad de tickets a retirar"));
+							
+									if (maquinas.get(eleccionMaquina).getSaldoTickets() > cantidadTicketsARetirar) {
+									empleadoM.retirarTickets(maquinas.get(eleccionMaquina), cantidadTicketsARetirar);
+									JOptionPane.showMessageDialog(null, "Se ha retirado " + cantidadTicketsARetirar + " ticket/s" + ".");
+									}else {
+										JOptionPane.showMessageDialog(null, "No se tienen " + cantidadTicketsARetirar + " ticket/s en esta máquina" );
+									}
+									break;
+								case 3:
+									int cantidadTicketsARecargar;
+									cantidadTicketsARecargar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese cantidad de tickets a recargar"));
+							
+									empleadoM.recargarTickets(maquinas.get(eleccionMaquina), cantidadTicketsARecargar);
+									JOptionPane.showMessageDialog(null, "Se ha recargado " + cantidadTicketsARecargar + " ticket/s" + ".");
+									break;
+								case 4:
+										JOptionPane.showMessageDialog(null, "Eligio Logout");
+										continuar = false;
+										break;
+								};
+							};
+				}else{
+					JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
+					continuar = false;
+				}
+				break;
 			case 4:
 
 
