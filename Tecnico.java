@@ -30,8 +30,8 @@ public class Tecnico extends Empleado{
 	}
 	
 	public void deshabilitarMaquina(Maquina maquina) {
-		if (maquina.getDaniada()) {
-			maquina.setDaniada(false);
+		if (maquina.getHabilitada()) {
+			maquina.setHabilitada(false);
 		}
 	}
 	
