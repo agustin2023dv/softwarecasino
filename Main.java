@@ -11,15 +11,15 @@ class Main {
 		
 		// Clientes
 
-		Cliente cliente1 = new Cliente("1", "nombre1", "apellido1", new Date(06 - 05 - 2023), "12341",
+		Cliente cliente1 = new Cliente("1", "Juan", "Gomez", new Date(06 - 05 - 2023), "12341",
 				"mail1@gmail.com", "1", 190.00);
-		Cliente cliente2 = new Cliente("2", "nombre2", "apellido2", new Date(06 - 05 - 2023), "12342",
+		Cliente cliente2 = new Cliente("2", "Maria", "Lopez", new Date(06 - 05 - 2023), "12342",
 				"mail2@gmail.com", "2", 1000.00);
-		Cliente cliente3 = new Cliente("3", "nombre3", "apellido3", new Date(06 - 05 - 2023), "12343",
+		Cliente cliente3 = new Cliente("3", "Pedro", "Guzman", new Date(06 - 05 - 2023), "12343",
 				"mail3@gmail.com", "3", 1000.00);
-		Cliente cliente4 = new Cliente("4", "nombre4", "apellido4", new Date(06 - 05 - 2023), "12344",
+		Cliente cliente4 = new Cliente("4", "Marta", "Ferrero", new Date(06 - 05 - 2023), "12344",
 				"mail4@gmail.com", "4", 1000.00);
-		Cliente cliente5 = new Cliente("5", "nombre5", "apellido5", new Date(06 - 05 - 2023), "12345",
+		Cliente cliente5 = new Cliente("5", "Lucas", "Garcia", new Date(06 - 05 - 2023), "12345",
 				"mail5@gmail.com", "5", 1000.00);
 
 		// Administrador
@@ -363,6 +363,42 @@ class Main {
 					}
 				}
 
+				String[] opcionesECaja = { "Agregar dinero", "Entregar dinero" };
+				String [] cajasS = { "1", "2","3" };
+				String [] clientesS= {clientes.get(0).getApellido(),clientes.get(1).getApellido(),
+						clientes.get(2).getApellido(), clientes.get(3).getApellido(),
+						clientes.get(4).getApellido(),
+				};
+
+				int eleccionMenuECaja = JOptionPane.showOptionDialog(null, "Seleccione una opción",
+						"Empleado caja",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesECaja, opcionesECaja[0]);
+
+					if(eleccionMenuECaja == 0){
+						double monto;
+						monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a ingresar"));
+						int caja;
+						caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea acreditar",
+								"Seleccione la caja",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, cajasS, cajasS[0]);
+
+						empCaja.agregarDinero(monto,cajas.get(caja));
+					}
+					else{
+						double monto;
+						monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a retirar"));
+						int caja;
+						caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea debitar",
+								"Seleccione la caja",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, cajasS, cajasS[0]);
+						int clienteAAcreditar;
+						clienteAAcreditar = JOptionPane.showOptionDialog(null, "Eliga la caja que desea debitar",
+								"Seleccione la caja",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, clientesS, clientesS[0]);
+
+						empCaja.entregarDinero(monto,clientes.get(clienteAAcreditar),cajas.get(caja));
+					}
+					
 			case 2: // Admin
 
 				Administrador administrador = null;
