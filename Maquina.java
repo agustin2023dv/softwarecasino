@@ -12,9 +12,8 @@ public class Maquina {
 	public Maquina(int idMaquina, int saldoTickets, boolean daniada, boolean habilitada) {
         this.idMaquina = idMaquina;
         this.saldoTickets = saldoTickets;
-        this.habilitada = true;
-        this.daniada = false;
-
+        this.daniada = daniada;
+        this.habilitada = habilitada;
     }
 	
 	// Verificar Saldo
