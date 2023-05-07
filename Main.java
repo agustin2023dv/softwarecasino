@@ -94,9 +94,9 @@ class Main {
 		
 		ArrayList<Maquina> maquinas = new ArrayList<Maquina>();
 		
-		Maquina maquina1 = new Maquina(1, 100, null);
-		Maquina maquina2 = new Maquina(2, 100, null);
-		Maquina maquina3 = new Maquina(3, 100, null);
+		Maquina maquina1 = new Maquina(1, 100);
+		Maquina maquina2 = new Maquina(2, 100);
+		Maquina maquina3 = new Maquina(3, 100);
 		
 		maquinas.add(maquina1);
 		maquinas.add(maquina2);
@@ -107,11 +107,14 @@ class Main {
 		ArrayList<Juego> juegos = new ArrayList<Juego>();
 
 		Juego caraOCruz = new Juego(1, "Cara o cruz",
-				"Cara o Cruz es un juego de azar en el que se lanza una moneda para predecir el resultado: cara o cruz.", 1, 6);
+				"Cara o Cruz es un juego de azar en el que se lanza una moneda para predecir el resultado: cara o cruz.",
+				1, 6, maquina1);
 		Juego dados = new Juego(2, "Dados",
-				"Dados es un juego de azar en el que se lanzan dados para predecir el resultado de la suma de los números obtenidos", 1, 6);
+				"Dados es un juego de azar en el que se lanzan dados para predecir el resultado de la suma de los números obtenidos",
+				1, 6, maquina2);
 		Juego blackjack = new Juego(3, "Blackjack",
-				"Blackjack es un juego de cartas en el que los jugadores intentan obtener una mano con un valor total cercano a 21 sin pasarse.", 1, 6);
+				"Blackjack es un juego de cartas en el que los jugadores intentan obtener una mano con un valor total cercano a 21 sin pasarse.",
+				1, 6, maquina3);
 
 		juegos.add(caraOCruz);
 		juegos.add(dados);
@@ -143,6 +146,8 @@ class Main {
 			opcionesJuegos[i] = juegos.get(i).getNombre();
 		}
 
+		
+
 		// INICIO
 
 		// Pantalla de Bienvenida
@@ -172,6 +177,7 @@ class Main {
 
 		String nombreIngresado = JOptionPane.showInputDialog("Ingrese su nombre:");
 		String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
+
 		Usuario actual = null;
 
 		boolean quiereJugar = true;
@@ -179,9 +185,10 @@ class Main {
 		switch (choice) {
 			case 0: // Cliente
 
-				for (Usuario usuario : usuarioEjemplo) {
-					if (usuario.getNombre().equalsIgnoreCase(nombreIngresado) && usuario.getContrasena().equalsIgnoreCase(contrasena)) {
-						actual = usuario;
+				for (Cliente cliente : clientes) {
+					if (cliente.getNombre().equalsIgnoreCase(nombreIngresado) &&
+							cliente.getContrasena().equalsIgnoreCase(contrasena)) {
+						actual = cliente;
 					}
 				}
 
@@ -192,7 +199,7 @@ class Main {
 					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
 				} else {
 					JOptionPane.showMessageDialog(null,
-							"Lo siento, solo los Clientes pueden iniciar sesión por este sistema.");
+							"Lo sentimos, solo los Clientes pueden iniciar sesión por este sistema.");
 				}
 
 
@@ -202,15 +209,31 @@ class Main {
 								opcionesJuegos[0]);
 				boolean resultado;
 
+				int maquinaElegida;
+				maquinaElegida =
+						JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
+								JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+								null, maquinas.toArray(),
+								opcionesMaquinas[0]);
+
+				double apuesta;
+				apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"
+						));
+
 				switch (choiceCliente){
 					case 0:
 
 						// Se elige primer juego
 						while(quiereJugar) {
+
+
+
+
 							resultado = juegos.get(0).generarResultado();
 
 							if (resultado) {
-								JOptionPane.showMessageDialog(null, "Has ganado!");
+								JOptionPane.showMessageDialog(null, "Has ganado "+ apuesta*4+ " pesos! ");
+
 							} else {
 								JOptionPane.showMessageDialog(null, "Has perdido.");
 							}
