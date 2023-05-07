@@ -113,9 +113,9 @@ class Main {
 		
 		ArrayList<Maquina> maquinas = new ArrayList<Maquina>();
 		
-		Maquina maquina1 = new Maquina(1, 100);
-		Maquina maquina2 = new Maquina(2, 100);
-		Maquina maquina3 = new Maquina(3, 100);
+		Maquina maquina1 = new Maquina(1, 100, false, true);
+		Maquina maquina2 = new Maquina(2, 100, false, true);
+		Maquina maquina3 = new Maquina(3, 100, false, true);
 		
 		maquinas.add(maquina1);
 		maquinas.add(maquina2);
