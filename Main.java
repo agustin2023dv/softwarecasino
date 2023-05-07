@@ -106,15 +106,18 @@ class Main {
 
 		ArrayList<Juego> juegos = new ArrayList<Juego>();
 
-		Juego juego1 = new Juego(1, "juego1", "descripcion1", 1, 6);
-		Juego juego2 = new Juego(2, "juego2", "descripcion2", 1, 6);
-		Juego juego3 = new Juego(3, "juego3", "descripcion3", 1, 6);
+		Juego caraOCruz = new Juego(1, "Cara o cruz",
+				"Cara o Cruz es un juego de azar en el que se lanza una moneda para predecir el resultado: cara o cruz.", 1, 6);
+		Juego dados = new Juego(2, "Dados",
+				"Dados es un juego de azar en el que se lanzan dados para predecir el resultado de la suma de los números obtenidos", 1, 6);
+		Juego blackjack = new Juego(3, "Blackjack",
+				"Blackjack es un juego de cartas en el que los jugadores intentan obtener una mano con un valor total cercano a 21 sin pasarse.", 1, 6);
 
-		juegos.add(juego1);
-		juegos.add(juego2);
-		juegos.add(juego3);
+		juegos.add(caraOCruz);
+		juegos.add(dados);
+		juegos.add(blackjack);
 		
-		// Caja
+		// Cajas
 
 		ArrayList<Caja> cajas = new ArrayList<Caja>();
 		
@@ -128,9 +131,19 @@ class Main {
 
 		
 		//-------------------------------------------------------------------------------------------------------------
-		
 
-		// PROYECTO
+		// Arreglo de juegos
+
+		String[] opcionesJuegos = new String[juegos.size()];
+
+
+		// Agregacion del nombre de los juegos al array opcionesJuegos
+
+		for (int i = 0; i < juegos.size(); i++) {
+			opcionesJuegos[i] = juegos.get(i).getNombre();
+		}
+
+		// INICIO
 
 		// Pantalla de Bienvenida
 		String rutaImagenInicio = "img/casinoInicio.jpg";
@@ -160,6 +173,7 @@ class Main {
 		String nombreIngresado = JOptionPane.showInputDialog("Ingrese su nombre:");
 		String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
 		Usuario actual = null;
+
 		boolean quiereJugar = true;
 
 		switch (choice) {
@@ -180,7 +194,58 @@ class Main {
 					JOptionPane.showMessageDialog(null,
 							"Lo siento, solo los Clientes pueden iniciar sesión por este sistema.");
 				}
+
+
+				int choiceCliente =
+						JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
+								JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
+								opcionesJuegos[0]);
+				boolean resultado;
+
+				switch (choiceCliente){
+					case 0:
+
+						// Se elige primer juego
+						while(quiereJugar) {
+							resultado = juegos.get(0).generarResultado();
+
+							if (resultado) {
+								JOptionPane.showMessageDialog(null, "Has ganado!");
+							} else {
+								JOptionPane.showMessageDialog(null, "Has perdido.");
+							}
+							int seguirJugando = JOptionPane.showOptionDialog(null,
+									"Quiere seguir jugando?", "Casino Jocker",
+									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null
+									);
+
+							if(seguirJugando == 1){
+								JOptionPane.showMessageDialog(null,"Gracias por jugar!");
+								quiereJugar = false;
+								break;
+							}
+							else{
+								choiceCliente =
+										JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
+												JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
+												opcionesJuegos[0]);
+							}
+
+						}
+					case 1:
+						// Se elige segundo juego
+
+						break;
+
+					case 3:
+
+						// Se elige tercer juego
+
+						break;
+				}
+
 				break;
+
 
 			case 1: // Empleado
 
@@ -227,7 +292,11 @@ class Main {
 					while (continuar) {
 
 						String[] opcionesAdministrador = { "Caja", "Juego", "Maquina", "Usuario", "Visualizar Cliente", "Logout" };
-						int choiceAdministrador = JOptionPane.showOptionDialog(null, "Seleccione su Usuario", "Selección de Usuario", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesAdministrador, opcionesAdministrador[5]);
+
+						int choiceAdministrador =
+								JOptionPane.showOptionDialog(null, "Seleccione su Usuario", "Selección de Usuario",
+										JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesAdministrador,
+										opcionesAdministrador[5]);
 
 						if (choiceAdministrador == 0) {
 							JOptionPane.showMessageDialog(null, "Eligió Caja");
@@ -240,7 +309,8 @@ class Main {
 								if (caja.getIdCaja() == visualizarCaja) {
 									encontrado = true;
 									admin1.visualizarCaja(caja);
-									JOptionPane.showMessageDialog(null, "ID : " + caja.getIdCaja() + " | Saldo Inicial: " + caja.getSaldoInicial() + " | Saldo Actual: " + caja.getSaldoActual());
+									JOptionPane.showMessageDialog(null, "ID : " + caja.getIdCaja() +
+											" | Saldo Inicial: " + caja.getSaldoInicial() + " | Saldo Actual: " + caja.getSaldoActual());
 									break;
 								}
 							}
@@ -252,7 +322,10 @@ class Main {
 							JOptionPane.showMessageDialog(null, "Eligió Juego");
 
 							String[] opcionesAdministradorJuego = { "Eliminar Juego", "Editar Juego", "Regresar" };
-							int choiceAdministradorJuego = JOptionPane.showOptionDialog(null, "Seleccione su Usuario", "Selección de Usuario", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesAdministradorJuego, opcionesAdministradorJuego[2]);
+							int choiceAdministradorJuego = JOptionPane.showOptionDialog(null,
+									"Seleccione su Usuario", "Selección de Usuario",
+									JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesAdministradorJuego,
+									opcionesAdministradorJuego[2]);
 
 							if (choiceAdministradorJuego == 0) {
 								JOptionPane.showMessageDialog(null, "Eligió Eliminar Juego");
@@ -265,7 +338,8 @@ class Main {
 									if (juego.getNombre().equalsIgnoreCase(eliminarJuego)) {
 										encontrado = true;
 										admin1.eliminarJuego(juego, juegos);
-										JOptionPane.showMessageDialog(null, "El juego " + eliminarJuego + " fue eliminado con éxito.");
+										JOptionPane.showMessageDialog(null, "El juego " + eliminarJuego +
+												" fue eliminado con éxito.");
 										break;
 									}
 								}
@@ -285,8 +359,10 @@ class Main {
 										encontrado = true;
 										String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre del juego");
 										String nuevoDescripcion = JOptionPane.showInputDialog("Ingrese la nueva descripción del juego");
-										int nuevoJugMin = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva cantidad de jugadores mínimos del juego"));
-										int nuevoJugMax = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva cantidad de jugadores máximos del juego"));
+										int nuevoJugMin =
+												Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva cantidad de jugadores mínimos del juego"));
+										int nuevoJugMax =
+												Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva cantidad de jugadores máximos del juego"));
 										admin1.editarJuego(juego, nuevoNombre, nuevoDescripcion, nuevoJugMin, nuevoJugMax);
 										JOptionPane.showMessageDialog(null,
 												"Los nuevos datos del juego son: \n" + nuevoNombre + " || "
@@ -310,7 +386,8 @@ class Main {
 						} else if (choiceAdministrador == 2) {
 							JOptionPane.showMessageDialog(null, "Eligió Maquina");
 
-							int seleccionarMaquina = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la máquina a la que agregará un juego."));
+							int seleccionarMaquina =
+									Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la máquina a la que agregará un juego."));
 
 							boolean encontrado = false;
 
@@ -329,15 +406,18 @@ class Main {
 
 									if (juego != null) {
 										admin1.agregarJuegoaMaquina(juego, maquina);
-										JOptionPane.showMessageDialog(null, "El juego " + seleccionarJuego + " fue agregado con éxito a la máquina " + seleccionarMaquina + ".");
+										JOptionPane.showMessageDialog(null, "El juego " + seleccionarJuego
+												+ " fue agregado con éxito a la máquina " + seleccionarMaquina + ".");
 									} else {
-										JOptionPane.showMessageDialog(null, "El juego " + seleccionarJuego + " no existe.");
+										JOptionPane.showMessageDialog(null, "El juego " + seleccionarJuego
+												+ " no existe.");
 									}
 								}
 							}
 
 							if (!encontrado) {
-								JOptionPane.showMessageDialog(null, "El ID " + seleccionarMaquina + " de máquina no existe.");
+								JOptionPane.showMessageDialog(null, "El ID " + seleccionarMaquina
+										+ " de máquina no existe.");
 							}
 						} else if (choiceAdministrador == 3) {
 							JOptionPane.showMessageDialog(null, "Eligió Usuario");
@@ -349,7 +429,8 @@ class Main {
 								if (usuario.getIdUsuario().equalsIgnoreCase(eliminarUsuario)) {
 									encontrado = true;
 									admin1.eliminarUsuario(usuario, usuarioEjemplo);
-									JOptionPane.showMessageDialog(null, "El Usuario con ID " + eliminarUsuario + " fue eliminado con éxito.");
+									JOptionPane.showMessageDialog(null, "El Usuario con ID "
+											+ eliminarUsuario + " fue eliminado con éxito.");
 									break;
 								}
 							}
@@ -367,7 +448,9 @@ class Main {
 								if (cliente.getIdCliente().equalsIgnoreCase(visualizarCliente)) {
 									encontrado = true;
 									admin1.revisarCuentaCliente(cliente);
-									JOptionPane.showMessageDialog(null, "Nombre: " + cliente.getNombre() + " | Apellido: " + cliente.getApellido() + " | Fecha de nacimiento: " + cliente.getFecNacimiento() + " | Correo Electrónico: " + cliente.getCorreoElectronico());
+									JOptionPane.showMessageDialog(null, "Nombre: " + cliente.getNombre() +
+											" | Apellido: " + cliente.getApellido() + " | Fecha de nacimiento: "
+											+ cliente.getFecNacimiento() + " | Correo Electrónico: " + cliente.getCorreoElectronico());
 									break;
 								}
 							}
