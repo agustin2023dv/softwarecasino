@@ -146,7 +146,7 @@ class Main {
 			opcionesJuegos[i] = juegos.get(i).getNombre();
 		}
 
-		
+
 
 		// INICIO
 
@@ -209,12 +209,6 @@ class Main {
 								opcionesJuegos[0]);
 				boolean resultado;
 
-				int maquinaElegida;
-				maquinaElegida =
-						JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
-								JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-								null, maquinas.toArray(),
-								opcionesMaquinas[0]);
 
 				double apuesta;
 				apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"
