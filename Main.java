@@ -717,21 +717,74 @@ class Main {
 				}
 				break;
 			case 4:
-
-
 				// Tecnico
 
 				Tecnico tec = null;
+				continuar = true;
 				for (Tecnico tecnico : tecnicos) {
 					if (tecnico.getNombre().equalsIgnoreCase(nombreIngresado) &&
 							tecnico.getContrasena().equalsIgnoreCase(contrasena)) {
 						tec = tecnico;
 					}
+				}
 
+				if (tec == null) {
+					JOptionPane.showMessageDialog(null, "Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Máquina.");
+				} else if (tec instanceof Tecnico) { 
+					tec.login(contrasena);
+					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
+				
+				
+					while (continuar) {
+						String[] opcionesTecnico = { "Reparar Maquina", "Habilitar Maquina", "Deshabilitar Maquina", "Logout"};
+						String [] maquinasS = { "Máquina 1", "Máquina 2","Máquina 3", "Regresar" };
+						
+						int eleccionMaquina = JOptionPane.showOptionDialog(null, "Seleccione la máquina en la que quiere trabajar",
+								"Técnico",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, maquinasS,maquinasS[0]);
+					
+							int eleccionMenuTecnico = JOptionPane.showOptionDialog(null, "Seleccione la operación que desea realizar sobre la máquina",
+									"Empleado Máquina",
+									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesTecnico,opcionesTecnico[0]);
+							
+							switch (eleccionMenuTecnico) {
+								
+							case 0:
+								if((maquinas.get(eleccionMaquina).getDaniada())) {
+									tec.repararMaquina(maquinas.get(eleccionMaquina));
+									JOptionPane.showMessageDialog(null, "Se ha reparado la máquina.");
+								}else {
+									JOptionPane.showMessageDialog(null, "No es necesario reparar la máquina.");
+								}
+								break;
+							case 1:
+								if((!maquinas.get(eleccionMaquina).getHabilitada())) {
+									tec.habilitarMaquina(maquinas.get(eleccionMaquina));
+									JOptionPane.showMessageDialog(null, "Se ha habilitado la máquina.");
+								}else {
+									JOptionPane.showMessageDialog(null, "La máquina ya está habilitada.");
+								}
+								break;
+							case 2:
+								if((!maquinas.get(eleccionMaquina).getHabilitada())) {
+									JOptionPane.showMessageDialog(null, "La máquina ya está deshabilitada.");
+								}else {
+									tec.deshabilitarMaquina(maquinas.get(eleccionMaquina));
+									JOptionPane.showMessageDialog(null, "La máquina fue deshabilitada.");
+								}
+								break;
+							case 3:
+							case 4:
+								JOptionPane.showMessageDialog(null, "Eligio Logout");
+								continuar = false;
+								break;
+							}	
+					}
+				}else{
+					JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
+					continuar = false;
+				}
 				break;
-
-
-		}
 
 
 	/*	if (choice == 0) { // cliente
