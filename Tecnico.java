@@ -29,7 +29,7 @@ public class Tecnico {
 	
 	public void deshabilitarMaquina(Maquina maquina) {
 		if (maquina.getDaniada()) {
-			maquina.setDaniada(false); 
+			maquina.setDaniada(false);
 		}
 	}
 	
