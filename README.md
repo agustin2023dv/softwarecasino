@@ -1,2 +1,2 @@
-# Software Casino - Jocker
+# Software Casino - Joker
  Trabajo integrador. Materia "Progamacion Avanzada" 
