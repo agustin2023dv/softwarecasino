@@ -182,7 +182,7 @@ class Main {
 		String rutaImagenPreLogin = "img/userPreLogin.png";
 		ImageIcon iconoPreLogin = new ImageIcon(rutaImagenPreLogin);
 
-		String[] opciones = { "Cliente", "Empleado de caja","Empleado de maquinas", "Tecnico",  "Administrador" };
+		String[] opciones = { "Cliente", "Empleado de caja","Administrador", "Empleado de Maquina",  "Tecnico" };
 
 		int choice = JOptionPane.showOptionDialog(
 						null,
@@ -214,146 +214,157 @@ class Main {
 					}
 				}
 				if (actual == null) {
-					JOptionPane.showMessageDialog(null, "El usuario o la contraseña ingresada es incorrecta.");
+					JOptionPane.showMessageDialog(null, "Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Cliente.");
 				} else if (actual instanceof Cliente) {
 					actual.login(contrasena);
 					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"Lo sentimos, solo los Clientes pueden iniciar sesión por este sistema.");
-				}
+				
+					boolean continuar = true;
 
-				String[] opcionesCliente = { "Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo" };
-
-				int eleccionMenuCliente = JOptionPane.showOptionDialog(null, "Seleccione una opción",
-						"Selección de opción",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesCliente, opcionesCliente[0]);
-
-				if (eleccionMenuCliente == 0) {
-					// Acción cuando se selecciona la opcion JUGAR
-
-					int choiceCliente =
-							JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
-									JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
-									opcionesJuegos[0]);
-					boolean resultado;
-
-
-					double apuesta;
-
-					switch (choiceCliente) {
-
-						case 0:
-							int seguirJugando;
-							while (quiereJugar) {
-
-
-								// Se elige primer juego
-								apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
-								// Llamada al método jugar
-								((Cliente) actual).jugar(caraOCruz, apuesta);
-								// Generación de resultado
-								resultado = juegos.get(0).generarResultado();
-								if (resultado) {
-									JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
-								} else {
-									JOptionPane.showMessageDialog(null, "Has perdido.");
-								}
-								seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
-										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-								if (seguirJugando == 1) {
-									JOptionPane.showMessageDialog(null, "Gracias por jugar!");
-									quiereJugar = false;
-								} else {
-									choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
+					while (continuar) {
+						
+					
+						String[] opcionesCliente = { "Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo", "Logout" };
+		
+						int eleccionMenuCliente = JOptionPane.showOptionDialog(null, "Seleccione una opción",
+								"Selección de opción",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesCliente, opcionesCliente[0]);
+		
+						if (eleccionMenuCliente == 0) {
+							// Acción cuando se selecciona la opcion JUGAR
+		
+							int choiceCliente =
+									JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
 											JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
 											opcionesJuegos[0]);
-								}
-								break;
-							}
-						case 1:
-							// Se elige segundo juego
-
-							while (quiereJugar) {
-
-
-								// Se elige primer juego
-								apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
-								// Llamada al método jugar
-								((Cliente) actual).jugar(dados, apuesta);
-								// Generación de resultado
-								resultado = juegos.get(1).generarResultado();
-
-								if (resultado) {
-									JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
-								} else {
-									JOptionPane.showMessageDialog(null, "Has perdido.");
-								}
-								seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
-										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-								if (seguirJugando == 1) {
-									JOptionPane.showMessageDialog(null, "Gracias por jugar!");
-
-									// FALTA EL CODIGO PARA Q CUANDO DEJE DE JUGAR VUELVA A INICIO
-									quiereJugar = false;
-
-									{
-
+							boolean resultado;
+		
+		
+							double apuesta;
+							quiereJugar = true;
+							
+							switch (choiceCliente) {
+							
+								case 0:
+									int seguirJugando;
+									while (quiereJugar) {
+		
+		
+										// Se elige primer juego
+										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
+										// Llamada al método jugar
+										((Cliente) actual).jugar(caraOCruz, apuesta);
+										// Generación de resultado
+										resultado = juegos.get(0).generarResultado();
+										if (resultado) {
+											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
+										} else {
+											JOptionPane.showMessageDialog(null, "Has perdido.");
+										}
+										seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
+												JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+										if (seguirJugando == 1) {
+											JOptionPane.showMessageDialog(null, "Gracias por jugar!");
+											quiereJugar = false;
+										} else {
+											choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
+													JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
+													opcionesJuegos[0]);
+										}
+										break;
 									}
-								} else {
-									choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
-											JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
-											opcionesJuegos[0]);
-								}
-								break;
+								case 1:
+									// Se elige segundo juego
+		
+									while (quiereJugar) {
+		
+		
+										// Se elige primer juego
+										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
+										// Llamada al método jugar
+										((Cliente) actual).jugar(dados, apuesta);
+										// Generación de resultado
+										resultado = juegos.get(1).generarResultado();
+		
+										if (resultado) {
+											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
+										} else {
+											JOptionPane.showMessageDialog(null, "Has perdido.");
+										}
+										seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
+												JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+										if (seguirJugando == 1) {
+											JOptionPane.showMessageDialog(null, "Gracias por jugar!");
+		
+											// FALTA EL CODIGO PARA Q CUANDO DEJE DE JUGAR VUELVA A INICIO
+											quiereJugar = false;
+		
+											{
+		
+											}
+										} else {
+											choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
+													JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
+													opcionesJuegos[0]);
+										}
+										break;
+									}
+								case 2:
+		
+									while (quiereJugar) {
+		
+		
+										// Se elige primer juego
+										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
+										// Llamada al método jugar
+										((Cliente) actual).jugar(blackjack, apuesta);
+										// Generación de resultado
+										resultado = juegos.get(2).generarResultado();
+										if (resultado) {
+											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
+										} else {
+											JOptionPane.showMessageDialog(null, "Has perdido.");
+										}
+										seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?",
+												"Casino Jocker",
+												JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+										if (seguirJugando == 1) {
+											JOptionPane.showMessageDialog(null, "Gracias por jugar!");
+											quiereJugar = false;
+										} else {
+											choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
+													JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
+													opcionesJuegos[0]);
+										}
+										break;
+									}
 							}
-						case 2:
-
-							while (quiereJugar) {
-
-
-								// Se elige primer juego
-								apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
-								// Llamada al método jugar
-								((Cliente) actual).jugar(blackjack, apuesta);
-								// Generación de resultado
-								resultado = juegos.get(2).generarResultado();
-								if (resultado) {
-									JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
-								} else {
-									JOptionPane.showMessageDialog(null, "Has perdido.");
-								}
-								seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?",
-										"Casino Jocker",
-										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-								if (seguirJugando == 1) {
-									JOptionPane.showMessageDialog(null, "Gracias por jugar!");
-									quiereJugar = false;
-								} else {
-									choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
-											JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
-											opcionesJuegos[0]);
-								}
-								break;
-							}
+						} else if (eleccionMenuCliente == 1) {
+							// Acción cuando se selecciona la opción 2
+							JOptionPane.showMessageDialog(null, "Nombre:  " + actual.getNombre()+ " Apellido:" +actual.getApellido()+
+									" Dinero disponible: $"+actual.getDineroDisponible());
+						} else if(eleccionMenuCliente == 2){
+							// Acción cuando se cierra el diálogo sin seleccionar ninguna opción
+							actual.solicitarAsistencia();
+							JOptionPane.showMessageDialog(null, "En instantes será auxiliado");
+						}
+						else if(eleccionMenuCliente == 3){
+							double recarga;
+							recarga= Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a cargar"));
+							actual.cargarSaldoOnline(recarga);
+							JOptionPane.showMessageDialog(null, "Su saldo ahora es de $"+ actual.getDineroDisponible());
+						} else if (eleccionMenuCliente == 4) {
+							JOptionPane.showMessageDialog(null, "Logout Exitoso");
+							continuar = false;
+						} else {
+							JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
+							continuar = false;
+						}
 					}
-				} else if (eleccionMenuCliente == 1) {
-					// Acción cuando se selecciona la opción 2
-					JOptionPane.showMessageDialog(null, "Nombre:  " + actual.getNombre()+ " Apellido:" +actual.getApellido()+
-							" Dinero disponible: $"+actual.getDineroDisponible());
-				} else if(eleccionMenuCliente == 2){
-					// Acción cuando se cierra el diálogo sin seleccionar ninguna opción
-					actual.solicitarAsistencia();
-					JOptionPane.showMessageDialog(null, "En instantes será auxiliado");
-				}
-				else{
-					double recarga;
-					recarga= Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a cargar"));
-					actual.cargarSaldoOnline(recarga);
-					JOptionPane.showMessageDialog(null, "Su saldo ahora es de $"+ actual.getDineroDisponible());
-				}
-
-
+				} 
+				
+				break;
+				
 			case 1: //Empleado caja
 
 				EmpleadoCaja empCaja = null;
@@ -364,58 +375,88 @@ class Main {
 					}
 				}
 
-				String[] opcionesECaja = { "Agregar dinero", "Entregar dinero" };
-				String [] cajasS = { "1", "2","3" };
-				String [] clientesS= {clientes.get(0).getApellido(),clientes.get(1).getApellido(),
-						clientes.get(2).getApellido(), clientes.get(3).getApellido(),
-						clientes.get(4).getApellido(),
-				};
+				if (empCaja == null) {
 
-				int eleccionMenuECaja = JOptionPane.showOptionDialog(null, "Seleccione una opción",
-						"Empleado caja",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesECaja, opcionesECaja[0]);
+					JOptionPane.showMessageDialog(null, "Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Caja.");
 
-					if(eleccionMenuECaja == 0){
-						double monto;
-						monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a ingresar"));
-						int caja;
-						caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea acreditar",
-								"Seleccione la caja",
-								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, cajasS, cajasS[0]);
+				} else if (empCaja instanceof EmpleadoCaja) { 
+					empCaja.login(contrasena);
+					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
 
-						empCaja.agregarDinero(monto,cajas.get(caja));
+					boolean continuar = true;
+					
+					while (continuar) {
+				
+						String[] opcionesECaja = { "Agregar dinero", "Entregar dinero", "Logout" };
+						String [] cajasS = { "1", "2","3", "Regresar" };
+						String [] clientesS= {clientes.get(0).getApellido(),clientes.get(1).getApellido(),
+								clientes.get(2).getApellido(), clientes.get(3).getApellido(),
+								clientes.get(4).getApellido(),
+						};
+		
+						int eleccionMenuECaja = JOptionPane.showOptionDialog(null, "Seleccione una opción",
+								"Empleado caja",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesECaja, opcionesECaja[0]);
+		
+							if(eleccionMenuECaja == 0){
+								double monto;
+								monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a ingresar"));
+								int caja;
+								caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea acreditar",
+										"Seleccione la caja",
+										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, cajasS, cajasS[0]);
+		
+								empCaja.agregarDinero(monto,cajas.get(caja));
+								JOptionPane.showMessageDialog(null, "Se ha agregado $" + monto + ".");
+							} else if(eleccionMenuECaja == 1){
+								double monto;
+								monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a retirar"));
+								int caja;
+								caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea debitar",
+										"Seleccione la caja",
+										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, cajasS, cajasS[0]);
+								int clienteAAcreditar;
+																
+								clienteAAcreditar = JOptionPane.showOptionDialog(null, "Eliga el Nombre del Cliente al que desea entregar el dinero",
+										"Seleccione la caja",
+										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, clientesS, clientesS[0]);
+		
+								empCaja.entregarDinero(monto,clientes.get(clienteAAcreditar),cajas.get(caja));
+								JOptionPane.showMessageDialog(null, "Se ha entregado $" + monto + ".");
+								
+							} else if(eleccionMenuECaja == 2){
+								JOptionPane.showMessageDialog(null, "Eligio Logout");
+								continuar = false;
+		
+							} else {
+								JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
+								continuar = false;
+				
+							}
+							
 					}
-					else{
-						double monto;
-						monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a retirar"));
-						int caja;
-						caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea debitar",
-								"Seleccione la caja",
-								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, cajasS, cajasS[0]);
-						int clienteAAcreditar;
-						clienteAAcreditar = JOptionPane.showOptionDialog(null, "Eliga la caja que desea debitar",
-								"Seleccione la caja",
-								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, clientesS, clientesS[0]);
-
-						empCaja.entregarDinero(monto,clientes.get(clienteAAcreditar),cajas.get(caja));
-					}
-
+				}
+				
+				break;
+					
+				
 			case 2: // Admin
 
-				Administrador administrador = null;
+				Administrador adminActual = null;
 
 				for (Administrador admin : administradores) {
+					
 					if (admin.getNombre().equalsIgnoreCase(nombreIngresado) &&
 							admin.getContrasena().equalsIgnoreCase(contrasena)) {
-						administrador = admin;
+						adminActual = admin;
 					}
 				}
 
-				if (administrador == null) {
+				if (adminActual == null) {
 					JOptionPane.showMessageDialog(null,
-							"El usuario o la contraseña ingresada es incorrecta.");
-				} else if (administrador instanceof Administrador) {
-					administrador.login(contrasena);
+							"Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Administrador.");
+				} else if (adminActual instanceof Administrador) {
+					adminActual.login(contrasena);
 					JOptionPane.showMessageDialog(null,
 							"Inicio de sesión exitoso.");
 
@@ -592,7 +633,8 @@ class Main {
 								JOptionPane.showMessageDialog(null, "El ID " + visualizarCliente + " no existe.");
 							}
 						} else if (choiceAdministrador == 5) {
-							JOptionPane.showMessageDialog(null, "Eligió Logout");
+							JOptionPane.showMessageDialog(null, "Logout Exitoso");
+							continuar = false;
 
 						} else {
 							JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
@@ -601,16 +643,10 @@ class Main {
 
 
 					}
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"Lo siento, solo los administradores pueden iniciar sesión por este sistema.");
-				}
+				} 
+				
 				break;
 
-			default:
-				JOptionPane.showMessageDialog(null,
-						"Acaba de cerrar la app");
-				break;
 			case 3:
 				// Empleado maquina
 				EmpleadoMaquina empleadoM = null;
