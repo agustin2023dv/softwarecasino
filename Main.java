@@ -323,7 +323,8 @@ class Main {
 								} else {
 									JOptionPane.showMessageDialog(null, "Has perdido.");
 								}
-								seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
+								seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?",
+										"Casino Jocker",
 										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 								if (seguirJugando == 1) {
 									JOptionPane.showMessageDialog(null, "Gracias por jugar!");
@@ -398,7 +399,7 @@ class Main {
 
 						empCaja.entregarDinero(monto,clientes.get(clienteAAcreditar),cajas.get(caja));
 					}
-					
+
 			case 2: // Admin
 
 				Administrador administrador = null;
