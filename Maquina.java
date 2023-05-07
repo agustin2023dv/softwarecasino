@@ -9,7 +9,7 @@ public class Maquina {
 		
 	//constructor
 	
-	public Maquina(int idMaquina, int saldoTickets) {
+	public Maquina(int idMaquina, int saldoTickets, boolean daniada, boolean habilitada) {
         this.idMaquina = idMaquina;
         this.saldoTickets = saldoTickets;
         this.habilitada = true;
