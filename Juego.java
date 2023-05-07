@@ -6,8 +6,19 @@ public class Juego {
     private String nombre;
     private String descripcion;
 
+    private Maquina maquina;
     private  int jugadoresMinimos;
     private int jugadoresMaximos;
+
+
+    public Juego(int idJuego, String nombre, String descripcion, int jugadoresMinimos, int jugadoresMaximos, Maquina maquina) {
+        this.idJuego = idJuego;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.jugadoresMinimos = jugadoresMinimos;
+        this.jugadoresMaximos = jugadoresMaximos;
+        this.maquina = maquina;
+    }
 
 
     public Juego(int idJuego, String nombre, String descripcion, int jugadoresMinimos, int jugadoresMaximos) {
@@ -16,8 +27,8 @@ public class Juego {
         this.descripcion = descripcion;
         this.jugadoresMinimos = jugadoresMinimos;
         this.jugadoresMaximos = jugadoresMaximos;
-    }
 
+    }
 
     public int getIdJuego() {
         return idJuego;
@@ -70,6 +81,13 @@ public class Juego {
 
     }
 
+    public void setMaquina(Maquina maquina) {
+        this.maquina = maquina;
+    }
+
+    public Maquina getMaquina() {
+        return maquina;
+    }
 
 
 }

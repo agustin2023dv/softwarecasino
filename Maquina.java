@@ -2,19 +2,19 @@
 public class Maquina {
 	
 	private int idMaquina;
-	private Juego juego;
+
 	private int saldoTickets;
 	private boolean daniada;
 	private boolean habilitada;
 		
 	//constructor
 	
-	public Maquina(int idMaquina, int saldoTickets, Juego juego) {
+	public Maquina(int idMaquina, int saldoTickets) {
         this.idMaquina = idMaquina;
         this.saldoTickets = saldoTickets;
         this.habilitada = true;
         this.daniada = false;
-		this.juego = juego;
+
     }
 	
 	// Verificar Saldo
@@ -45,13 +45,6 @@ public class Maquina {
 		this.idMaquina = idMaquina;
 	}
 
-	public Juego getJuego() {
-		return juego;
-	}
-
-	public void setJuego(Juego juego) {
-		this.juego = juego;
-	}
 
 
 	public int getSaldoTickets() {
