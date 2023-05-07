@@ -10,6 +10,14 @@ public class Juego {
     private int jugadoresMaximos;
 
 
+    public Juego(int idJuego, String nombre, String descripcion, int jugadoresMinimos, int jugadoresMaximos) {
+        this.idJuego = idJuego;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.jugadoresMinimos = jugadoresMinimos;
+        this.jugadoresMaximos = jugadoresMaximos;
+    }
+
 
     public int getIdJuego() {
         return idJuego;

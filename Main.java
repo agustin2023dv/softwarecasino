@@ -1,5 +1,5 @@
 
-
+import javax.swing.ImageIcon;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -91,10 +91,14 @@ class Main {
 
 		// PROYECTO
 
-		JOptionPane.showMessageDialog(null, "Bienvenido a Proyecto Jocker");
+		String rutaImagenInicio = "img/casoInicio.jpg";
+		ImageIcon iconoInicio = new ImageIcon(rutaImagenInicio);
+		JOptionPane.showMessageDialog(null, "Hola",
+				"Bienvenido al casino online Jocker", JOptionPane.PLAIN_MESSAGE, iconoInicio);
 
 		String[] opciones = { "Cliente", "Empleado", "Administrador" };
-		int choice = JOptionPane.showOptionDialog(null, "Seleccione su Usuario", "Selección de Usuario",
+		int choice = JOptionPane.showOptionDialog(null, "Seleccione su Usuario",
+				"Selección de Usuario",
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[2]);
 
 		// botones de usuario
