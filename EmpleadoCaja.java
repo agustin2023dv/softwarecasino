@@ -1,4 +1,4 @@
-oimport java.util.Date;
+import java.util.Date;
 
 public class EmpleadoCaja extends Empleado{
 
