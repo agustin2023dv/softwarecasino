@@ -91,17 +91,36 @@ class Main {
 
 		// PROYECTO
 
-		String rutaImagenInicio = "img/casoInicio.jpg";
+		// Pantalla de Bienvenida
+		String rutaImagenInicio = "img/casinoInicio.jpg";
 		ImageIcon iconoInicio = new ImageIcon(rutaImagenInicio);
-		JOptionPane.showMessageDialog(null, "Hola",
-				"Bienvenido al casino online Jocker", JOptionPane.PLAIN_MESSAGE, iconoInicio);
+		JOptionPane.showMessageDialog(null, "Bienvenido al casino Jocker",
+				"Casino Jocker", JOptionPane.PLAIN_MESSAGE, iconoInicio);
+
+
+		// Pantalla pre login . Seleccion de tipo de usuario
+
+		String rutaImagenPreLogin = "img/userPreLogin.png";
+		ImageIcon iconoPreLogin = new ImageIcon(rutaImagenPreLogin);
 
 		String[] opciones = { "Cliente", "Empleado", "Administrador" };
-		int choice = JOptionPane.showOptionDialog(null, "Seleccione su Usuario",
-				"Selección de Usuario",
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[2]);
+		int choice = JOptionPane.showOptionDialog(
+						null,
+						"Por favor seleccione su tipo de usuario. Gracias.",
+						"Seleccion tipo de usuario",
+						JOptionPane.DEFAULT_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						iconoPreLogin,
+						opciones,
+						opciones[0]);
 
-		// botones de usuario
+		// Botones de usuario
+		
+
+		boolean quiereJugar = true;
+
+
+
 		if (choice == 0) { // cliente
 			
 			JOptionPane.showMessageDialog(null, "Eligio Cliente");
@@ -262,5 +281,5 @@ class Main {
 			JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
 		}
 
-	}
+	} */
 }
