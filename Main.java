@@ -31,6 +31,10 @@ class Main {
 		Administrador admin3 = new Administrador("8", "nombre8", "apellido8", new Date(06 - 05 - 2023), "12348",
 				"mail8@gmail.com", 3);
 
+		ArrayList<Administrador> administradores = new ArrayList<Administrador>();
+		administradores.add(admin1);
+		administradores.add(admin2);
+		administradores.add(admin3);
 		// Empleado caja
 
 		EmpleadoCaja empleadoCaja1 = new EmpleadoCaja("9", "nombre9", "apellido9", new Date(06 - 05 - 2023), "12349",
@@ -40,6 +44,10 @@ class Main {
 		EmpleadoCaja empleadoCaja3 = new EmpleadoCaja("11", "nombre11", "apellido11", new Date(06 - 05 - 2023),
 				"123411", "mail11@gmail.com", "3", "Caja", 3);
 
+		ArrayList<EmpleadoCaja> empleadosCaja = new ArrayList<EmpleadoCaja>();
+		empleadosCaja.add(empleadoCaja1);
+		empleadosCaja.add(empleadoCaja2);
+		empleadosCaja.add(empleadoCaja3);
 		// Empleado tecnico
 
 		Tecnico tecnico1 = new Tecnico("12", "nombre12", "apellido12", new Date(06 - 05 - 2023), "123412",
@@ -49,6 +57,11 @@ class Main {
 		Tecnico tecnico3 = new Tecnico("14", "nombre14", "apellido14", new Date(06 - 05 - 2023), "123414",
 				"mail14@gmail.com", "6", "Tecnico", 3);
 
+		ArrayList<Tecnico> tecnicos = new ArrayList<Tecnico>();
+		tecnicos.add(tecnico1);
+		tecnicos.add(tecnico2);
+		tecnicos.add(tecnico3);
+
 		// Empleado maquina
 
 		EmpleadoMaquina empleadoMaquina1 = new EmpleadoMaquina("15", "nombre15", "apellido15", new Date(06 - 05 - 2023),
@@ -57,6 +70,12 @@ class Main {
 				"123416", "mail16@gmail.com", "8", "Maquina", "2");
 		EmpleadoMaquina empleadoMaquina3 = new EmpleadoMaquina("17", "nombre17", "apellido17", new Date(06 - 05 - 2023),
 				"123417", "mail17@gmail.com", "9", "Maquina", "3");
+
+		ArrayList<EmpleadoMaquina> empleadosMaquina = new ArrayList<EmpleadoMaquina>();
+
+		empleadosMaquina.add(empleadoMaquina1);
+		empleadosMaquina.add(empleadoMaquina2);
+		empleadosMaquina.add(empleadoMaquina3);
 
 		// Array de todos los usuarios
 
@@ -162,7 +181,7 @@ class Main {
 		String rutaImagenPreLogin = "img/userPreLogin.png";
 		ImageIcon iconoPreLogin = new ImageIcon(rutaImagenPreLogin);
 
-		String[] opciones = { "Cliente", "Empleado", "Administrador" };
+		String[] opciones = { "Cliente", "Empleado de caja","Empleado de maquinas", "Tecnico",  "Administrador" };
 		int choice = JOptionPane.showOptionDialog(
 						null,
 						"Por favor seleccione su tipo de usuario. Gracias.",
@@ -211,87 +230,119 @@ class Main {
 
 
 				double apuesta;
-				apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"
-						));
 
-				switch (choiceCliente){
+				switch (choiceCliente) {
+
 					case 0:
-
-						// Se elige primer juego
-						while(quiereJugar) {
-
+						int seguirJugando;
+						while (quiereJugar) {
 
 
-
+							// Se elige primer juego
+							apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
+							// Llamada al método jugar
+							((Cliente) actual).jugar(caraOCruz, apuesta);
+							// Generación de resultado
 							resultado = juegos.get(0).generarResultado();
-
 							if (resultado) {
-								JOptionPane.showMessageDialog(null, "Has ganado "+ apuesta*4+ " pesos! ");
-
+								JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
 							} else {
 								JOptionPane.showMessageDialog(null, "Has perdido.");
 							}
-							int seguirJugando = JOptionPane.showOptionDialog(null,
-									"Quiere seguir jugando?", "Casino Jocker",
-									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null
-									);
-
-							if(seguirJugando == 1){
-								JOptionPane.showMessageDialog(null,"Gracias por jugar!");
+							seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
+									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+							if (seguirJugando == 1) {
+								JOptionPane.showMessageDialog(null, "Gracias por jugar!");
 								quiereJugar = false;
-								break;
+							} else {
+								choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
+										JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
+										opcionesJuegos[0]);
 							}
-							else{
-								choiceCliente =
-										JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
-												JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
-												opcionesJuegos[0]);
-							}
-
+							break;
 						}
 					case 1:
 						// Se elige segundo juego
 
-						break;
+						while (quiereJugar) {
 
-					case 3:
 
-						// Se elige tercer juego
+							// Se elige primer juego
+							apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
+							// Llamada al método jugar
+							((Cliente) actual).jugar(dados, apuesta);
+							// Generación de resultado
+							resultado = juegos.get(1).generarResultado();
 
-						break;
+							if (resultado) {
+								JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
+							} else {
+								JOptionPane.showMessageDialog(null, "Has perdido.");
+							}
+							seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
+									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+							if (seguirJugando == 1) {
+								JOptionPane.showMessageDialog(null, "Gracias por jugar!");
+
+								// FALTA EL CODIGO PARA Q CUANDO DEJE DE JUGAR VUELVA A INICIO
+								quiereJugar = false;
+
+								{
+
+								}
+							} else {
+								choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
+										JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
+										opcionesJuegos[0]);
+							}
+							break;
+						}
+					case 2:
+
+						while (quiereJugar) {
+
+
+							// Se elige primer juego
+							apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
+							// Llamada al método jugar
+							((Cliente) actual).jugar(blackjack, apuesta);
+							// Generación de resultado
+							resultado = juegos.get(2).generarResultado();
+							if (resultado) {
+								JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
+							} else {
+								JOptionPane.showMessageDialog(null, "Has perdido.");
+							}
+							seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
+									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+							if (seguirJugando == 1) {
+								JOptionPane.showMessageDialog(null, "Gracias por jugar!");
+								quiereJugar = false;
+							} else {
+								choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
+										JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
+										opcionesJuegos[0]);
+							}
+							break;
+						}
 				}
 
-				break;
+			case 1: //Empleado caja
 
-
-			case 1: // Empleado
-
-
-				for (Usuario usuario : usuarioEjemplo) {
-					if (usuario.getNombre().equalsIgnoreCase(nombreIngresado) && usuario.getContrasena().equalsIgnoreCase(contrasena)) {
-						actual = usuario;
+				for (EmpleadoCaja empleado : empleadosCaja) {
+					if (empleado.getNombre().equalsIgnoreCase(nombreIngresado) &&
+							empleado.getContrasena().equalsIgnoreCase(contrasena)) {
+						actual = empleado;
 					}
 				}
-
-				if (actual == null) {
-					JOptionPane.showMessageDialog(null,
-							"El usuario o la contraseña ingresada es incorrecta.");
-				} else if (actual instanceof Empleado) {
-					actual.login(contrasena);
-					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"Lo siento, solo los Empleados pueden iniciar sesión por este sistema.");
-				}
-				break;
 
 			case 2: // Admin
 
 
-				for (Usuario usuario : usuarioEjemplo) {
-					if (usuario.getNombre().equalsIgnoreCase(nombreIngresado) &&
-							usuario.getContrasena().equalsIgnoreCase(contrasena)) {
-						actual = usuario;
+				for (Administrador admin : administradores) {
+					if (admin.getNombre().equalsIgnoreCase(nombreIngresado) &&
+							admin.getContrasena().equalsIgnoreCase(contrasena)) {
+						actual = admin;
 					}
 				}
 
@@ -308,7 +359,7 @@ class Main {
 
 					while (continuar) {
 
-						String[] opcionesAdministrador = { "Caja", "Juego", "Maquina", "Usuario", "Visualizar Cliente", "Logout" };
+						String[] opcionesAdministrador = {"Caja", "Juego", "Maquina", "Usuario", "Visualizar Cliente", "Logout"};
 
 						int choiceAdministrador =
 								JOptionPane.showOptionDialog(null, "Seleccione su Usuario", "Selección de Usuario",
@@ -338,7 +389,7 @@ class Main {
 						} else if (choiceAdministrador == 1) {
 							JOptionPane.showMessageDialog(null, "Eligió Juego");
 
-							String[] opcionesAdministradorJuego = { "Eliminar Juego", "Editar Juego", "Regresar" };
+							String[] opcionesAdministradorJuego = {"Eliminar Juego", "Editar Juego", "Regresar"};
 							int choiceAdministradorJuego = JOptionPane.showOptionDialog(null,
 									"Seleccione su Usuario", "Selección de Usuario",
 									JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesAdministradorJuego,
@@ -422,7 +473,7 @@ class Main {
 									}
 
 									if (juego != null) {
-										admin1.agregarJuegoaMaquina(juego, maquina);
+										//	admin1.agregarJuegoaMaquina(juego, maquina);
 										JOptionPane.showMessageDialog(null, "El juego " + seleccionarJuego
 												+ " fue agregado con éxito a la máquina " + seleccionarMaquina + ".");
 									} else {
@@ -484,7 +535,7 @@ class Main {
 						}
 
 
-						}
+					}
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"Lo siento, solo los administradores pueden iniciar sesión por este sistema.");
@@ -495,7 +546,31 @@ class Main {
 				JOptionPane.showMessageDialog(null,
 						"Acaba de cerrar la app");
 				break;
+			case 3:
+				// Empleado maquina
+
+				for (EmpleadoMaquina empleado : empleadosMaquina) {
+					if (empleado.getNombre().equalsIgnoreCase(nombreIngresado) &&
+							empleado.getContrasena().equalsIgnoreCase(contrasena)) {
+						actual = empleado;
+					}
+				}
+				break;
+
+			case 4:
+
+				// Tecnico
+				for (Tecnico tecnico : tecnicos) {
+					if (tecnico.getNombre().equalsIgnoreCase(nombreIngresado) &&
+							tecnico.getContrasena().equalsIgnoreCase(contrasena)) {
+						actual = tecnico;
+					}
+
+				break;
+
+
 		}
+
 
 	/*	if (choice == 0) { // cliente
 			
@@ -813,4 +888,4 @@ class Main {
 		}
 
 	}*/
-}}
+}}}

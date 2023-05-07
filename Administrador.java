@@ -21,13 +21,13 @@ public class Administrador extends Usuario {
 	}
 
 	// eliminar y agregar JUEGO en maquina
-	public void agregarJuegoaMaquina(Juego juego, Maquina maquina) {
+/*	public void agregarJuegoaMaquina(Juego juego, Maquina maquina) {
 		maquina.setJuego(juego);
 	}
 
 	public void eliminarJuegoaMaquina(Maquina maquina) {
 		maquina.setJuego(null);
-	}
+	}*/
 
 	// editar y eliminar Juego
 
