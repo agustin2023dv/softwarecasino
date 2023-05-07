@@ -729,7 +729,8 @@ class Main {
 				}
 
 				if (tec == null) {
-					JOptionPane.showMessageDialog(null, "Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Máquina.");
+					JOptionPane.showMessageDialog(null,
+							"Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Máquina.");
 				} else if (tec instanceof Tecnico) { 
 					tec.login(contrasena);
 					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
@@ -773,8 +774,8 @@ class Main {
 									JOptionPane.showMessageDialog(null, "La máquina fue deshabilitada.");
 								}
 								break;
+
 							case 3:
-							case 4:
 								JOptionPane.showMessageDialog(null, "Eligio Logout");
 								continuar = false;
 								break;
@@ -787,5 +788,5 @@ class Main {
 				break;
 
 
-	
+
 }}}
