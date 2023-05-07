@@ -7,7 +7,8 @@ public class Administrador extends Usuario {
 
 	private int idAdministrador;
 
-	public Administrador(String idUsuario, String nombre, String apellido, Date fecNacimiento, String contraseña, String correoElectronico,
+	public Administrador(String idUsuario, String nombre, String apellido, Date fecNacimiento, String contraseña,
+						 String correoElectronico,
 			int idAdministrador) {
 		super(idUsuario, nombre, apellido, fecNacimiento, contraseña, correoElectronico);
 		this.idAdministrador = idAdministrador;
