@@ -36,6 +36,8 @@ public class EmpleadoMaquina extends Empleado{
 
     public void retirarTickets(Maquina maquina, int cantidadTickets){
         // FALTA DEFINIR SI LO RETIRADO VA A CAJA O A DONDE
+        //lu: mientras no se defina, utilizamos esta funcion para darle funcionalidad a la app 
+       maquina.setSaldoTickets((maquina.getSaldoTickets() - cantidadTickets));
     }
 
     public void recargarTickets(Maquina maquina, int cantidadTickets){
