@@ -569,47 +569,91 @@ class Main {
 								JOptionPane.showMessageDialog(null, "Eligió Regresar");
 							} else {
 								JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
+								continuar = false;
 							}
 
-							if (choiceAdministradorJuego == 3) {
-								continuar = true;
-							}
+							
 						} else if (choiceAdministrador == 2) {
 							JOptionPane.showMessageDialog(null, "Eligió Maquina");
 
-							int seleccionarMaquina =
-									Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la máquina a la que agregará un juego."));
+							String[] opcionesAdministradorMaquina = {"Agregar Juego a Maquina", "Eliminar Juego de Maquina", "Regresar"};
+							int choiceAdministradorMaquina = JOptionPane.showOptionDialog(null,
+									"Seleccione su Usuario", "Selección de Usuario",
+									JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesAdministradorMaquina,
+									opcionesAdministradorMaquina[2]);
 
-							boolean encontrado = false;
-
-							for (Maquina maquina : maquinas) {
-								if (maquina.getIdMaquina() == seleccionarMaquina) {
-									encontrado = true;
-									String seleccionarJuego = JOptionPane.showInputDialog("Ingrese el nombre del juego que agregará a la máquina.");
-									Juego juego = null;
-
-									for (Juego j : juegos) {
-										if (j.getNombre().equalsIgnoreCase(seleccionarJuego)) {
-											juego = j;
-											break;
+							if (choiceAdministradorMaquina == 0) {
+							
+								int seleccionarMaquina =
+										Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la máquina a la que agregará un juego."));
+	
+								boolean encontrado = false;
+	
+								for (Maquina maquina : maquinas) {
+									if (maquina.getIdMaquina() == seleccionarMaquina) {
+										encontrado = true;
+										String seleccionarJuego = JOptionPane.showInputDialog("Ingrese el nombre del juego que agregará a la máquina.");
+										Juego juego = null;
+	
+										for (Juego j : juegos) {
+											if (j.getNombre().equalsIgnoreCase(seleccionarJuego)) {
+												juego = j;
+												break;
+											}
+										}
+	
+										if (juego != null) {
+											//	admin1.agregarJuegoaMaquina(juego, maquina);
+											JOptionPane.showMessageDialog(null, "El juego " + seleccionarJuego
+													+ " fue agregado con éxito a la máquina " + seleccionarMaquina + ".");
+										} else {
+											JOptionPane.showMessageDialog(null, "El juego " + seleccionarJuego
+													+ " no existe.");
 										}
 									}
-
-									if (juego != null) {
-										//	admin1.agregarJuegoaMaquina(juego, maquina);
-										JOptionPane.showMessageDialog(null, "El juego " + seleccionarJuego
-												+ " fue agregado con éxito a la máquina " + seleccionarMaquina + ".");
-									} else {
-										JOptionPane.showMessageDialog(null, "El juego " + seleccionarJuego
-												+ " no existe.");
+								}
+	
+								if (!encontrado) {
+									JOptionPane.showMessageDialog(null, "El ID " + seleccionarMaquina
+											+ " de máquina no existe.");
+								}
+							
+							} else if (choiceAdministradorMaquina == 1) {
+								JOptionPane.showMessageDialog(null, "ELIMINAR JUEGO DE MAQUINA");
+								
+								int seleccionarMaquina =
+										Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la máquina a la que agregará un juego."));
+	
+								boolean encontrado = false;
+								
+								for (Maquina maquina : maquinas) {
+									if (maquina.getIdMaquina() == seleccionarMaquina) {
+										encontrado = true;
+										Juego juego = null;
+										
 									}
 								}
+								
+								if (encontrado == true) {
+									//	admin1.agregarJuegoaMaquina(juego, maquina);
+									JOptionPane.showMessageDialog(null, "El juego en la Maquina " + seleccionarMaquina
+											+ " fue eliminado con éxito");
+								} else {
+									JOptionPane.showMessageDialog(null, "La Máquina " + seleccionarMaquina
+											+ " no existe.");
+								}
+								
+								
+								
+							} else if (choiceAdministradorMaquina == 2) {
+								JOptionPane.showMessageDialog(null, "Eligió Regresar");
+							} else {
+								JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
+								continuar = false;
 							}
-
-							if (!encontrado) {
-								JOptionPane.showMessageDialog(null, "El ID " + seleccionarMaquina
-										+ " de máquina no existe.");
-							}
+							
+							
+							
 						} else if (choiceAdministrador == 3) {
 							JOptionPane.showMessageDialog(null, "Eligió Usuario");
 
