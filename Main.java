@@ -353,11 +353,8 @@ class Main {
 							recarga= Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a cargar"));
 							actual.cargarSaldoOnline(recarga);
 							JOptionPane.showMessageDialog(null, "Su saldo ahora es de $"+ actual.getDineroDisponible());
-						} else if (eleccionMenuCliente == 4) {
-							JOptionPane.showMessageDialog(null, "Logout Exitoso");
-							continuar = false;
 						} else {
-							JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
+							JOptionPane.showMessageDialog(null, "Logout Exitoso");
 							continuar = false;
 						}
 					}
@@ -417,7 +414,8 @@ class Main {
 										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, cajasS, cajasS[0]);
 								int clienteAAcreditar;
 																
-								clienteAAcreditar = JOptionPane.showOptionDialog(null, "Eliga el Nombre del Cliente al que desea entregar el dinero",
+								clienteAAcreditar = JOptionPane.showOptionDialog(null,
+										"Eliga el Nombre del Cliente al que desea entregar el dinero",
 										"Seleccione la caja",
 										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, clientesS, clientesS[0]);
 		
@@ -658,7 +656,8 @@ class Main {
 				}
 				boolean continuar = true;
 				if (empleadoM == null) {
-					JOptionPane.showMessageDialog(null, "Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Máquina.");
+					JOptionPane.showMessageDialog(null,
+							"Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Máquina.");
 				} else if (empleadoM instanceof EmpleadoMaquina) { 
 					empleadoM.login(contrasena);
 					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
@@ -706,7 +705,7 @@ class Main {
 									JOptionPane.showMessageDialog(null, "Se ha recargado " + cantidadTicketsARecargar + " ticket/s" + ".");
 									break;
 								case 4:
-										JOptionPane.showMessageDialog(null, "Eligio Logout");
+										JOptionPane.showMessageDialog(null, "Log out exitoso");
 										continuar = false;
 										break;
 								};
@@ -776,7 +775,7 @@ class Main {
 								break;
 
 							case 3:
-								JOptionPane.showMessageDialog(null, "Eligio Logout");
+								JOptionPane.showMessageDialog(null, "Log out exitoso");
 								continuar = false;
 								break;
 							}	
