@@ -194,6 +194,11 @@ class Main {
 						opciones,
 						opciones[0]);
 
+		if (choice == JOptionPane.CLOSED_OPTION) {
+			System.exit(0); // Cierra la aplicación si no se selecciona ninguna opción
+		} else {
+			
+
 		// Botones de usuario
 
 		String nombreIngresado = JOptionPane.showInputDialog("Ingrese su nombre:");
@@ -218,38 +223,38 @@ class Main {
 				} else if (actual instanceof Cliente) {
 					actual.login(contrasena);
 					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
-				
+
 					boolean continuar = true;
 
 					while (continuar) {
-						
-					
-						String[] opcionesCliente = { "Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo", "Logout" };
-		
+
+
+						String[] opcionesCliente = {"Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo", "Logout"};
+
 						int eleccionMenuCliente = JOptionPane.showOptionDialog(null, "Seleccione una opción",
 								"Selección de opción",
 								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesCliente, opcionesCliente[0]);
-		
+
 						if (eleccionMenuCliente == 0) {
 							// Acción cuando se selecciona la opcion JUGAR
-		
+
 							int choiceCliente =
 									JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
 											JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
 											opcionesJuegos[0]);
 							boolean resultado;
-		
-		
+
+
 							double apuesta;
 							quiereJugar = true;
-							
+
 							switch (choiceCliente) {
-							
+
 								case 0:
 									int seguirJugando;
 									while (quiereJugar) {
-		
-		
+
+
 										// Se elige primer juego
 										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
 										// Llamada al método jugar
@@ -275,17 +280,17 @@ class Main {
 									}
 								case 1:
 									// Se elige segundo juego
-		
+
 									while (quiereJugar) {
-		
-		
+
+
 										// Se elige primer juego
 										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
 										// Llamada al método jugar
 										((Cliente) actual).jugar(dados, apuesta);
 										// Generación de resultado
 										resultado = juegos.get(1).generarResultado();
-		
+
 										if (resultado) {
 											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
 										} else {
@@ -295,12 +300,12 @@ class Main {
 												JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 										if (seguirJugando == 1) {
 											JOptionPane.showMessageDialog(null, "Gracias por jugar!");
-		
+
 											// FALTA EL CODIGO PARA Q CUANDO DEJE DE JUGAR VUELVA A INICIO
 											quiereJugar = false;
-		
+
 											{
-		
+
 											}
 										} else {
 											choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
@@ -310,10 +315,10 @@ class Main {
 										break;
 									}
 								case 2:
-		
+
 									while (quiereJugar) {
-		
-		
+
+
 										// Se elige primer juego
 										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
 										// Llamada al método jugar
@@ -341,27 +346,26 @@ class Main {
 							}
 						} else if (eleccionMenuCliente == 1) {
 							// Acción cuando se selecciona la opción 2
-							JOptionPane.showMessageDialog(null, "Nombre:  " + actual.getNombre()+ " Apellido:" +actual.getApellido()+
-									" Dinero disponible: $"+actual.getDineroDisponible());
-						} else if(eleccionMenuCliente == 2){
+							JOptionPane.showMessageDialog(null, "Nombre:  " + actual.getNombre() + " Apellido:" + actual.getApellido() +
+									" Dinero disponible: $" + actual.getDineroDisponible());
+						} else if (eleccionMenuCliente == 2) {
 							// Acción cuando se cierra el diálogo sin seleccionar ninguna opción
 							actual.solicitarAsistencia();
 							JOptionPane.showMessageDialog(null, "En instantes será auxiliado");
-						}
-						else if(eleccionMenuCliente == 3){
+						} else if (eleccionMenuCliente == 3) {
 							double recarga;
-							recarga= Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a cargar"));
+							recarga = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a cargar"));
 							actual.cargarSaldoOnline(recarga);
-							JOptionPane.showMessageDialog(null, "Su saldo ahora es de $"+ actual.getDineroDisponible());
+							JOptionPane.showMessageDialog(null, "Su saldo ahora es de $" + actual.getDineroDisponible());
 						} else {
 							JOptionPane.showMessageDialog(null, "Logout Exitoso");
 							continuar = false;
 						}
 					}
-				} 
-				
+				}
+
 				break;
-				
+
 			case 1: //Empleado caja
 
 				EmpleadoCaja empCaja = null;
@@ -382,65 +386,65 @@ class Main {
 					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
 
 					boolean continuar = true;
-					
+
 					while (continuar) {
-				
-						String[] opcionesECaja = { "Agregar dinero", "Entregar dinero", "Logout" };
-						String [] cajasS = { "1", "2","3", "Regresar" };
-						String [] clientesS= {clientes.get(0).getApellido(),clientes.get(1).getApellido(),
+
+						String[] opcionesECaja = {"Agregar dinero", "Entregar dinero", "Logout"};
+						String[] cajasS = {"1", "2", "3", "Regresar"};
+						String[] clientesS = {clientes.get(0).getApellido(), clientes.get(1).getApellido(),
 								clientes.get(2).getApellido(), clientes.get(3).getApellido(),
 								clientes.get(4).getApellido(),
 						};
-		
+
 						int eleccionMenuECaja = JOptionPane.showOptionDialog(null, "Seleccione una opción",
 								"Empleado caja",
 								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesECaja, opcionesECaja[0]);
-		
-							if(eleccionMenuECaja == 0){
-								double monto;
-								monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a ingresar"));
-								int caja;
-								caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea acreditar",
-										"Seleccione la caja",
-										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, cajasS, cajasS[0]);
-		
-								empCaja.agregarDinero(monto,cajas.get(caja));
-								JOptionPane.showMessageDialog(null, "Se ha agregado $" + monto + ".");
-							} else if(eleccionMenuECaja == 1){
-								double monto;
-								monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a retirar"));
-								int caja;
-								caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea debitar",
-										"Seleccione la caja",
-										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, cajasS, cajasS[0]);
-								int clienteAAcreditar;
-																
-								clienteAAcreditar = JOptionPane.showOptionDialog(null,
-										"Eliga el Nombre del Cliente al que desea entregar el dinero",
-										"Seleccione la caja",
-										JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, clientesS, clientesS[0]);
-		
-								empCaja.entregarDinero(monto,clientes.get(clienteAAcreditar),cajas.get(caja));
-								JOptionPane.showMessageDialog(null, "Se ha entregado $" + monto + ".");
-								
-							} else{
-								JOptionPane.showMessageDialog(null, "Log out exitoso");
-								continuar = false;
-		
-							}
-							
+
+						if (eleccionMenuECaja == 0) {
+							double monto;
+							monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a ingresar"));
+							int caja;
+							caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea acreditar",
+									"Seleccione la caja",
+									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, cajasS, cajasS[0]);
+
+							empCaja.agregarDinero(monto, cajas.get(caja));
+							JOptionPane.showMessageDialog(null, "Se ha agregado $" + monto + ".");
+						} else if (eleccionMenuECaja == 1) {
+							double monto;
+							monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a retirar"));
+							int caja;
+							caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea debitar",
+									"Seleccione la caja",
+									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, cajasS, cajasS[0]);
+							int clienteAAcreditar;
+
+							clienteAAcreditar = JOptionPane.showOptionDialog(null,
+									"Eliga el Nombre del Cliente al que desea entregar el dinero",
+									"Seleccione la caja",
+									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, clientesS, clientesS[0]);
+
+							empCaja.entregarDinero(monto, clientes.get(clienteAAcreditar), cajas.get(caja));
+							JOptionPane.showMessageDialog(null, "Se ha entregado $" + monto + ".");
+
+						} else {
+							JOptionPane.showMessageDialog(null, "Log out exitoso");
+							continuar = false;
+
+						}
+
 					}
 				}
-				
+
 				break;
-					
-				
+
+
 			case 2: // Admin
 
 				Administrador adminActual = null;
 
 				for (Administrador admin : administradores) {
-					
+
 					if (admin.getNombre().equalsIgnoreCase(nombreIngresado) &&
 							admin.getContrasena().equalsIgnoreCase(contrasena)) {
 						adminActual = admin;
@@ -638,8 +642,8 @@ class Main {
 
 
 					}
-				} 
-				
+				}
+
 				break;
 
 			case 3:
@@ -655,58 +659,59 @@ class Main {
 				if (empleadoM == null) {
 					JOptionPane.showMessageDialog(null,
 							"Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Máquina.");
-				} else{
+				} else {
 					empleadoM.login(contrasena);
 					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
 
 
-					
 					while (continuar) {
-						String[] opcionesEMaquina = { "Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Logout"};
-						String [] maquinasS = { "Máquina 1", "Máquina 2","Máquina 3", "Regresar" };
+						String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Logout"};
+						String[] maquinasS = {"Máquina 1", "Máquina 2", "Máquina 3", "Regresar"};
 
 						int eleccionMaquina = JOptionPane.showOptionDialog(null, "Seleccione la máquina en la que quiere trabajar",
 								"Empleado Máquina",
-								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, maquinasS,maquinasS[0]);
-					
-							int eleccionMenuEMaquina = JOptionPane.showOptionDialog(null, "Seleccione la operación que desea realizar sobre la máquina",
-									"Empleado Máquina",
-									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesEMaquina,opcionesEMaquina[0]);
-							
-							switch (eleccionMenuEMaquina) {
-							
-								case 0: 
-									empleadoM.encenderMaquina(maquinas.get(eleccionMaquina));
-									JOptionPane.showMessageDialog(null, "Se ha encendido la máquina.");
-									break;
-								case 1:
-									empleadoM.apagarMaquina(maquinas.get(eleccionMaquina));
-									JOptionPane.showMessageDialog(null, "Se ha apagado la máquina.");
-									break;
-								case 2:
-									int cantidadTicketsARetirar;
-									cantidadTicketsARetirar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese cantidad de tickets a retirar"));
-							
-									if (maquinas.get(eleccionMaquina).getSaldoTickets() > cantidadTicketsARetirar) {
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, maquinasS, maquinasS[0]);
+
+						int eleccionMenuEMaquina = JOptionPane.showOptionDialog(null, "Seleccione la operación que desea realizar sobre la máquina",
+								"Empleado Máquina",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesEMaquina, opcionesEMaquina[0]);
+
+						switch (eleccionMenuEMaquina) {
+
+							case 0:
+								empleadoM.encenderMaquina(maquinas.get(eleccionMaquina));
+								JOptionPane.showMessageDialog(null, "Se ha encendido la máquina.");
+								break;
+							case 1:
+								empleadoM.apagarMaquina(maquinas.get(eleccionMaquina));
+								JOptionPane.showMessageDialog(null, "Se ha apagado la máquina.");
+								break;
+							case 2:
+								int cantidadTicketsARetirar;
+								cantidadTicketsARetirar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese cantidad de tickets a retirar"));
+
+								if (maquinas.get(eleccionMaquina).getSaldoTickets() > cantidadTicketsARetirar) {
 									empleadoM.retirarTickets(maquinas.get(eleccionMaquina), cantidadTicketsARetirar);
 									JOptionPane.showMessageDialog(null, "Se ha retirado " + cantidadTicketsARetirar + " ticket/s" + ".");
-									}else {
-										JOptionPane.showMessageDialog(null, "No se tienen " + cantidadTicketsARetirar + " ticket/s en esta máquina" );
-									}
-									break;
-								case 3:
-									int cantidadTicketsARecargar;
-									cantidadTicketsARecargar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese cantidad de tickets a recargar"));
-							
-									empleadoM.recargarTickets(maquinas.get(eleccionMaquina), cantidadTicketsARecargar);
-									JOptionPane.showMessageDialog(null, "Se ha recargado " + cantidadTicketsARecargar + " ticket/s" + ".");
-									break;
-								case 4:
-										JOptionPane.showMessageDialog(null, "Log out exitoso");
-										continuar = false;
-										break;
-								};
-							};
+								} else {
+									JOptionPane.showMessageDialog(null, "No se tienen " + cantidadTicketsARetirar + " ticket/s en esta máquina");
+								}
+								break;
+							case 3:
+								int cantidadTicketsARecargar;
+								cantidadTicketsARecargar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese cantidad de tickets a recargar"));
+
+								empleadoM.recargarTickets(maquinas.get(eleccionMaquina), cantidadTicketsARecargar);
+								JOptionPane.showMessageDialog(null, "Se ha recargado " + cantidadTicketsARecargar + " ticket/s" + ".");
+								break;
+							case 4:
+								JOptionPane.showMessageDialog(null, "Log out exitoso");
+								continuar = false;
+								break;
+						}
+						;
+					}
+					;
 				}
 				break;
 			case 4:
@@ -724,45 +729,45 @@ class Main {
 				if (tec == null) {
 					JOptionPane.showMessageDialog(null,
 							"Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Máquina.");
-				} else{
+				} else {
 					tec.login(contrasena);
 					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
-				
-				
+
+
 					while (continuar) {
-						String[] opcionesTecnico = { "Reparar Maquina", "Habilitar Maquina", "Deshabilitar Maquina", "Logout"};
-						String [] maquinasS = { "Máquina 1", "Máquina 2","Máquina 3", "Regresar" };
-						
+						String[] opcionesTecnico = {"Reparar Maquina", "Habilitar Maquina", "Deshabilitar Maquina", "Logout"};
+						String[] maquinasS = {"Máquina 1", "Máquina 2", "Máquina 3", "Regresar"};
+
 						int eleccionMaquina = JOptionPane.showOptionDialog(null, "Seleccione la máquina en la que quiere trabajar",
 								"Técnico",
-								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, maquinasS,maquinasS[0]);
-					
-							int eleccionMenuTecnico = JOptionPane.showOptionDialog(null, "Seleccione la operación que desea realizar sobre la máquina",
-									"Empleado Máquina",
-									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesTecnico,opcionesTecnico[0]);
-							
-							switch (eleccionMenuTecnico) {
-								
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, maquinasS, maquinasS[0]);
+
+						int eleccionMenuTecnico = JOptionPane.showOptionDialog(null, "Seleccione la operación que desea realizar sobre la máquina",
+								"Empleado Máquina",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesTecnico, opcionesTecnico[0]);
+
+						switch (eleccionMenuTecnico) {
+
 							case 0:
-								if((maquinas.get(eleccionMaquina).getDaniada())) {
+								if ((maquinas.get(eleccionMaquina).getDaniada())) {
 									tec.repararMaquina(maquinas.get(eleccionMaquina));
 									JOptionPane.showMessageDialog(null, "Se ha reparado la máquina.");
-								}else {
+								} else {
 									JOptionPane.showMessageDialog(null, "No es necesario reparar la máquina.");
 								}
 								break;
 							case 1:
-								if((!maquinas.get(eleccionMaquina).getHabilitada())) {
+								if ((!maquinas.get(eleccionMaquina).getHabilitada())) {
 									tec.habilitarMaquina(maquinas.get(eleccionMaquina));
 									JOptionPane.showMessageDialog(null, "Se ha habilitado la máquina.");
-								}else {
+								} else {
 									JOptionPane.showMessageDialog(null, "La máquina ya está habilitada.");
 								}
 								break;
 							case 2:
-								if((!maquinas.get(eleccionMaquina).getHabilitada())) {
+								if ((!maquinas.get(eleccionMaquina).getHabilitada())) {
 									JOptionPane.showMessageDialog(null, "La máquina ya está deshabilitada.");
-								}else {
+								} else {
 									tec.deshabilitarMaquina(maquinas.get(eleccionMaquina));
 									JOptionPane.showMessageDialog(null, "La máquina fue deshabilitada.");
 								}
@@ -772,11 +777,11 @@ class Main {
 								JOptionPane.showMessageDialog(null, "Log out exitoso");
 								continuar = false;
 								break;
-							}	
+						}
 					}
 				}
 				break;
-
+		}
 
 
 }}}
