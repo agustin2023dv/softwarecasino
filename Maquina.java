@@ -7,7 +7,7 @@ public class Maquina {
 	private boolean daniada;
 	private boolean habilitada;
 
-	
+
 		
 	//constructor
 	

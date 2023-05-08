@@ -414,10 +414,7 @@ class Main {
 						} else if (eleccionMenuECaja == 1) {
 							double monto;
 							monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a retirar"));
-							int caja;
-							caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea debitar",
-									"Seleccione la caja",
-									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, cajasS, cajasS[0]);
+
 							int clienteAAcreditar;
 
 							clienteAAcreditar = JOptionPane.showOptionDialog(null,
@@ -425,7 +422,7 @@ class Main {
 									"Seleccione la caja",
 									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, clientesS, clientesS[0]);
 
-							empCaja.entregarDinero(monto, clientes.get(clienteAAcreditar), cajas.get(caja));
+							empCaja.entregarDinero(monto, clientes.get(clienteAAcreditar));
 							JOptionPane.showMessageDialog(null, "Se ha entregado $" + monto + ".");
 
 						} else {

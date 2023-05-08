@@ -28,10 +28,10 @@ public class EmpleadoCaja extends Empleado{
         caja.setSaldoActual(caja.getSaldoActual() + montoAAgregar);
     }
 
-    public void entregarDinero(double montoAEntregar, Cliente cliente, Caja caja) {
+    public void entregarDinero(double montoAEntregar, Cliente cliente) {
 
-        if (caja.getSaldoActual() >= montoAEntregar) {
-            caja.setSaldoActual(caja.getSaldoActual() - montoAEntregar);
+        if (this.getCaja().getSaldoActual() >= montoAEntregar) {
+            this.getCaja().setSaldoActual(this.getCaja().getSaldoActual() - montoAEntregar);
             cliente.setDineroDisponible(cliente.getDineroDisponible() + montoAEntregar);
         }
         else
