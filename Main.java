@@ -229,8 +229,7 @@ class Main {
 					while (continuar) {
 
 
-						String[] opcionesCliente = {"Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo online",
-								"Solicitar carga de saldo","Logout"};
+						String[] opcionesCliente = {"Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo online","Logout"};
 
 						int eleccionMenuCliente = JOptionPane.showOptionDialog(null, "Seleccione una opción",
 								"Selección de opción",
@@ -359,11 +358,7 @@ class Main {
 							recarga = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a cargar"));
 							actual.cargarSaldoOnline(recarga);
 							JOptionPane.showMessageDialog(null, "Su saldo ahora es de $" + actual.getDineroDisponible());
-						} else if (eleccionMenuCliente == 4) {
-							double recarga;
-							recarga = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a cargar"));
-							actual.solicitarCargarDinero(empleadoCaja1,recarga);
-							JOptionPane.showMessageDialog(null, "Su saldo ahora es de $" + actual.getDineroDisponible());
+						
 						} else {
 							JOptionPane.showMessageDialog(null, "Logout Exitoso");
 							continuar = false;
