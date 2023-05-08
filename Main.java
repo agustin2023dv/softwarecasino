@@ -205,7 +205,7 @@ class Main {
 		String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
 
 
-		// Pulgar arriba y pulgar abajo
+		// Iconos: Pulgar arriba , Pulgar abajo, Gracias por jugar
 
 			String rutaImagenGano= "img/thumbs-up.png";
 			ImageIcon iconoGano = new ImageIcon(rutaImagenGano);
@@ -213,6 +213,9 @@ class Main {
 			String rutaImagenPerdio= "img/thumbs-down.png";
 			ImageIcon iconoPerdio = new ImageIcon(rutaImagenPerdio);
 
+
+			String rutaGracias= "img/graciasPorJugar.png";
+			ImageIcon iconoGracias = new ImageIcon(rutaGracias);
 
 			// Usuario actual = null;
 
@@ -283,7 +286,9 @@ class Main {
 										seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
 												JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 										if (seguirJugando == 1) {
-											JOptionPane.showMessageDialog(null, "Gracias por jugar!");
+											JOptionPane.showMessageDialog(null, "Gracias por jugar!",
+													"Hasta la proxima!",
+													JOptionPane.QUESTION_MESSAGE,iconoGracias);
 											quiereJugar = false;
 										} else {
 											choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
@@ -317,9 +322,11 @@ class Main {
 										seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
 												JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 										if (seguirJugando == 1) {
-											JOptionPane.showMessageDialog(null, "Gracias por jugar!");
+											JOptionPane.showMessageDialog(null, "Gracias por jugar!",
+													"Hasta la proxima!",
+													JOptionPane.QUESTION_MESSAGE,iconoGracias);
 
-											
+
 											quiereJugar = false;
 
 
@@ -356,7 +363,9 @@ class Main {
 												"Casino Jocker",
 												JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 										if (seguirJugando == 1) {
-											JOptionPane.showMessageDialog(null, "Gracias por jugar!");
+											JOptionPane.showMessageDialog(null, "Gracias por jugar!",
+													"Hasta la proxima!",
+													JOptionPane.QUESTION_MESSAGE,iconoGracias);
 											quiereJugar = false;
 										} else {
 											choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
