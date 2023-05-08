@@ -319,12 +319,12 @@ class Main {
 										if (seguirJugando == 1) {
 											JOptionPane.showMessageDialog(null, "Gracias por jugar!");
 
-											// FALTA EL CODIGO PARA Q CUANDO DEJE DE JUGAR VUELVA A INICIO
+											
 											quiereJugar = false;
 
-											{
 
-											}
+
+
 										} else {
 											choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
 													JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
