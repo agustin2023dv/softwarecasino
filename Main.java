@@ -727,7 +727,7 @@ class Main {
 				if (tec == null) {
 					JOptionPane.showMessageDialog(null,
 							"Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Máquina.");
-				} else if (tec instanceof Tecnico) { 
+				} else{
 					tec.login(contrasena);
 					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
 				
@@ -777,9 +777,6 @@ class Main {
 								break;
 							}	
 					}
-				}else{
-					JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
-					continuar = false;
 				}
 				break;
 
