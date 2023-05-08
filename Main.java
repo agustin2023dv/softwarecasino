@@ -204,7 +204,16 @@ class Main {
 		String nombreIngresado = JOptionPane.showInputDialog("Ingrese su nombre:");
 		String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
 
-		// Usuario actual = null;
+
+		// Pulgar arriba y pulgar abajo
+
+			String rutaImagenGano= "img/userPre.png";
+			ImageIcon iconoGano = new ImageIcon(rutaImagenPreLogin);
+
+			ImageIcon iconoPerdio = new ImageIcon(rutaImagenPreLogin);
+
+
+			// Usuario actual = null;
 
 		boolean quiereJugar = true;
 
