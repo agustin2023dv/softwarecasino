@@ -24,11 +24,11 @@ class Main {
 
 		// Administrador
 
-		Administrador admin1 = new Administrador("6", "nombre6", "apellido6", new Date(06 - 05 - 2023), "12346",
+		Administrador admin1 = new Administrador("6", "Roberto", "Lopez", new Date(06 - 05 - 2023), "12346",
 				"mail6@gmail.com", 1);
-		Administrador admin2 = new Administrador("7", "nombre7", "apellido7", new Date(06 - 05 - 2023), "12347",
+		Administrador admin2 = new Administrador("7", "Graciela", "Mussa", new Date(06 - 05 - 2023), "12347",
 				"mail7@gmail.com", 2);
-		Administrador admin3 = new Administrador("8", "nombre8", "apellido8", new Date(06 - 05 - 2023), "12348",
+		Administrador admin3 = new Administrador("8", "Mariela", "Vazquez", new Date(06 - 05 - 2023), "12348",
 				"mail8@gmail.com", 3);
 
 		ArrayList<Administrador> administradores = new ArrayList<Administrador>();
@@ -374,9 +374,10 @@ class Main {
 
 				if (empCaja == null) {
 
-					JOptionPane.showMessageDialog(null, "Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Caja.");
+					JOptionPane.showMessageDialog(null,
+							"Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Empleado Caja.");
 
-				} else if (empCaja instanceof EmpleadoCaja) { 
+				} else {
 					empCaja.login(contrasena);
 					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
 
@@ -422,14 +423,10 @@ class Main {
 								empCaja.entregarDinero(monto,clientes.get(clienteAAcreditar),cajas.get(caja));
 								JOptionPane.showMessageDialog(null, "Se ha entregado $" + monto + ".");
 								
-							} else if(eleccionMenuECaja == 2){
-								JOptionPane.showMessageDialog(null, "Eligio Logout");
+							} else{
+								JOptionPane.showMessageDialog(null, "Log out exitoso");
 								continuar = false;
 		
-							} else {
-								JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
-								continuar = false;
-				
 							}
 							
 					}
