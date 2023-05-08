@@ -238,8 +238,7 @@ class Main {
 
 					while (continuar) {
 
-
-						String[] opcionesCliente = {"Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo online","Logout"};
+						String[] opcionesCliente = {"Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo online","Retirar dinero","Logout"};
 
 						int eleccionMenuCliente = JOptionPane.showOptionDialog(null, "Seleccione una opción",
 								"Selección de opción",
@@ -320,12 +319,12 @@ class Main {
 										if (seguirJugando == 1) {
 											JOptionPane.showMessageDialog(null, "Gracias por jugar!");
 
-											// FALTA EL CODIGO PARA Q CUANDO DEJE DE JUGAR VUELVA A INICIO
+											
 											quiereJugar = false;
 
-											{
 
-											}
+
+
 										} else {
 											choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
 													JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
@@ -380,8 +379,25 @@ class Main {
 							recarga = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a cargar"));
 							actual.cargarSaldoOnline(recarga);
 							JOptionPane.showMessageDialog(null, "Su saldo ahora es de $" + actual.getDineroDisponible());
-
-						} else {
+						} else if(eleccionMenuCliente == 4){
+							double montoARetirar;
+							montoARetirar = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a cargar"));
+							if(caja1.getSaldoActual() > montoARetirar && montoARetirar < actual.getDineroDisponible()) {
+								actual.retirarDinero(montoARetirar);
+								JOptionPane.showMessageDialog(null, "Su saldo ahora es de $" + actual.getDineroDisponible());
+							}
+							else if (caja2.getSaldoActual() > montoARetirar && montoARetirar < actual.getDineroDisponible()) {
+								actual.retirarDinero(montoARetirar);
+								JOptionPane.showMessageDialog(null, "Su saldo ahora es de $" + actual.getDineroDisponible());
+							}else if(caja3.getSaldoActual() > montoARetirar && montoARetirar < actual.getDineroDisponible()){
+								actual.retirarDinero(montoARetirar);
+								JOptionPane.showMessageDialog(null, "Su saldo ahora es de $" + actual.getDineroDisponible());
+							}else if (montoARetirar > actual.getDineroDisponible()){
+								JOptionPane.showMessageDialog(null, "No posee esta cantidad de dinero en su cuenta");
+							}else {
+								JOptionPane.showMessageDialog(null, "No está disponible este monto para retirar, por favor solicite asistencia con un administrador");
+							}
+						}else {
 							JOptionPane.showMessageDialog(null, "Logout Exitoso");
 							continuar = false;
 						}
