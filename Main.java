@@ -201,8 +201,8 @@ class Main {
 
 		// Botones de usuario
 
-		String nombreIngresado = JOptionPane.showInputDialog("Ingrese su nombre:");
-		String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
+		String nombreIngresado = JOptionPane.showInputDialog(null, "Ingrese su nombre:", "Log in: Nombre ", JOptionPane.PLAIN_MESSAGE);
+		String contrasena = JOptionPane.showInputDialog(null, "Ingrese su contraseña:", "Log in: Contraseña ", JOptionPane.PLAIN_MESSAGE);
 
 
 		// Iconos: Pulgar arriba , Pulgar abajo, Gracias por jugar
