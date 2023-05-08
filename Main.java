@@ -238,8 +238,7 @@ class Main {
 
 					while (continuar) {
 
-
-						String[] opcionesCliente = {"Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo online","Logout"};
+						String[] opcionesCliente = {"Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo online","Retirar dinero","Logout"};
 
 						int eleccionMenuCliente = JOptionPane.showOptionDialog(null, "Seleccione una opción",
 								"Selección de opción",
