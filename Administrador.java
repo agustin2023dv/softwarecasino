@@ -20,15 +20,14 @@ public class Administrador extends Usuario {
 		System.out.println("Saldo Actual: " + caja.getSaldoActual());
 	}
 
-	// eliminar y agregar JUEGO en maquina
-/*	public void agregarJuegoaMaquina(Juego juego, Maquina maquina) {
-		maquina.setJuego(juego);
+	// visualizar maquina
+	
+	public void visualizarMaquina(Maquina maquina) {
+		System.out.println("ID Maquina: " + maquina.getIdMaquina());
+		System.out.println("Saldo Tickets: " + maquina.getSaldoTickets());
+		System.out.println("ID Maquina: " + maquina.getDaniada());
+		System.out.println("ID Maquina: " + maquina.getHabilitada());
 	}
-
-	public void eliminarJuegoaMaquina(Maquina maquina) {
-		maquina.setJuego(null);
-	}*/
-
 	// editar y eliminar Juego
 
 	public void editarJuego(Juego juego, String nombre, String descripcion, int jugadoresMinimos,
