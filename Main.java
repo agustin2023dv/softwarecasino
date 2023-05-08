@@ -37,11 +37,11 @@ class Main {
 		administradores.add(admin3);
 		// Empleado caja
 
-		EmpleadoCaja empleadoCaja1 = new EmpleadoCaja("9", "nombre9", "apellido9", new Date(06 - 05 - 2023), "12349",
+		EmpleadoCaja empleadoCaja1 = new EmpleadoCaja("9", "Marcos", "Lopez", new Date(06 - 05 - 2023), "12349",
 				"mail9@gmail.com", "1", "Caja", 1);
-		EmpleadoCaja empleadoCaja2 = new EmpleadoCaja("10", "nombre10", "apellido10", new Date(06 - 05 - 2023),
+		EmpleadoCaja empleadoCaja2 = new EmpleadoCaja("10", "Julian", "Rocca", new Date(06 - 05 - 2023),
 				"123410", "mail10@gmail.com", "2", "Caja", 2);
-		EmpleadoCaja empleadoCaja3 = new EmpleadoCaja("11", "nombre11", "apellido11", new Date(06 - 05 - 2023),
+		EmpleadoCaja empleadoCaja3 = new EmpleadoCaja("11", "Lucia", "Perez", new Date(06 - 05 - 2023),
 				"123411", "mail11@gmail.com", "3", "Caja", 3);
 
 		ArrayList<EmpleadoCaja> empleadosCaja = new ArrayList<EmpleadoCaja>();
@@ -50,11 +50,11 @@ class Main {
 		empleadosCaja.add(empleadoCaja3);
 		// Empleado tecnico
 
-		Tecnico tecnico1 = new Tecnico("12", "nombre12", "apellido12", new Date(06 - 05 - 2023), "123412",
+		Tecnico tecnico1 = new Tecnico("12", "Jorge", "Hernandez", new Date(06 - 05 - 2023), "123412",
 				"mail12@gmail.com", "4", "Tecnico", 1);
-		Tecnico tecnico2 = new Tecnico("13", "nombre13", "apellido13", new Date(06 - 05 - 2023), "123413",
+		Tecnico tecnico2 = new Tecnico("13", "Pedro", "Domingo", new Date(06 - 05 - 2023), "123413",
 				"mail13@gmail.com", "5", "Tecnico", 2);
-		Tecnico tecnico3 = new Tecnico("14", "nombre14", "apellido14", new Date(06 - 05 - 2023), "123414",
+		Tecnico tecnico3 = new Tecnico("14", "Walter", "Pedroso", new Date(06 - 05 - 2023), "123414",
 				"mail14@gmail.com", "6", "Tecnico", 3);
 
 		ArrayList<Tecnico> tecnicos = new ArrayList<Tecnico>();
