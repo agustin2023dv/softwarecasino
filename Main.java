@@ -258,6 +258,7 @@ class Main {
 										// Se elige primer juego
 										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
 										// Llamada al método jugar
+
 										((Cliente) actual).jugar(caraOCruz, apuesta);
 										// Generación de resultado
 										resultado = juegos.get(0).generarResultado();

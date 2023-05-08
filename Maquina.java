@@ -6,6 +6,8 @@ public class Maquina {
 	private int saldoTickets;
 	private boolean daniada;
 	private boolean habilitada;
+
+	
 		
 	//constructor
 	
@@ -71,7 +73,7 @@ public class Maquina {
 	}
 
 
-	
-	
-	
+
+
+
 }
