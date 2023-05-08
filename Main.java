@@ -659,14 +659,11 @@ class Main {
 							if (!encontrado) {
 								JOptionPane.showMessageDialog(null, "El ID " + visualizarCliente + " no existe.");
 							}
-						} else if (choiceAdministrador == 5) {
+						} else {
 							JOptionPane.showMessageDialog(null, "Logout Exitoso");
 							continuar = false;
 
-						} else {
-							JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
-							continuar = false;
-						}
+						} 
 
 
 					}
