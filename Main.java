@@ -233,7 +233,7 @@ class Main {
 				}
 				if (actual == null) {
 					JOptionPane.showMessageDialog(null, "Lo sentimos, las credenciales ingresadas no corresponden a un Usuario Cliente.");
-				} else if (actual instanceof Cliente) {
+				} else{
 					actual.login(contrasena);
 					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
 
@@ -241,7 +241,7 @@ class Main {
 
 					while (continuar) {
 
-						String[] opcionesCliente = {"Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo online","Retirar dinero","Logout"};
+						String[] opcionesCliente = {"Jugar", "Ver cuenta", "Solicitar asistencia", "Cargar saldo online","Retirar dinero","Log out"};
 
 						int eleccionMenuCliente = JOptionPane.showOptionDialog(null, "Seleccione una opción",
 								"Selección de opción",
@@ -268,10 +268,13 @@ class Main {
 
 
 										// Se elige primer juego
-										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
+										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null,
+												"Cuánto desea apostar?"));
 										// Llamada al método jugar
 
-										((Cliente) actual).jugar(caraOCruz, apuesta);
+										if(actual.jugar(caraOCruz, apuesta)){
+
+
 										// Generación de resultado
 										resultado = juegos.get(0).generarResultado();
 										if (resultado) {
@@ -290,13 +293,20 @@ class Main {
 													"Hasta la proxima!",
 													JOptionPane.QUESTION_MESSAGE,iconoGracias);
 											quiereJugar = false;
+											continuar = false;
 										} else {
 											choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
 													JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
 													opcionesJuegos[0]);
 										}
+										}
+										else{
+												JOptionPane.showMessageDialog(null,
+														"No tiene saldo suficiente para realizar la apuesta.");
+											}
 										break;
 									}
+
 								case 1:
 									// Se elige segundo juego
 
@@ -304,12 +314,15 @@ class Main {
 
 
 										// Se elige primer juego
-										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
+										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null,
+												"Cuánto desea apostar?"));
 										// Llamada al método jugar
-										((Cliente) actual).jugar(dados, apuesta);
-										// Generación de resultado
-										resultado = juegos.get(1).generarResultado();
 
+										if(actual.jugar(dados, apuesta)){
+
+
+											// Generación de resultado
+											resultado = juegos.get(1).generarResultado();
 										if (resultado) {
 											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!",
 													"Ganador",
@@ -329,13 +342,16 @@ class Main {
 
 											quiereJugar = false;
 
-
+											continuar = false;
 
 
 										} else {
 											choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
 													JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
 													opcionesJuegos[0]);
+										}}else{
+											JOptionPane.showMessageDialog(null,
+													"No tiene saldo suficiente para realizar la apuesta.");
 										}
 										break;
 									}
@@ -345,11 +361,15 @@ class Main {
 
 
 										// Se elige primer juego
-										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null, "Cuánto desea apostar?"));
+										apuesta = Double.parseDouble(JOptionPane.showInputDialog(null,
+												"Cuánto desea apostar?"));
 										// Llamada al método jugar
-										((Cliente) actual).jugar(blackjack, apuesta);
-										// Generación de resultado
-										resultado = juegos.get(2).generarResultado();
+
+										if(actual.jugar(blackjack, apuesta)){
+
+
+											// Generación de resultado
+											resultado = juegos.get(2).generarResultado();
 										if (resultado) {
 											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!",
 													"Ganador",
@@ -367,10 +387,14 @@ class Main {
 													"Hasta la proxima!",
 													JOptionPane.QUESTION_MESSAGE,iconoGracias);
 											quiereJugar = false;
+											continuar = false;
 										} else {
 											choiceCliente = JOptionPane.showOptionDialog(null, "Seleccione un juego", "Juegos",
 													JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesJuegos,
 													opcionesJuegos[0]);
+										}}else{
+											JOptionPane.showMessageDialog(null,
+													"No tiene saldo suficiente para realizar la apuesta.");
 										}
 										break;
 									}
@@ -404,7 +428,8 @@ class Main {
 							}else if (montoARetirar > actual.getDineroDisponible()){
 								JOptionPane.showMessageDialog(null, "No posee esta cantidad de dinero en su cuenta");
 							}else {
-								JOptionPane.showMessageDialog(null, "No está disponible este monto para retirar, por favor solicite asistencia con un administrador");
+								JOptionPane.showMessageDialog(null,
+										"No está disponible este monto para retirar, por favor solicite asistencia con un administrador");
 							}
 						}else {
 							JOptionPane.showMessageDialog(null, "Logout Exitoso");

@@ -28,17 +28,28 @@ public class Cliente extends Usuario {
     }
 
 
-  public void jugar(Juego juego, double apuesta){
+  public boolean jugar(Juego juego, double apuesta){
+
+        boolean jugo = true;
+
+        if(apuesta>this.dineroDisponible){
+            jugo = false;
+           return jugo;
+        }
+        else{
+
         boolean resultado;
 
         resultado = juego.generarResultado();
 
-        if(resultado){
-            this.dineroDisponible += apuesta*4;
-        }
-        else{
-            juego.getMaquina().setSaldoTickets((int) (juego.getMaquina().getSaldoTickets() + apuesta));
-
+            if(resultado){
+                this.dineroDisponible += apuesta*4;
+                return jugo;
+            }
+            else{
+                juego.getMaquina().setSaldoTickets((int) (juego.getMaquina().getSaldoTickets() + apuesta));
+                return  jugo;
+            }
         }
   }
 
