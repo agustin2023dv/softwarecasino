@@ -76,17 +76,12 @@ public class Cliente extends Usuario {
         this.dineroDisponible = dineroDisponible;
     }
 
-
-
     public void cargarSaldoOnline(double monto){
-
-
         this.dineroDisponible += monto;
-
-
     }
-
-
-
+    
+    public void retirarDinero(double monto){
+        this.dineroDisponible -= monto;
+    }
 
 }
