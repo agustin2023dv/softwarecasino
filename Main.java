@@ -404,12 +404,9 @@ class Main {
 						if (eleccionMenuECaja == 0) {
 							double monto;
 							monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a ingresar"));
-							int caja;
-							caja = JOptionPane.showOptionDialog(null, "Eliga la caja que desea acreditar",
-									"Seleccione la caja",
-									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, cajasS, cajasS[0]);
+							
 
-							empCaja.agregarDinero(monto, cajas.get(caja));
+							empCaja.agregarDinero(monto);
 							JOptionPane.showMessageDialog(null, "Se ha agregado $" + monto + ".");
 						} else if (eleccionMenuECaja == 1) {
 							double monto;
