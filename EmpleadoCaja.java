@@ -23,8 +23,8 @@ public class EmpleadoCaja extends Empleado{
     public void setCaja(Caja caja) {
         this.caja = caja;
     }
-
-    public void agregarDinero (double montoAAgregar) {
+    
+    public void agregarDinero (double montoAAgregar, Caja caja) {
         this.getCaja().setSaldoActual(this.getCaja().getSaldoActual() + montoAAgregar);
     }
 
