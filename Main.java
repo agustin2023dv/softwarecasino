@@ -593,7 +593,7 @@ class Main {
 							} else if (choiceAdministradorJuego == 2) {
 								JOptionPane.showMessageDialog(null, "Eligió Regresar");
 							} else {
-								JOptionPane.showMessageDialog(null, "Acaba de cerrar la app");
+								JOptionPane.showMessageDialog(null, "Logout exitoso");
 								continuar = false;
 							}
 
