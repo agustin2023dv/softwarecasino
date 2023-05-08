@@ -542,9 +542,8 @@ class Main {
 										opcionesAdministrador[5]);
 
 						if (choiceAdministrador == 0) {
-							JOptionPane.showMessageDialog(null, "Eligió Caja");
 
-							int visualizarCaja = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Caja"));
+							int visualizarCaja = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Caja que quiere visualizar"));
 
 							boolean encontrado = false;
 
@@ -562,7 +561,6 @@ class Main {
 								JOptionPane.showMessageDialog(null, "El ID " + visualizarCaja + " no existe.");
 							}
 						} else if (choiceAdministrador == 1) {
-							JOptionPane.showMessageDialog(null, "Eligió Juego");
 
 							String[] opcionesAdministradorJuego = {"Eliminar Juego", "Editar Juego", "Regresar"};
 							int choiceAdministradorJuego = JOptionPane.showOptionDialog(null,
@@ -591,7 +589,6 @@ class Main {
 									JOptionPane.showMessageDialog(null, "El juego " + eliminarJuego + " no existe.");
 								}
 							} else if (choiceAdministradorJuego == 1) {
-								JOptionPane.showMessageDialog(null, "Eligió Editar Juego");
 
 								String editarJuego = JOptionPane.showInputDialog("Ingrese el nombre del juego a editar");
 
@@ -626,9 +623,8 @@ class Main {
 
 							
 						} else if (choiceAdministrador == 2) {
-							JOptionPane.showMessageDialog(null, "Eligió Maquina");
 
-							int visualizarMaquina = Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID de la Maquina"));
+							int visualizarMaquina = Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID de la Maquina que le interesa visualizar"));
 							boolean encontrado = false;
 
 							for (Maquina maquina : maquinas) {
@@ -667,9 +663,8 @@ class Main {
 								JOptionPane.showMessageDialog(null, "El ID " + eliminarUsuario + " no existe.");
 							}
 						} else if (choiceAdministrador == 4) {
-							JOptionPane.showMessageDialog(null, "Eligió Visualizar Cliente");
 
-							int visualizarCliente =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
+							int visualizarCliente =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID del Cliente que le interesa visualizar"));
 							boolean encontrado = false;
 
 							for (Cliente cliente : clientes) {
