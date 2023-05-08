@@ -144,8 +144,11 @@ class Main {
 		ArrayList<Caja> cajas = new ArrayList<Caja>();
 		
 		Caja caja1 = new Caja(1, 100.00, 50.0, null);
+		empleadoCaja1.setCaja(caja1);
 		Caja caja2 = new Caja(2, 1000.00, 500.0, null);
+		empleadoCaja1.setCaja(caja2);
 		Caja caja3 = new Caja(3, 10000.00, 5000.0, null);
+		empleadoCaja1.setCaja(caja3);
 		
 		cajas.add(caja1);
 		cajas.add(caja2);
