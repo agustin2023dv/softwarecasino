@@ -97,6 +97,12 @@ public class Cliente extends Usuario {
 
     }
 
+    public void solicitarCargarDinero(EmpleadoCaja empleado, double monto){
+
+        empleado.agregarDinero(monto);
+        this.dineroDisponible += monto;
+    }
+
 
 
 }
