@@ -207,10 +207,11 @@ class Main {
 
 		// Pulgar arriba y pulgar abajo
 
-			String rutaImagenGano= "img/userPre.png";
-			ImageIcon iconoGano = new ImageIcon(rutaImagenPreLogin);
+			String rutaImagenGano= "img/thumbs-up.png";
+			ImageIcon iconoGano = new ImageIcon(rutaImagenGano);
 
-			ImageIcon iconoPerdio = new ImageIcon(rutaImagenPreLogin);
+			String rutaImagenPerdio= "img/thumbs-down.png";
+			ImageIcon iconoPerdio = new ImageIcon(rutaImagenPerdio);
 
 
 			// Usuario actual = null;
@@ -272,9 +273,13 @@ class Main {
 										// Generación de resultado
 										resultado = juegos.get(0).generarResultado();
 										if (resultado) {
-											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
+											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!",
+													"Ganador",
+													JOptionPane.QUESTION_MESSAGE,iconoGano);
 										} else {
-											JOptionPane.showMessageDialog(null, "Has perdido.");
+											JOptionPane.showMessageDialog(null, "Has perdido",
+													"Perdedor",
+													JOptionPane.QUESTION_MESSAGE,iconoPerdio);
 										}
 										seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
 												JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -302,9 +307,13 @@ class Main {
 										resultado = juegos.get(1).generarResultado();
 
 										if (resultado) {
-											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
+											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!",
+													"Ganador",
+													JOptionPane.QUESTION_MESSAGE,iconoGano);
 										} else {
-											JOptionPane.showMessageDialog(null, "Has perdido.");
+											JOptionPane.showMessageDialog(null, "Has perdido",
+													"Perdedor",
+													JOptionPane.QUESTION_MESSAGE,iconoPerdio);
 										}
 										seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?", "Casino Jocker",
 												JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -336,9 +345,13 @@ class Main {
 										// Generación de resultado
 										resultado = juegos.get(2).generarResultado();
 										if (resultado) {
-											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!");
+											JOptionPane.showMessageDialog(null, "Has ganado " + apuesta * 4 + " pesos!",
+													"Ganador",
+													JOptionPane.QUESTION_MESSAGE,iconoGano);
 										} else {
-											JOptionPane.showMessageDialog(null, "Has perdido.");
+											JOptionPane.showMessageDialog(null, "Has perdido",
+													"Perdedor",
+													JOptionPane.QUESTION_MESSAGE,iconoPerdio);
 										}
 										seguirJugando = JOptionPane.showOptionDialog(null, "Quiere seguir jugando?",
 												"Casino Jocker",
