@@ -134,11 +134,12 @@ class Main {
 		Juego blackjack = new Juego(3, "Blackjack",
 				"Blackjack es un juego de cartas en el que los jugadores intentan obtener una mano con un valor total cercano a 21 sin pasarse.",
 				1, 6, maquina3);
+		Juego aEliminar = new Juego(10,"Eliminar","Ddasdsa",5,5);
 
 		juegos.add(caraOCruz);
 		juegos.add(dados);
 		juegos.add(blackjack);
-		
+		juegos.add(aEliminar);
 		// Cajas
 
 		ArrayList<Caja> cajas = new ArrayList<Caja>();
@@ -417,7 +418,7 @@ class Main {
 							JOptionPane.showMessageDialog(null, "Su saldo ahora es de $" + actual.getDineroDisponible());
 						} else if(eleccionMenuCliente == 4){
 							double montoARetirar;
-							montoARetirar = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a cargar"));
+							montoARetirar = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a retirar"));
 							if(caja1.getSaldoActual() > montoARetirar && montoARetirar < actual.getDineroDisponible()) {
 								actual.retirarDinero(montoARetirar);
 								JOptionPane.showMessageDialog(null, "Su saldo ahora es de $" + actual.getDineroDisponible());
@@ -533,10 +534,10 @@ class Main {
 
 					while (continuar) {
 
-						String[] opcionesAdministrador = {"Caja", "Juego", "Maquina", "Usuario", "Visualizar Cliente", "Logout"};
+						String[] opcionesAdministrador = {"Caja", "Juego", "Maquina", "Usuario", "Visualizar Cliente", "Log out"};
 
 						int choiceAdministrador =
-								JOptionPane.showOptionDialog(null, "Seleccione su Usuario", "Selección de Usuario",
+								JOptionPane.showOptionDialog(null, "Seleccione un ente", "Menu administrador",
 										JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesAdministrador,
 										opcionesAdministrador[5]);
 
