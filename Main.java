@@ -197,7 +197,7 @@ class Main {
 		if (choice == JOptionPane.CLOSED_OPTION) {
 			System.exit(0); // Cierra la aplicación si no se selecciona ninguna opción
 		} else {
-			
+
 
 		// Botones de usuario
 
