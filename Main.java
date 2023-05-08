@@ -358,7 +358,7 @@ class Main {
 							recarga = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el monto a cargar"));
 							actual.cargarSaldoOnline(recarga);
 							JOptionPane.showMessageDialog(null, "Su saldo ahora es de $" + actual.getDineroDisponible());
-						
+
 						} else {
 							JOptionPane.showMessageDialog(null, "Logout Exitoso");
 							continuar = false;
