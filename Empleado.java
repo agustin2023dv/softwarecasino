@@ -2,24 +2,24 @@ import java.util.Date;
 
 public class Empleado extends Usuario{
 
-    private String idEmpleado;
+    private int idEmpleado;
 
     private String puesto;
 
 
-    public Empleado(String idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena,
-                    String correoElectronico, String idEmpleado, String puesto) {
+    public Empleado(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena,
+                    String correoElectronico, int idEmpleado, String puesto) {
         super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico);
         this.idEmpleado = idEmpleado;
         this.puesto = puesto;
     }
 
 
-    public String getIdEmpleado() {
+    public int getIdEmpleado() {
         return idEmpleado;
     }
 
-    public void setIdEmpleado(String idEmpleado) {
+    public void setIdEmpleado(int idEmpleado) {
         this.idEmpleado = idEmpleado;
     }
 

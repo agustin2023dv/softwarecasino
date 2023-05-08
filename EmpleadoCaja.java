@@ -6,7 +6,7 @@ public class EmpleadoCaja extends Empleado{
 
     private Caja caja;
 
-    public EmpleadoCaja(String idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String correoElectronico, String idEmpleado, String puesto, int idEmpleadoCaja) {
+    public EmpleadoCaja(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String correoElectronico, int idEmpleado, String puesto, int idEmpleadoCaja) {
         super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico, idEmpleado, puesto);
         this.idEmpleadoCaja = idEmpleadoCaja;
     }

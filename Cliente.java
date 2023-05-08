@@ -3,7 +3,7 @@ import java.util.Date;
 
 
 public class Cliente extends Usuario {
-    private String idCliente;
+    private int idCliente;
     private int cantPartidasJugadas;
 
     private double dineroDisponible;
@@ -11,8 +11,8 @@ public class Cliente extends Usuario {
 
 
 
-    public Cliente(String idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena,
-                   String correoElectronico, String idCliente, double dineroDisponible) {
+    public Cliente(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena,
+                   String correoElectronico, int idCliente, double dineroDisponible) {
         super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico);
         this.idCliente = idCliente;
         this.dineroDisponible = dineroDisponible;
@@ -50,22 +50,11 @@ public class Cliente extends Usuario {
    }
 
 
-    public Cliente(String idUsuario, String nombre, String apellido, Date fecNacimiento,
-                   String contrasena, String correoElectronico) {
-        super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico);
-
-        this.idCliente = idCliente;
-        this.cantPartidasJugadas = cantPartidasJugadas;
-        this.dineroDisponible = dineroDisponible;
-
-    }
-
-
-    public String getIdCliente() {
+    public int getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(String idCliente) {
+    public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 

@@ -1,7 +1,7 @@
 import java.util.Date;
 
 public abstract class Usuario {
-    private String idUsuario;
+    private int idUsuario;
     private String nombre;
     private String apellido;
     private Date fecNacimiento;
@@ -11,7 +11,7 @@ public abstract class Usuario {
     private String correoElectronico;
 
 
-    public Usuario(String idUsuario, String nombre, String apellido, Date fecNacimiento,
+    public Usuario(int idUsuario, String nombre, String apellido, Date fecNacimiento,
                    String contrasena, String correoElectronico) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -25,11 +25,11 @@ public abstract class Usuario {
 
 
 
-    public String getIdUsuario() {
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 

@@ -11,24 +11,24 @@ class Main {
 		
 		// Clientes
 
-		Cliente cliente1 = new Cliente("1", "Juan", "Gomez", new Date(06 - 05 - 2023), "12341",
-				"mail1@gmail.com", "1", 190.00);
-		Cliente cliente2 = new Cliente("2", "Maria", "Lopez", new Date(06 - 05 - 2023), "12342",
-				"mail2@gmail.com", "2", 1000.00);
-		Cliente cliente3 = new Cliente("3", "Pedro", "Guzman", new Date(06 - 05 - 2023), "12343",
-				"mail3@gmail.com", "3", 1000.00);
-		Cliente cliente4 = new Cliente("4", "Marta", "Ferrero", new Date(06 - 05 - 2023), "12344",
-				"mail4@gmail.com", "4", 1000.00);
-		Cliente cliente5 = new Cliente("5", "Lucas", "Garcia", new Date(06 - 05 - 2023), "12345",
-				"mail5@gmail.com", "5", 1000.00);
+		Cliente cliente1 = new Cliente(1, "Juan", "Gomez", new Date(06 - 05 - 2023), "12341",
+				"mail1@gmail.com", 1, 190.00);
+		Cliente cliente2 = new Cliente(2, "Maria", "Lopez", new Date(06 - 05 - 2023), "12342",
+				"mail2@gmail.com", 2, 1000.00);
+		Cliente cliente3 = new Cliente(3, "Pedro", "Guzman", new Date(06 - 05 - 2023), "12343",
+				"mail3@gmail.com", 3, 1000.00);
+		Cliente cliente4 = new Cliente(4, "Marta", "Ferrero", new Date(06 - 05 - 2023), "12344",
+				"mail4@gmail.com", 4, 1000.00);
+		Cliente cliente5 = new Cliente(5, "Lucas", "Garcia", new Date(06 - 05 - 2023), "12345",
+				"mail5@gmail.com", 5, 1000.00);
 
 		// Administrador
 
-		Administrador admin1 = new Administrador("6", "Roberto", "Lopez", new Date(06 - 05 - 2023), "12346",
+		Administrador admin1 = new Administrador(6, "Roberto", "Lopez", new Date(06 - 05 - 2023), "12346",
 				"mail6@gmail.com", 1);
-		Administrador admin2 = new Administrador("7", "Graciela", "Mussa", new Date(06 - 05 - 2023), "12347",
+		Administrador admin2 = new Administrador(7, "Graciela", "Mussa", new Date(06 - 05 - 2023), "12347",
 				"mail7@gmail.com", 2);
-		Administrador admin3 = new Administrador("8", "Mariela", "Vazquez", new Date(06 - 05 - 2023), "12348",
+		Administrador admin3 = new Administrador(8, "Mariela", "Vazquez", new Date(06 - 05 - 2023), "12348",
 				"mail8@gmail.com", 3);
 
 		ArrayList<Administrador> administradores = new ArrayList<Administrador>();
@@ -37,12 +37,12 @@ class Main {
 		administradores.add(admin3);
 		// Empleado caja
 
-		EmpleadoCaja empleadoCaja1 = new EmpleadoCaja("9", "Marcos", "Lopez", new Date(06 - 05 - 2023), "12349",
-				"mail9@gmail.com", "1", "Caja", 1);
-		EmpleadoCaja empleadoCaja2 = new EmpleadoCaja("10", "Julian", "Rocca", new Date(06 - 05 - 2023),
-				"123410", "mail10@gmail.com", "2", "Caja", 2);
-		EmpleadoCaja empleadoCaja3 = new EmpleadoCaja("11", "Lucia", "Perez", new Date(06 - 05 - 2023),
-				"123411", "mail11@gmail.com", "3", "Caja", 3);
+		EmpleadoCaja empleadoCaja1 = new EmpleadoCaja(9, "Marcos", "Lopez", new Date(06 - 05 - 2023), "12349",
+				"mail9@gmail.com", 1, "Caja", 1);
+		EmpleadoCaja empleadoCaja2 = new EmpleadoCaja(10, "Julian", "Rocca", new Date(06 - 05 - 2023),
+				"123410", "mail10@gmail.com", 2, "Caja", 2);
+		EmpleadoCaja empleadoCaja3 = new EmpleadoCaja(11, "Lucia", "Perez", new Date(06 - 05 - 2023),
+				"123411", "mail11@gmail.com", 3, "Caja", 3);
 
 		ArrayList<EmpleadoCaja> empleadosCaja = new ArrayList<EmpleadoCaja>();
 		empleadosCaja.add(empleadoCaja1);
@@ -50,12 +50,12 @@ class Main {
 		empleadosCaja.add(empleadoCaja3);
 		// Empleado tecnico
 
-		Tecnico tecnico1 = new Tecnico("12", "Jorge", "Hernandez", new Date(06 - 05 - 2023), "123412",
-				"mail12@gmail.com", "4", "Tecnico", 1);
-		Tecnico tecnico2 = new Tecnico("13", "Pedro", "Domingo", new Date(06 - 05 - 2023), "123413",
-				"mail13@gmail.com", "5", "Tecnico", 2);
-		Tecnico tecnico3 = new Tecnico("14", "Walter", "Pedroso", new Date(06 - 05 - 2023), "123414",
-				"mail14@gmail.com", "6", "Tecnico", 3);
+		Tecnico tecnico1 = new Tecnico(12, "Jorge", "Hernandez", new Date(06 - 05 - 2023), "123412",
+				"mail12@gmail.com", 4, "Tecnico", 1);
+		Tecnico tecnico2 = new Tecnico(13, "Pedro", "Domingo", new Date(06 - 05 - 2023), "123413",
+				"mail13@gmail.com", 5, "Tecnico", 2);
+		Tecnico tecnico3 = new Tecnico(14, "Walter", "Pedroso", new Date(06 - 05 - 2023), "123414",
+				"mail14@gmail.com", 6, "Tecnico", 3);
 
 		ArrayList<Tecnico> tecnicos = new ArrayList<Tecnico>();
 		tecnicos.add(tecnico1);
@@ -64,12 +64,12 @@ class Main {
 
 		// Empleado maquina
 
-		EmpleadoMaquina empleadoMaquina1 = new EmpleadoMaquina("15", "nombre15", "apellido15", new Date(06 - 05 - 2023),
-				"123415", "mail15@gmail.com", "7", "Maquina", "1");
-		EmpleadoMaquina empleadoMaquina2 = new EmpleadoMaquina("16", "nombre16", "apellido16", new Date(06 - 05 - 2023),
-				"123416", "mail16@gmail.com", "8", "Maquina", "2");
-		EmpleadoMaquina empleadoMaquina3 = new EmpleadoMaquina("17", "nombre17", "apellido17", new Date(06 - 05 - 2023),
-				"123417", "mail17@gmail.com", "9", "Maquina", "3");
+		EmpleadoMaquina empleadoMaquina1 = new EmpleadoMaquina(15, "nombre15", "apellido15", new Date(06 - 05 - 2023),
+				"123415", "mail15@gmail.com", 7, "Maquina", 1);
+		EmpleadoMaquina empleadoMaquina2 = new EmpleadoMaquina(16, "nombre16", "apellido16", new Date(06 - 05 - 2023),
+				"123416", "mail16@gmail.com", 8, "Maquina", 2);
+		EmpleadoMaquina empleadoMaquina3 = new EmpleadoMaquina(17, "nombre17", "apellido17", new Date(06 - 05 - 2023),
+				"123417", "mail17@gmail.com", 9, "Maquina", 3);
 
 		ArrayList<EmpleadoMaquina> empleadosMaquina = new ArrayList<EmpleadoMaquina>();
 
@@ -591,11 +591,11 @@ class Main {
 						} else if (choiceAdministrador == 3) {
 							JOptionPane.showMessageDialog(null, "Eligió Usuario");
 
-							String eliminarUsuario = JOptionPane.showInputDialog("Ingrese el ID del Usuario a eliminar");
+							int eliminarUsuario =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID del Usuario a eliminar"));
 							boolean encontrado = false;
 
 							for (Usuario usuario : usuarioEjemplo) {
-								if (usuario.getIdUsuario().equalsIgnoreCase(eliminarUsuario)) {
+								if (usuario.getIdUsuario() == eliminarUsuario) {
 									encontrado = true;
 									admin1.eliminarUsuario(usuario, usuarioEjemplo);
 									JOptionPane.showMessageDialog(null, "El Usuario con ID "
@@ -610,11 +610,11 @@ class Main {
 						} else if (choiceAdministrador == 4) {
 							JOptionPane.showMessageDialog(null, "Eligió Visualizar Cliente");
 
-							String visualizarCliente = JOptionPane.showInputDialog("Ingrese el ID del Cliente");
+							int visualizarCliente =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
 							boolean encontrado = false;
 
 							for (Cliente cliente : clientes) {
-								if (cliente.getIdCliente().equalsIgnoreCase(visualizarCliente)) {
+								if (cliente.getIdCliente() == visualizarCliente) {
 									encontrado = true;
 									admin1.revisarCuentaCliente(cliente);
 									JOptionPane.showMessageDialog(null, "Nombre: " + cliente.getNombre() +

@@ -2,21 +2,21 @@ import java.util.Date;
 
 public class EmpleadoMaquina extends Empleado{
 
-    private String idEmpleadoMaquina;
+    private int idEmpleadoMaquina;
 
 
-    public EmpleadoMaquina(String idUsuario, String nombre, String apellido, Date fecNacimiento,
-                           String contrasena, String correoElectronico, String idEmpleado, String puesto, String idEmpleadoMaquina) {
+    public EmpleadoMaquina(int idUsuario, String nombre, String apellido, Date fecNacimiento,
+                           String contrasena, String correoElectronico, int idEmpleado, String puesto, int idEmpleadoMaquina) {
         super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico, idEmpleado, puesto);
         this.idEmpleadoMaquina = idEmpleadoMaquina;
     }
 
 
-    public String getIdEmpleadoMaquina() {
+    public int getIdEmpleadoMaquina() {
         return idEmpleadoMaquina;
     }
 
-    public void setIdEmpleadoMaquina(String idEmpleadoMaquina) {
+    public void setIdEmpleadoMaquina(int idEmpleadoMaquina) {
         this.idEmpleadoMaquina = idEmpleadoMaquina;
     }
 
