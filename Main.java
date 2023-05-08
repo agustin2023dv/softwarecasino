@@ -694,7 +694,7 @@ class Main {
 
 					while (continuar) {
 						String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Logout"};
-						String[] maquinasS = {"Máquina 1", "Máquina 2", "Máquina 3", "Regresar"};
+						String[] maquinasS = {"Máquina 1", "Máquina 2", "Máquina 3"};
 
 						int eleccionMaquina = JOptionPane.showOptionDialog(null, "Seleccione la máquina en la que quiere trabajar",
 								"Empleado Máquina",
@@ -732,7 +732,7 @@ class Main {
 								empleadoM.recargarTickets(maquinas.get(eleccionMaquina), cantidadTicketsARecargar);
 								JOptionPane.showMessageDialog(null, "Se ha recargado " + cantidadTicketsARecargar + " ticket/s" + ".");
 								break;
-							case 4:
+							default:
 								JOptionPane.showMessageDialog(null, "Log out exitoso");
 								continuar = false;
 								break;
@@ -764,7 +764,7 @@ class Main {
 
 					while (continuar) {
 						String[] opcionesTecnico = {"Reparar Maquina", "Habilitar Maquina", "Deshabilitar Maquina", "Logout"};
-						String[] maquinasS = {"Máquina 1", "Máquina 2", "Máquina 3", "Regresar"};
+						String[] maquinasS = {"Máquina 1", "Máquina 2", "Máquina 3"};
 
 						int eleccionMaquina = JOptionPane.showOptionDialog(null, "Seleccione la máquina en la que quiere trabajar",
 								"Técnico",
@@ -801,7 +801,7 @@ class Main {
 								}
 								break;
 
-							case 3:
+							default:
 								JOptionPane.showMessageDialog(null, "Log out exitoso");
 								continuar = false;
 								break;
