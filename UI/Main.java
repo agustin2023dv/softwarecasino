@@ -1,15 +1,29 @@
+package UI;
+
+import Datos.Conexion;
+import Logica.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 class Main {
 
 	public static void main(String[] args) {
 
-		
-		
-		// Clientes
+		//CONEXION BD
+		try {
+			Connection connection = Conexion.getConnection();
+			System.out.println("Conexión exitosa a la base de datos.");
+			// Aquí puedes realizar operaciones con la base de datos
+		} catch (SQLException e) {
+			System.out.println("Error al conectar con la base de datos: " + e.getMessage());
+		}
+
+		// Creacion de objetos clase Cliente
 
 		Cliente cliente1 = new Cliente(1, "Juan", "Gomez", new Date(06 - 05 - 2023), "12341",
 				"mail1@gmail.com", 1, 190.00);
@@ -22,7 +36,18 @@ class Main {
 		Cliente cliente5 = new Cliente(5, "Lucas", "Garcia", new Date(06 - 05 - 2023), "12345",
 				"mail5@gmail.com", 5, 1000.00);
 
-		// Administrador
+
+		// Creacion de arraylist clase Cliente
+
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+
+		clientes.add(cliente1);
+		clientes.add(cliente2);
+		clientes.add(cliente3);
+		clientes.add(cliente4);
+		clientes.add(cliente5);
+
+		// Creacion de objetos clase Administrador
 
 		Administrador admin1 = new Administrador(6, "Roberto", "Lopez", new Date(06 - 05 - 2023), "12346",
 				"mail6@gmail.com", 1);
@@ -31,11 +56,14 @@ class Main {
 		Administrador admin3 = new Administrador(8, "Mariela", "Vazquez", new Date(06 - 05 - 2023), "12348",
 				"mail8@gmail.com", 3);
 
+		// Creacion de arraylist clase Administrador
+
 		ArrayList<Administrador> administradores = new ArrayList<Administrador>();
 		administradores.add(admin1);
 		administradores.add(admin2);
 		administradores.add(admin3);
-		// Empleado caja
+
+		// Creacion de objetos clase EmpleadoCaja
 
 		EmpleadoCaja empleadoCaja1 = new EmpleadoCaja(9, "Marcos", "Lopez", new Date(06 - 05 - 2023), "12349",
 				"mail9@gmail.com", 1, "Caja", 1);
@@ -44,11 +72,14 @@ class Main {
 		EmpleadoCaja empleadoCaja3 = new EmpleadoCaja(11, "Lucia", "Perez", new Date(06 - 05 - 2023),
 				"123411", "mail11@gmail.com", 3, "Caja", 3);
 
+		// Creacion de arraylist clase EmpleadoCaja
 		ArrayList<EmpleadoCaja> empleadosCaja = new ArrayList<EmpleadoCaja>();
 		empleadosCaja.add(empleadoCaja1);
 		empleadosCaja.add(empleadoCaja2);
 		empleadosCaja.add(empleadoCaja3);
-		// Empleado tecnico
+
+
+		// Creacion de objetos clase Tecnico
 
 		Tecnico tecnico1 = new Tecnico(12, "Jorge", "Hernandez", new Date(06 - 05 - 2023), "123412",
 				"mail12@gmail.com", 4, "Tecnico", 1);
@@ -57,12 +88,15 @@ class Main {
 		Tecnico tecnico3 = new Tecnico(14, "Walter", "Pedroso", new Date(06 - 05 - 2023), "123414",
 				"mail14@gmail.com", 6, "Tecnico", 3);
 
+
+		// Creacion de arraylist clase Tecnico
+
 		ArrayList<Tecnico> tecnicos = new ArrayList<Tecnico>();
 		tecnicos.add(tecnico1);
 		tecnicos.add(tecnico2);
 		tecnicos.add(tecnico3);
 
-		// Empleado maquina
+		// Creacion de objetos clase EmpleadoMaquina
 
 		EmpleadoMaquina empleadoMaquina1 = new EmpleadoMaquina(15, "nombre15", "apellido15", new Date(06 - 05 - 2023),
 				"123415", "mail15@gmail.com", 7, "Maquina", 1);
@@ -71,13 +105,15 @@ class Main {
 		EmpleadoMaquina empleadoMaquina3 = new EmpleadoMaquina(17, "nombre17", "apellido17", new Date(06 - 05 - 2023),
 				"123417", "mail17@gmail.com", 9, "Maquina", 3);
 
-		ArrayList<EmpleadoMaquina> empleadosMaquina = new ArrayList<EmpleadoMaquina>();
 
+		// Creacion de arraylist clase EmpleadoMaquina
+
+		ArrayList<EmpleadoMaquina> empleadosMaquina = new ArrayList<EmpleadoMaquina>();
 		empleadosMaquina.add(empleadoMaquina1);
 		empleadosMaquina.add(empleadoMaquina2);
 		empleadosMaquina.add(empleadoMaquina3);
 
-		// Array de todos los usuarios
+		// Creacion de  arraylist de todos los usuarios del sistema
 
 		ArrayList<Usuario> usuarioEjemplo = new ArrayList<Usuario>();
 
@@ -98,32 +134,26 @@ class Main {
 		usuarioEjemplo.add(empleadoMaquina1);
 		usuarioEjemplo.add(empleadoMaquina2);
 		usuarioEjemplo.add(empleadoMaquina3);
+
+		// Creacion de objetos clase Maquina
 		
-		// Array clientes
 
-		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-
-		clientes.add(cliente1);
-		clientes.add(cliente2);
-		clientes.add(cliente3);
-		clientes.add(cliente4);
-		clientes.add(cliente5);
-
-		// Maquinas
-		
-		ArrayList<Maquina> maquinas = new ArrayList<Maquina>();
 		
 		Maquina maquina1 = new Maquina(1, 100, false, true);
 		Maquina maquina2 = new Maquina(2, 100, false, true);
 		Maquina maquina3 = new Maquina(3, 100, false, true);
-		
+
+
+		// Creacion de arraylist clase Maquina
+		ArrayList<Maquina> maquinas = new ArrayList<Maquina>();
+
 		maquinas.add(maquina1);
 		maquinas.add(maquina2);
 		maquinas.add(maquina3);		
 		
-		// Juegos
+		// Creacion de objetos clase Juego
 
-		ArrayList<Juego> juegos = new ArrayList<Juego>();
+
 
 		Juego caraOCruz = new Juego(1, "Cara o cruz",
 				"Cara o Cruz es un juego de azar en el que se lanza una moneda para predecir el resultado: cara o cruz.",
@@ -136,13 +166,16 @@ class Main {
 				1, 6, maquina3);
 		Juego aEliminar = new Juego(10,"Eliminar","Ddasdsa",5,5);
 
+
+		// Creacion de arraylist clase Juego
+
+		ArrayList<Juego> juegos = new ArrayList<Juego>();
 		juegos.add(caraOCruz);
 		juegos.add(dados);
 		juegos.add(blackjack);
 		juegos.add(aEliminar);
-		// Cajas
 
-		ArrayList<Caja> cajas = new ArrayList<Caja>();
+		// Creacion de objetos clase Caja
 		
 		Caja caja1 = new Caja(1, 100.00, 50.0, null);
 		empleadoCaja1.setCaja(caja1);
@@ -150,7 +183,11 @@ class Main {
 		empleadoCaja1.setCaja(caja2);
 		Caja caja3 = new Caja(3, 10000.00, 5000.0, null);
 		empleadoCaja1.setCaja(caja3);
-		
+
+
+		// Creacion de arraylist clase Caja
+
+		ArrayList<Caja> cajas = new ArrayList<Caja>();
 		cajas.add(caja1);
 		cajas.add(caja2);
 		cajas.add(caja3);
@@ -175,8 +212,11 @@ class Main {
 
 		// Pantalla de Bienvenida
 
+
 		String rutaImagenInicio = "img/casinoInicio.jpg";
+
 		ImageIcon iconoInicio = new ImageIcon(rutaImagenInicio);
+
 		JOptionPane.showMessageDialog(null, "Bienvenido al casino Jocker",
 				"Casino Jocker", JOptionPane.PLAIN_MESSAGE, iconoInicio);
 
@@ -205,8 +245,10 @@ class Main {
 
 		// Botones de usuario
 
-		String nombreIngresado = JOptionPane.showInputDialog(null, "Ingrese su nombre:", "Log in: Nombre ", JOptionPane.PLAIN_MESSAGE);
-		String contrasena = JOptionPane.showInputDialog(null, "Ingrese su contraseña:", "Log in: Contraseña ", JOptionPane.PLAIN_MESSAGE);
+		String nombreIngresado = JOptionPane.showInputDialog(null, "Ingrese su nombre:",
+				"Log in: Nombre ", JOptionPane.PLAIN_MESSAGE);
+		String contrasena = JOptionPane.showInputDialog(null, "Ingrese su contraseña:",
+				"Log in: Contraseña ", JOptionPane.PLAIN_MESSAGE);
 
 
 		// Iconos: Pulgar arriba , Pulgar abajo, Gracias por jugar

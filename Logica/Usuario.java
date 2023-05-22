@@ -1,3 +1,5 @@
+package Logica;
+
 import java.util.Date;
 
 public abstract class Usuario {
