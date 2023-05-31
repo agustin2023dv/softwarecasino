@@ -7,20 +7,24 @@ public abstract class Usuario {
     private String nombre;
     private String apellido;
     private Date fecNacimiento;
+
+
     private String contrasena;
     private boolean logueado;
 
+    private String direccion;
     private String correoElectronico;
 
 
     public Usuario(int idUsuario, String nombre, String apellido, Date fecNacimiento,
-                   String contrasena, String correoElectronico) {
+                   String contrasena, String direccion,String correoElectronico) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fecNacimiento = fecNacimiento;
         this.contrasena = contrasena;
         this.logueado = false;
+        this.direccion = direccion;
         this.correoElectronico = correoElectronico;
     }
 
@@ -75,6 +79,14 @@ public abstract class Usuario {
         this.logueado = logueado;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
     public String getCorreoElectronico() {
         return correoElectronico;
     }
@@ -84,7 +96,10 @@ public abstract class Usuario {
     }
 
 
-    public void login(String password) {
+  /**
+   *    CREO QUE ESTE CODIGO YA NO ES NECESARIO
+   *
+   * public void login(String password) {
         if (password.equals(this.contrasena)) {
             this.logueado = true;
             System.out.println("Inicio de sesión exitoso para el usuario " + this.idUsuario);
@@ -97,6 +112,7 @@ public abstract class Usuario {
         this.logueado = false;
         System.out.println("El usuario " + this.idUsuario + " ha cerrado sesión");
     }
+**/
 
 
 }

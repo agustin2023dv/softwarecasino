@@ -9,7 +9,12 @@ public class Conexion {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+    public static Connection conectar() {
+        try {
+            return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            System.out.println("Error al conectar con la base de datos: " + e.getMessage());
+            return null; // o manejar el error de otra manera según tus necesidades
+        }
     }
 }

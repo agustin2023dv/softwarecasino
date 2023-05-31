@@ -6,11 +6,11 @@ public class Tecnico extends Empleado{
 	
 	private int idTecnico;
 
-	public Tecnico(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String correoElectronico, int idEmpleado, String puesto, int idTecnico) {
-		super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico, idEmpleado, puesto);
-		this.idTecnico = idTecnico;
+	public Tecnico(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String direccion, String correoElectronico, int idEmpleado, String puesto) {
+		super(idUsuario, nombre, apellido, fecNacimiento, contrasena, direccion, correoElectronico, idEmpleado, puesto);
 	}
-	
+
+
 	public int getIdTecnico() {
 		return idTecnico;
 	}

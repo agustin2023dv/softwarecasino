@@ -8,8 +8,9 @@ public class EmpleadoCaja extends Empleado{
 
     private Caja caja;
 
-    public EmpleadoCaja(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String correoElectronico, int idEmpleado, String puesto, int idEmpleadoCaja) {
-        super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico, idEmpleado, puesto);
+    public EmpleadoCaja(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena,
+                        String correoElectronico, String direccion, int idEmpleado, String puesto, int idEmpleadoCaja) {
+        super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico, direccion,idEmpleado, puesto);
         this.idEmpleadoCaja = idEmpleadoCaja;
     }
 

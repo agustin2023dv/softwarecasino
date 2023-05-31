@@ -6,11 +6,8 @@ public class EmpleadoMaquina extends Empleado{
 
     private int idEmpleadoMaquina;
 
-
-    public EmpleadoMaquina(int idUsuario, String nombre, String apellido, Date fecNacimiento,
-                           String contrasena, String correoElectronico, int idEmpleado, String puesto, int idEmpleadoMaquina) {
-        super(idUsuario, nombre, apellido, fecNacimiento, contrasena, correoElectronico, idEmpleado, puesto);
-        this.idEmpleadoMaquina = idEmpleadoMaquina;
+    public EmpleadoMaquina(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String direccion, String correoElectronico, int idEmpleado, String puesto) {
+        super(idUsuario, nombre, apellido, fecNacimiento, contrasena, direccion, correoElectronico, idEmpleado, puesto);
     }
 
 
