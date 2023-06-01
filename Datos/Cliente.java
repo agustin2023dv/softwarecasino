@@ -1,7 +1,5 @@
-package Logica;
+package Datos;
 
-
-import Datos.Conexion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

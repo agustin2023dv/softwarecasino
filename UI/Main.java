@@ -59,7 +59,6 @@ class Main {
 
 
 
-		// LOGIN
 
 		// Verificamos si existe
 		String consultaUsuario = "SELECT * FROM usuario WHERE id_usuario = ? AND contrasena = ?";
