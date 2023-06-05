@@ -157,7 +157,7 @@ public class Cliente extends Usuario {
             return jugo;
         } else {
 
-            resultado = Math.random() < 0.5;
+            resultado = juego.generarResultado();
 
             if (resultado) {
                 this.dineroDisponible += apuesta * 4;

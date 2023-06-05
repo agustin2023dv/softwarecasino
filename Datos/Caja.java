@@ -48,12 +48,12 @@ public class Caja {
                     "WHERE c.id_caja = ?";
 
             PreparedStatement stmt = conexion.prepareStatement(sql);
-
-
+            stmt.setInt(1, this.getIdCaja());
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 dineroDisponible = rs.getDouble("total_monto");
+                this.setSaldoActual(dineroDisponible);
             }
         } catch (Exception e) {
             System.out.println("Hubo un error: " + e.getMessage());
@@ -74,9 +74,6 @@ public class Caja {
         this.empleadoCaja = empleadoCaja;
     }
 
-    public boolean hayDinero() {
-        return saldoActual > 0;
-    }
 
 
 }

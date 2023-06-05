@@ -73,7 +73,7 @@ public class Juego {
     }
 
 
-
+    public boolean generarResultado(){boolean rdo; rdo = Math.random() < 0.5; return rdo;}
 
     public void setMaquina(Maquina maquina) {
         this.maquina = maquina;
