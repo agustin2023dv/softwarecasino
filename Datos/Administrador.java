@@ -45,6 +45,7 @@ public class Administrador extends Usuario{
 	}
 
 	public String revisarCuentaCliente(int idUsuario) {
+
 		String resultado = "";
 		Conexion con = new Conexion();
 		try {

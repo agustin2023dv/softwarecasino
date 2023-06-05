@@ -1,5 +1,9 @@
 package Datos;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 public class Caja {
 
     private int idCaja;
@@ -31,7 +35,31 @@ public class Caja {
 	}
 
     public double getSaldoActual() {
-        return saldoActual;
+
+        Conexion con = new Conexion();
+        double dineroDisponible = 0;
+
+        try {
+            Connection conexion = con.conectar();
+
+            String sql = "SELECT SUM(mca.monto) + SUM(monto) AS total_saldo" +
+                    "FROM movimiento_caja_apuesta mca INNER JOIN caja c ON mca.caja = c.id_caja" +
+                    "INNER JOIN transaccion_caja_cliente tcc ON tcc.caja = c.id_caja" +
+                    "WHERE c.id_caja = ?";
+
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                dineroDisponible = rs.getDouble("total_monto");
+            }
+        } catch (Exception e) {
+            System.out.println("Hubo un error: " + e.getMessage());
+        }
+
+        return dineroDisponible;
     }
 
     public void setSaldoActual(double saldoActual) {
@@ -49,4 +77,6 @@ public class Caja {
     public boolean hayDinero() {
         return saldoActual > 0;
     }
+
+
 }

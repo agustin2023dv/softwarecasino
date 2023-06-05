@@ -74,14 +74,6 @@ public class Juego {
 
 
 
-    public boolean generarResultado(){
-            Random random  = new Random();
-
-            boolean resultado = random.nextBoolean();
-
-            return resultado;
-
-    }
 
     public void setMaquina(Maquina maquina) {
         this.maquina = maquina;
