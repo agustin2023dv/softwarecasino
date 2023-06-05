@@ -1,5 +1,7 @@
 package Datos;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.Date;
 
 public class EmpleadoCaja extends Empleado{
@@ -26,10 +28,28 @@ public class EmpleadoCaja extends Empleado{
     public void setCaja(Caja caja) {
         this.caja = caja;
     }
-    
-    public void agregarDinero (double montoAAgregar, Caja caja) {
-        this.getCaja().setSaldoActual(this.getCaja().getSaldoActual() + montoAAgregar);
+
+    public void agregarDinero(double monto) {
+        Conexion con = new Conexion();
+        int caja = this.getCaja().getIdCaja();
+        Date fecha = new Date();
+
+        try {
+            Connection conexion = con.conectar();
+            String sql = "INSERT INTO transaccion_caja_empleado (empleado, caja, monto, fecha) VALUES (?, ?, ?, ?)";
+
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            stmt.setInt(1, this.getIdEmpleado());
+            stmt.setInt(2, caja);
+            stmt.setDouble(3, monto);
+            stmt.setDate(4, new java.sql.Date(fecha.getTime()));
+
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Hubo un error al agregar dinero: " + e.getMessage());
+        }
     }
+
 
     public void entregarDinero(double montoAEntregar, Cliente cliente) {
 

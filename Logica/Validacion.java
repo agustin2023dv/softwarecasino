@@ -66,7 +66,7 @@ public class Validacion {
 
    
 //VALIDACIONES CLIENTE
-	
+
 
 	public static boolean validarCargaDinero(double monto) {
 
