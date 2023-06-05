@@ -2,25 +2,70 @@
 package Logica;
 
 import Datos.Administrador;
+import Datos.Conexion;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Validacion {
     
 //VALIDACIONES LOGIN
-	
-    public String validarIngreso(int id, String contrasena){
 
-        if(id<0){
-            return "El id no puede ser menor a 0";
-            
-        }else {
-        	int tamanioContrasena=contrasena.length();
-        	if (tamanioContrasena >= 4 && tamanioContrasena <= 10){
-        		return "Todo bien";
-            } else {
-                	return "La contraseña debe tener entre 4 y 10 caracteres";
-            }
-       }
-    }
+		public static boolean validacionLogin(int idUsuario, String contrasena) {
+			// Validar el ID de usuario
+			if (idUsuario < 0 || idUsuario > 99) {
+				return false; // El ID de usuario debe estar entre 0 y 99
+			}
+
+			// Validar la contraseña
+			int longitudContrasena = contrasena.length();
+			if (longitudContrasena < 6 || longitudContrasena > 15) {
+				return false; // La contraseña debe tener entre 6 y 15 caracteres
+			}
+
+			// Realizar la consulta a la base de datos
+			Conexion con = new Conexion();
+			Connection conexion = null;
+
+			try {
+				conexion = con.conectar();
+				String sql = "SELECT COUNT(*) FROM usuario WHERE id_usuario = ? AND contrasena = ?";
+
+				PreparedStatement stmt = conexion.prepareStatement(sql);
+				stmt.setInt(1, idUsuario);
+				stmt.setString(2, contrasena);
+
+				ResultSet rs = stmt.executeQuery();
+
+				if (rs.next()) {
+					int count = rs.getInt(1);
+
+					if (count > 0) {
+						return true; // Existe un usuario con el ID y contraseña proporcionados
+					}
+				}
+			} catch (SQLException e) {
+				System.out.println("Hubo un error al validar el login: " + e.getMessage());
+			} finally {
+				// Cerrar la conexión y liberar recursos
+				if (conexion != null) {
+					try {
+						conexion.close();
+					} catch (SQLException e) {
+						System.out.println("Error al cerrar la conexión: " + e.getMessage());
+					}
+				}
+			}
+
+			return false; // No se encontró un usuario con el ID y contraseña proporcionados
+		}
+
+
+
+
+
 
    
 //VALIDACIONES CLIENTE
