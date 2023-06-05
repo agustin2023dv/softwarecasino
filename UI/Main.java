@@ -3,6 +3,7 @@ package UI;
 import Datos.Conexion;
 import Logica.*;
 
+import Logica.Validacion.*;
 import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ class Main {
 
 		//CONEXION BD
 		Connection conexion = Conexion.conectar();
-
+		Validacion validacion = new Validacion();
 
 
 		// INICIO
@@ -51,12 +52,8 @@ class Main {
 
 
 		// LOGIN
-
-		String usuario = JOptionPane.showInputDialog(null, "Ingrese su ID de usuario:",
-				"Log in: Nombre ", JOptionPane.PLAIN_MESSAGE);
-		String contrasena = JOptionPane.showInputDialog(null, "Ingrese su contraseña:",
-				"Log in: Contraseña ", JOptionPane.PLAIN_MESSAGE);
-
+		String idUsuario = JOptionPane.showInputDialog(null,"Id usuario:");
+		String contrasena = JOptionPane.showInputDialog(null,"Contraseña:");
 
 
 
@@ -69,12 +66,15 @@ class Main {
 		String consultaAdministrador = "SELECT * FROM administrador as a INNER JOIN usuario as u WHERE a.id_usuario = ?";
 		String consultaEmpleado = "SELECT * FROM empleado as e INNER JOIN usuario as u WHERE e.id_usuario = ?";
 
-		boolean loginExitoso = true;
+
 
 		try {
+
+
 			PreparedStatement statementUsuario = conexion.prepareStatement(consultaUsuario);
-			statementUsuario.setString(1, usuario);
+			statementUsuario.setString(1,idUsuario);
 			statementUsuario.setString(2, contrasena);
+
 			ResultSet resultSetUsuario = statementUsuario.executeQuery();
 
 			if (resultSetUsuario.next()) {
@@ -82,7 +82,7 @@ class Main {
 
 				// Verificar si es un cliente
 				PreparedStatement statementCliente = conexion.prepareStatement(consultaCliente);
-				statementCliente.setString(1, usuario);
+				statementCliente.setString(1, idUsuario);
 				ResultSet resultSetCliente = statementCliente.executeQuery();
 
 				if (resultSetCliente.next()) {
@@ -92,7 +92,7 @@ class Main {
 
 				// Verificar si es un administrador
 				PreparedStatement statementAdministrador = conexion.prepareStatement(consultaAdministrador);
-				statementAdministrador.setString(1, usuario);
+				statementAdministrador.setString(1, idUsuario);
 				ResultSet resultSetAdministrador = statementAdministrador.executeQuery();
 
 
@@ -103,7 +103,7 @@ class Main {
 
 				// Verificar si es un empleado
 				PreparedStatement statementEmpleado = conexion.prepareStatement(consultaEmpleado);
-				statementEmpleado.setString(1, usuario);
+				statementEmpleado.setString(1, idUsuario);
 				ResultSet resultSetEmpleado = statementEmpleado.executeQuery();
 
 
@@ -126,7 +126,7 @@ class Main {
 				// Usuario o contraseña incorrectos
 				JOptionPane.showMessageDialog(null,
 						"Credenciales incorrectas. Por favor, inténtelo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
-				loginExitoso = false;
+
 			}
 
 			// Cerrar los resultados y declaraciones

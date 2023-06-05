@@ -1,8 +1,7 @@
 
 package Logica;
 
-import Datos.Administrador;
-import Datos.Conexion;
+import Datos.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +12,7 @@ public class Validacion {
     
 //VALIDACIONES LOGIN
 
-		public static boolean validacionLogin(int idUsuario, String contrasena) {
+		public  boolean validacionLogin(int idUsuario, String contrasena) {
 			// Validar el ID de usuario
 			if (idUsuario < 0 || idUsuario > 99) {
 				return false; // El ID de usuario debe estar entre 0 y 99
@@ -65,27 +64,27 @@ public class Validacion {
 
 
 
-
-
    
 //VALIDACIONES CLIENTE
-
-	public String validarCargarDinero (int monto) {
-		
-		if(monto > 0) {
-            return "Todo bien";
-		}else {
-            return "El monto a cargar no puede ser menor a 0";
-		}	
-	}
 	
-	public String validarRetirarDinero (double dineroDisponible, int monto) {
-		
-		if(dineroDisponible >= monto) {
-            return "Todo bien";
-		}else {
-            return "El monto a retirar debe ser mayor al dinero disponible";
-		}	
+
+	public static boolean validarCargaDinero(double monto) {
+
+		if (monto <= 0) {
+			return false; // El monto debe ser mayor que cero
+		}
+
+		return true; // Si el monto es mayor a 0 retorna true
+	}
+
+	public static boolean validarRetiroDinero(Cliente cliente, double monto) {
+		double dineroDisponible = cliente.getDineroDisponible();
+
+		if (monto > dineroDisponible) {
+			return false; // El cliente no tiene suficiente dinero disponible para realizar el retiro
+		}
+
+		return true; // El cliente tiene suficiente dinero disponible
 	}
 	
 //VALIDACIONES ADMINISTRADOR
