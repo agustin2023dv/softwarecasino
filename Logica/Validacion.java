@@ -12,10 +12,10 @@ public class Validacion {
             
         }else {
         	int tamanioContrasena=contrasena.length();
-        	if (tamanioContrasena >= 4 && tamanioContrasena <= 10){
+        	if (tamanioContrasena >= 5 && tamanioContrasena <= 15){
         		return "Todo bien";
             } else {
-                	return "La contraseña debe tener entre 4 y 10 caracteres";
+                	return "La contraseña debe tener entre 5 y 15 caracteres";
             }
        }
     }
