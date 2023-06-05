@@ -35,5 +35,15 @@ public class Validacion {
 		
 	}
 	
+	public String validarRetirarDinero (double dineroDisponible, int monto) {
+		
+		if(dineroDisponible >= monto) {
+            return "Todo bien";
+		}else {
+            return "El monto a retirar debe ser mayor al dinero disponible";
+		}
+		
+	}
+	
     
 }
