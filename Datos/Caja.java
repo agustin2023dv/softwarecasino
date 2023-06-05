@@ -23,7 +23,17 @@ public class Caja {
     public void setIdCaja(int idCaja) {
         this.idCaja = idCaja;
     }
-    
+    public void setSaldoActual(double saldoActual) {
+        this.saldoActual = saldoActual;
+    }
+
+    public EmpleadoCaja getEmpleadoCaja() {
+        return empleadoCaja;
+    }
+
+    public void setEmpleadoCaja(EmpleadoCaja empleadoCaja) {
+        this.empleadoCaja = empleadoCaja;
+    }
 
 
     public double getSaldoActual() {
@@ -54,17 +64,6 @@ public class Caja {
         return dineroDisponible;
     }
 
-    public void setSaldoActual(double saldoActual) {
-        this.saldoActual = saldoActual;
-    }
-
-    public EmpleadoCaja getEmpleadoCaja() {
-        return empleadoCaja;
-    }
-
-    public void setEmpleadoCaja(EmpleadoCaja empleadoCaja) {
-        this.empleadoCaja = empleadoCaja;
-    }
 
 
 

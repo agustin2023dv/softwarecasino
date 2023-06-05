@@ -1,6 +1,5 @@
 package Datos;
 
-import java.util.Random;
 public class Juego {
 
 
