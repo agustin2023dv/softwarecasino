@@ -4,6 +4,8 @@ package Logica;
 import Datos.Administrador;
 
 public class Validacion {
+    
+//VALIDACIONES LOGIN
 
     public String validarIngreso(int id, String contrasena){
 
