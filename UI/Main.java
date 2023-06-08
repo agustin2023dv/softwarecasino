@@ -25,13 +25,18 @@ class Main {
 
 
 		// MENUES
-
 		String []opcionesCliente = {"Ver perfil","Jugar","Agregar dinero",
 				"Retirar dinero","Salir"};
 
 		String []opcionesAdminsitrador = {"Ver cliente","Eliminar cliente",
 				"Ver caja", "Eliminar juego",
 				"Editar juego","Editar datos cliente", "Salir"};
+		
+		String []opcionesECaja = {"Agregar dinero", "Entregar dinero", "Logout"};
+		
+		String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Logout"};
+		
+		String[] opcionesTecnico = {"Reparar Maquina", "Habilitar Maquina", "Deshabilitar Maquina", "Logout"};
 
 
 		// Pantalla de Bienvenida
