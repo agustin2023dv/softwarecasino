@@ -60,14 +60,9 @@ public class Validacion {
 
 			return false; // No se encontró un usuario con el ID y contraseña proporcionados
 		}
-
-
-
-
    
 //VALIDACIONES CLIENTE
-
-
+	
 	public static boolean validarCargaDinero(double monto) {
 
 		if (monto <= 0) {
