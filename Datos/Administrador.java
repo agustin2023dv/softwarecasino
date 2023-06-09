@@ -8,7 +8,11 @@ import java.util.Date;
 public class Administrador extends Usuario{
 
 	private int idAdministrador;
-
+	
+	public Administrador() {
+		
+	}
+	
 	public Administrador(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String direccion, String correoElectronico, int idAdministrador) {
 		super(idUsuario, nombre, apellido, fecNacimiento, contrasena, direccion, correoElectronico);
 		this.idAdministrador = idAdministrador;
