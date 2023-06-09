@@ -141,6 +141,44 @@ public class Cliente extends Usuario {
         }
     }
 
+    public String verCuenta(int idUsuario) {
+        String infoCuenta = "";
+        Conexion con = new Conexion();
+
+        try {
+            Connection conexion = con.conectar();
+            String sql = "SELECT u.nombre, u.apellido, u.direccion, u.email, u.fec_nacimiento " +
+                    "FROM usuario AS u INNER JOIN cliente AS c " +
+                    "ON u.id_usuario = c.id_usuario " +
+                    "WHERE u.id_usuario = ?";
+
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            stmt.setInt(1, idUsuario);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String direccion = rs.getString("direccion");
+                String email = rs.getString("email");
+                String fecNacimiento = rs.getString("fec_nacimiento");
+
+                infoCuenta += "Nombre: " + nombre + "\n";
+                infoCuenta += "Apellido: " + apellido + "\n";
+                infoCuenta += "Dirección: " + direccion + "\n";
+                infoCuenta += "Email: " + email + "\n";
+                infoCuenta += "Fecha de Nacimiento: " + fecNacimiento + "\n";
+            } else {
+                infoCuenta = "El cliente no fue encontrado.";
+            }
+        } catch (Exception e) {
+            System.out.println("Hubo un error: " + e.getMessage());
+            infoCuenta = "Hubo un error al consultar la cuenta del cliente.";
+        }
+
+        return infoCuenta;
+    }
 
     public void solicitarAsistencia(){
 

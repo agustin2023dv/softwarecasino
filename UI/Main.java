@@ -96,7 +96,23 @@ class Main {
 
 				if (resultSetCliente.next()) {
 					// Es un cliente, mostrar el menú de cliente
+					int idCliente = resultSetCliente.getInt("id_usuario");
+					do{
+						opcion = (String) JOptionPane.showInputDialog(null,"Opciones Cliente",
+						"Opcion",JOptionPane.DEFAULT_OPTION,null, opcionesCliente,opcionesCliente);
 
+					switch (opcion){
+						case "Ver perfil":
+							JOptionPane.showMessageDialog(null,cliente.verCuenta(idCliente));
+							break;
+						case "Jugar":
+							break;
+						case "Agregar dinero":
+							break;
+						case "Retirar dinero":
+							break;
+					}
+					}while(!opcion.equals("Salir"));
 				}
 
 				// Verificar si es un administrador
@@ -109,7 +125,8 @@ class Main {
 					// Es un administrador, mostrar el menú de administrador
 					do {
 						
-						opcion = (String)JOptionPane.showInputDialog(null,"Opciones Administrador","Opcion",JOptionPane.DEFAULT_OPTION,null, opcionesAdminsitrador,opcionesAdminsitrador);
+						opcion = (String)JOptionPane.showInputDialog(null,"Opciones Administrador",
+								"Opcion",JOptionPane.DEFAULT_OPTION,null, opcionesAdminsitrador,opcionesAdminsitrador);
 						int id;
 						switch (opcion) {
 						case "Ver cliente":
