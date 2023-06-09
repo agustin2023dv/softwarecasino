@@ -81,6 +81,18 @@ public class Validacion {
 
 		return true; // El cliente tiene suficiente dinero disponible
 	}
+
+	public boolean validarJugar(int idJuego, double monto){
+
+			double dineroDisponible ;
+
+
+			if(monto<=0){
+				return false;}
+			else{
+				return true;
+			}
+	}
 	
 //VALIDACIONES ADMINISTRADOR
 
@@ -175,21 +187,23 @@ public class Validacion {
 	
 //VALIDACIONES EMPLEADO CAJA 
 	
-	public String validarAgregarDinero (double montoAAgregar) {
+	public boolean validarAgregarDinero (double montoAAgregar) {
 		
 		if(montoAAgregar >= 1) {
-            return "Todo bien";
+            return true;
 		}else {
-            return "El monto a agregar debe ser igual o mayor a 1";
+            return false;
 		}	
 	}
 	
-	public String validarEntregarDinero (double montoAEntregar, double saldoActual) {
-		
-		if(montoAEntregar < 1 || montoAEntregar > saldoActual) {
-            return "El monto a entregar debe ser mayor a 1 y menor al saldo actual de la caja";
+	public boolean validarEntregarDinero (double montoAEntregar, Cliente cliente) {
+
+			double saldoDisponible = cliente.getDineroDisponible();
+
+		if(montoAEntregar < 1 || montoAEntregar > saldoDisponible) {
+            return true;
 		}else {
-            return "Todo bien";
+            return false;
 		}	
 	}
     
