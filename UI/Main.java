@@ -1,5 +1,7 @@
 package UI;
 
+import Datos.Administrador;
+import Datos.Cliente;
 import Datos.Conexion;
 import Logica.*;
 
@@ -19,7 +21,7 @@ class Main {
 		Connection conexion = Conexion.conectar();
 		Validacion validacion = new Validacion();
 		Administrador adm = new Administrador();
-
+		Cliente cliente = new Cliente();
 
 		// INICIO
 
