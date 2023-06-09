@@ -84,15 +84,24 @@ public class Validacion {
 	
 //VALIDACIONES ADMINISTRADOR
 	
-	public String validarEditarJuego (String descripcion, int jugadoresMinimos, int jugadoresMaximos, int idJuego) {
-    	int tamanioDescripcion=descripcion.length();
-		if(tamanioDescripcion < 10 || tamanioDescripcion > 100) {
-            return "La descripcion debe tener entre 10 y 100 caracteres";
-		}else if (jugadoresMinimos < 1 && jugadoresMaximos > 6){
-            return "La cantidad de jugadores mínimos debe ser mayor o igual a 1 y menor o igual a 6";
+	public boolean validarEditarJuego (String descripcion, int jugadoresMinimos, int jugadoresMaximos, int idJuego) {
+		boolean resultado = true;
+		if(jugadoresMinimos < 1 || jugadoresMaximos > 6) {
+            System.out.println("La cantidad de jugadores mínimos debe ser mayor o igual a 1 y menor o igual a 6"); 
+            resultado = false;
+		}else if (descripcion.length() < 10 || descripcion.length() > 100){
+            System.out.println("La descripcion debe tener entre 10 y 100 caracteres"); 
+            resultado = false;
 		}else {
-            return "Todo bien";	
+			resultado = true;
 		}	
+		return resultado;
+		
+	}
+	//FALTA:
+	public boolean validarActualizarCliente (String email, String direccion, int idCliente) {
+		return true;
+		
 	}
 
 
