@@ -140,6 +140,7 @@ public class Administrador extends Usuario{
 	public String verCaja(int idCaja) {
 		double sumaMontos = 0.0;
 		Conexion con = new Conexion();
+
 		try {
 			Connection conexion = con.conectar();
 			String sql = "SELECT c.id_caja, SUM(tcc.monto) AS suma_montos " +
@@ -152,9 +153,7 @@ public class Administrador extends Usuario{
 
 			ResultSet rs = stmt.executeQuery();
 
-			if (rs.next()) {
-				sumaMontos = rs.getDouble("suma_montos");
-			}
+			sumaMontos = rs.getDouble("suma_montos");
 		} catch (Exception e) {
 			System.out.println("Hubo un error: " + e.getMessage());
 		}

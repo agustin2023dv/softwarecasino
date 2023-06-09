@@ -83,7 +83,17 @@ public class Validacion {
 	}
 	
 //VALIDACIONES ADMINISTRADOR
-	
+
+	public boolean validarVerCaja(int idCaja){
+			
+			if(idCaja<=0 || idCaja>4){
+				return false;
+			}
+			else{
+				return true;
+			}
+	}
+
 	public boolean validarEditarJuego (String descripcion, int jugadoresMinimos, int jugadoresMaximos, int idJuego) {
 		boolean resultado = true;
 		if(jugadoresMinimos < 1 || jugadoresMaximos > 6) {
