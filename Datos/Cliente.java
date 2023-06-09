@@ -13,8 +13,10 @@ public class Cliente extends Usuario {
     private int cantPartidasJugadas;
 
     private double dineroDisponible;
-
-
+   
+	public Cliente() {
+			
+	}
     public Cliente(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String direccion,
                    String correoElectronico, int idCliente, double dineroDisponible) {
         super(idUsuario, nombre, apellido, fecNacimiento, contrasena, direccion, correoElectronico);
