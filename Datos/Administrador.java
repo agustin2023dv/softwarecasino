@@ -145,7 +145,8 @@ public class Administrador extends Usuario{
 		Conexion con = new Conexion();
 		try {
 			Connection conexion = con.conectar();
-			String sql = "SELECT c.id_caja, SUM(tcc.monto) AS suma_montos FROM caja AS c INNER JOIN transaccion_caja_cliente AS tcc ON " +
+			String sql = "SELECT c.id_caja, SUM(tcc.monto) AS suma_montos " +
+					"FROM caja AS c INNER JOIN transaccion_caja_cliente AS tcc ON " +
 					"c.id_caja = tcc.caja WHERE c.id_caja = ? " +
 					"GROUP BY c.id_caja";
 

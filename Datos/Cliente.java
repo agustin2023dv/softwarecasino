@@ -29,6 +29,10 @@ public class Cliente extends Usuario {
         this.dineroDisponible = 0;
     }
 
+    public Cliente() {
+
+    }
+
 
     public int getIdCliente() {
         return idCliente;
