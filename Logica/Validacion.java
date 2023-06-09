@@ -98,7 +98,6 @@ public class Validacion {
 		return resultado;
 		
 	}
-	//FALTA:
 	public boolean validarActualizarCliente (String email, String direccion, int idCliente) {
 			Conexion con = new Conexion();
 
@@ -132,7 +131,7 @@ public class Validacion {
 		}
 
 
-	
+
 
 
 	public boolean validarRevisarCtaCliente(int idUsuario) {
