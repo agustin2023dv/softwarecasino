@@ -15,6 +15,9 @@ public abstract class Usuario {
     private String direccion;
     private String correoElectronico;
 
+    public Usuario() {
+		
+	}
 
     public Usuario(int idUsuario, String nombre, String apellido, Date fecNacimiento,
                    String contrasena, String direccion,String correoElectronico) {
