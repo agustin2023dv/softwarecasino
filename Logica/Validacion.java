@@ -105,29 +105,35 @@ public class Validacion {
 	}
 
 
-	public boolean validarCuentaCliente(int idUsuario) {
+	public boolean validarRevisarCtaCliente(int idUsuario) {
 
 		Conexion con = new Conexion();
 
-		try {
-			Connection conexion = con.conectar();
-			String sql = "SELECT COUNT(*) AS count FROM usuario WHERE id_usuario = ?";
-
-			PreparedStatement stmt = conexion.prepareStatement(sql);
-			stmt.setInt(1, idUsuario);
-
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				int count = rs.getInt("count");
-				return count > 0; // Devuelve true si el ID de usuario existe en la base de datos
-			}
-		} catch (Exception e) {
-			System.out.println("Hubo un error: " + e.getMessage());
+		if(idUsuario <= 0 || idUsuario >99 ){
+			return false;
 		}
+		else{
+			try {
+				Connection conexion = con.conectar();
+				String sql = "SELECT count(*) " +
+						"FROM usuario u INNER JOIN cliente c" +
+						"ON u.id_usuario=c.id_usuario  WHERE c.id_usuario = ?";
 
-		return false; // Devuelve false si ocurrió algún error o el ID de usuario no existe en la base de datos
+				PreparedStatement stmt = conexion.prepareStatement(sql);
+				stmt.setInt(1, idUsuario);
+
+				ResultSet rs = stmt.executeQuery();
+
+				if (rs.next()) {
+					int count = rs.getInt("count");
+					return count > 0; // Devuelve true si el ID de usuario existe en la base de datos
+				}
+			} catch (Exception e) {
+				System.out.println("Hubo un error: " + e.getMessage());
+			}
+			return false; // Devuelve false si ocurrió algún error o el ID de usuario no existe en la base de datos
 	}
+		}
 	
 //VALIDACIONES EMPLEADO CAJA 
 	

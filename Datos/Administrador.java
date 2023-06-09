@@ -49,9 +49,9 @@ public class Administrador extends Usuario{
 	}
 
 	public String revisarCuentaCliente(int idUsuario) {
-
 		String resultado = "";
 		Conexion con = new Conexion();
+
 		try {
 			Connection conexion = con.conectar();
 			String sql = "SELECT u.nombre, u.apellido, u.direccion, u.email, u.fec_nacimiento " +
@@ -64,21 +64,17 @@ public class Administrador extends Usuario{
 
 			ResultSet rs = stmt.executeQuery();
 
-			if (rs.next()) {
-				String nombre = rs.getString("nombre");
-				String apellido = rs.getString("apellido");
-				String direccion = rs.getString("direccion");
-				String email = rs.getString("email");
-				String fecNacimiento = rs.getString("fec_nacimiento");
+			String nombre = rs.getString("nombre");
+			String apellido = rs.getString("apellido");
+			String direccion = rs.getString("direccion");
+			String email = rs.getString("email");
+			String fecNacimiento = rs.getString("fec_nacimiento");
 
-				resultado += "Nombre: " + nombre + "\n";
-				resultado += "Apellido: " + apellido + "\n";
-				resultado += "Dirección: " + direccion + "\n";
-				resultado += "Email: " + email + "\n";
-				resultado += "Fecha de Nacimiento: " + fecNacimiento + "\n";
-			} else {
-				resultado = "No se encontró ningún cliente con el ID de usuario proporcionado.";
-			}
+			resultado += "Nombre: " + nombre + "\n";
+			resultado += "Apellido: " + apellido + "\n";
+			resultado += "Dirección: " + direccion + "\n";
+			resultado += "Email: " + email + "\n";
+			resultado += "Fecha de Nacimiento: " + fecNacimiento + "\n";
 		} catch (Exception e) {
 			System.out.println("Hubo un error: " + e.getMessage());
 			resultado = "Hubo un error al consultar la cuenta del cliente.";
@@ -86,6 +82,7 @@ public class Administrador extends Usuario{
 
 		return resultado;
 	}
+
 
 	public void eliminarUsuario(int idUsuario) {
 		Conexion con = new Conexion();
