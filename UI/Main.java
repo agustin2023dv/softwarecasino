@@ -18,6 +18,7 @@ class Main {
 		//CONEXION BD
 		Connection conexion = Conexion.conectar();
 		Validacion validacion = new Validacion();
+		Administrador adm = new Administrador();
 
 
 		// INICIO
@@ -37,7 +38,8 @@ class Main {
 		String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Logout"};
 		
 		String[] opcionesTecnico = {"Reparar Maquina", "Habilitar Maquina", "Deshabilitar Maquina", "Logout"};
-
+		
+		String opcion;
 
 		// Pantalla de Bienvenida
 
@@ -114,7 +116,19 @@ class Main {
 
 				if (resultSetEmpleado.next()) {
 					// Es un empleado, mostrar el menú de empleado
+					do {
+						
+						 opcion = (String)JOptionPane.showInputDialog(null,"Opciones Administrador","Opcion",JOptionPane.DEFAULT_OPTION,null, opcionesAdminsitrador,opcionesAdminsitrador);
+						
+						switch (opcion) {
+						case "Ver cliente":
+							JOptionPane.showMessageDialog(null, "Eligió Visualizar Cliente");
+							int visualizarCliente =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
+							JOptionPane.showMessageDialog(null, adm.revisarCuentaCliente(visualizarCliente));
 
+					}
+					
+					}while(!opcion.equals("Salir"));
 				}
 
 				// Cerrar los resultados y declaraciones
