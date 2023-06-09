@@ -100,9 +100,39 @@ public class Validacion {
 	}
 	//FALTA:
 	public boolean validarActualizarCliente (String email, String direccion, int idCliente) {
-		return true;
-		
-	}
+			Conexion con = new Conexion();
+
+
+		if(idCliente<= 0 || idCliente >99 || email.equals("") || direccion.equals("")
+			||	email.length() < 10 || email.length() > 30 || direccion.length() < 10 || direccion.length() > 30){
+
+			return false;
+		}
+		else{
+			try {
+				Connection conexion = con.conectar();
+				String sql = "SELECT count(*) " +
+						"FROM usuario u INNER JOIN cliente c" +
+						"ON u.id_usuario=c.id_usuario  WHERE c.id_usuario = ?";
+
+				PreparedStatement stmt = conexion.prepareStatement(sql);
+				stmt.setInt(1, idCliente);
+
+				ResultSet rs = stmt.executeQuery();
+
+				if (rs.next()) {
+					int count = rs.getInt("count");
+					return count > 0; // Devuelve true si el ID de usuario existe en la base de datos
+				}
+			} catch (Exception e) {
+				System.out.println("Hubo un error: " + e.getMessage());
+			}
+			return true; // Devuelve false si ocurrió algún error o el ID de usuario no existe en la base de datos
+		}
+		}
+
+
+	
 
 
 	public boolean validarRevisarCtaCliente(int idUsuario) {
@@ -131,7 +161,7 @@ public class Validacion {
 			} catch (Exception e) {
 				System.out.println("Hubo un error: " + e.getMessage());
 			}
-			return false; // Devuelve false si ocurrió algún error o el ID de usuario no existe en la base de datos
+			return true; // Devuelve false si ocurrió algún error o el ID de usuario no existe en la base de datos
 	}
 		}
 	
