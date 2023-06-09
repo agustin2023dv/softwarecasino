@@ -138,6 +138,7 @@ public class Administrador extends Usuario{
 	}
 
 	public String verCaja(int idCaja) {
+
 		double sumaMontos = 0.0;
 		Conexion con = new Conexion();
 
