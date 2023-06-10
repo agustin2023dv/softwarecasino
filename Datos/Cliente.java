@@ -59,6 +59,49 @@ public class Cliente extends Usuario {
 
     // Metodos del cliente
 
+    public String getHistorialPartidas(int idCliente) {
+
+        Conexion con = new Conexion();
+        StringBuilder historial = new StringBuilder();
+
+        try  {
+            Connection conexion = con.conectar();
+
+            String sql = "SELECT p.fecha, j.nombre, p.monto_apostado, p.resultado " +
+                    "FROM partida AS p " +
+                    "INNER JOIN juego AS j ON p.juego = j.id_juego " +
+                    "WHERE p.cliente = ? " +
+                    "ORDER BY p.fecha DESC";
+
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            stmt.setInt(1, idCliente);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String fecha = rs.getString("fecha");
+                String nombreJuego = rs.getString("nombre");
+                double montoApostado = rs.getDouble("monto_apostado");
+                int resultado = rs.getInt("resultado");
+
+                historial.append("Fecha: ").append(fecha).append("\n");
+                historial.append("Juego: ").append(nombreJuego).append("\n");
+                historial.append("Monto Apostado: ").append(montoApostado).append("\n");
+                historial.append("Resultado: ").append(resultado).append("\n");
+                historial.append("------------------------\n");
+            }
+        } catch (Exception e) {
+            System.out.println("Hubo un error: " + e.getMessage());
+            return "Hubo un error al obtener el historial de partidas.";
+        }
+
+        return historial.toString();
+    }
+
+
+
+
+
     public double getDineroDisponible() {
         Conexion con = new Conexion();
         double dineroDisponible = 0;

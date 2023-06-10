@@ -28,7 +28,7 @@ class Main {
 
 
 		// MENUES
-		String []opcionesCliente = {"Ver perfil","Jugar","Agregar dinero",
+		String []opcionesCliente = {"Ver perfil","Jugar", "Ver historial partidas","Agregar dinero",
 				"Retirar dinero","Salir"};
 
 		String []opcionesAdminsitrador = {"Ver cliente","Eliminar cliente",
@@ -97,6 +97,7 @@ class Main {
 				if (resultSetCliente.next()) {
 					// Es un cliente, mostrar el menú de cliente
 					int idCliente = resultSetCliente.getInt("id_usuario");
+					int juego;
 					do{
 						opcion = (String) JOptionPane.showInputDialog(null,"Opciones Cliente",
 						"Opcion",JOptionPane.DEFAULT_OPTION,null, opcionesCliente,opcionesCliente);
@@ -106,8 +107,18 @@ class Main {
 							JOptionPane.showMessageDialog(null,cliente.verCuenta(idCliente));
 							break;
 						case "Jugar":
+
+							juego = Integer.parseInt(JOptionPane.showInputDialog(null,
+									"Seleccione juego", "Hola"));
+							break;
+						case "Ver historial partidas":
+							JOptionPane.showMessageDialog(null,cliente.getHistorialPartidas(idCliente));
 							break;
 						case "Agregar dinero":
+							double monto;
+							monto = Double.parseDouble(JOptionPane.showInputDialog(null,
+									"Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
+
 							break;
 						case "Retirar dinero":
 							break;
