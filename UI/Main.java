@@ -66,7 +66,6 @@ class Main {
 
 
 		// Verificamos el tipo de usuario que es
-		String consultaEmpleado = "SELECT * FROM empleado as e INNER JOIN usuario as u WHERE e.id_usuario = ?";
 
 		if(validacion.validacionLogin(idUsuario,contrasena)){
 
