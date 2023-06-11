@@ -29,10 +29,6 @@ class Main {
 
 		// INICIO
 
-
-		String []opcionesAdminsitrador = {"Ver cliente","Eliminar cliente",
-				"Ver caja", "Eliminar juego",
-				"Editar juego","Editar datos cliente", "Salir"};
 		
 		String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Logout"};
 		

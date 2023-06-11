@@ -10,7 +10,7 @@ public class Tecnico extends Empleado{
 		super(idUsuario, nombre, apellido, fecNacimiento, contrasena, direccion, correoElectronico, idEmpleado, puesto);
 	}
 
-
+public Tecnico(){};
 	public int getIdTecnico() {
 		return idTecnico;
 	}
