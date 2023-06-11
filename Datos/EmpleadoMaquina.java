@@ -1,8 +1,8 @@
 package Datos;
-
+import Interface.Menu;
 import java.util.Date;
 
-public class EmpleadoMaquina extends Empleado{
+public class EmpleadoMaquina extends Empleado implements Menu{
 
     private int idEmpleadoMaquina;
 
@@ -42,5 +42,9 @@ public class EmpleadoMaquina extends Empleado{
     public void recargarTickets(Maquina maquina, int cantidadTickets){
 
         maquina.setSaldoTickets((maquina.getSaldoTickets() + cantidadTickets));
+    }
+
+    public void mostrarMenu(int id){
+        String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Logout"};
     }
 }

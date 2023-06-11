@@ -42,6 +42,7 @@ public Tecnico(){};
 	}
 
 	public void mostrarMenu(int id) {
+		String[] opcionesTecnico = {"Reparar Maquina", "Habilitar Maquina", "Deshabilitar Maquina", "Logout"};
 
 
 	}

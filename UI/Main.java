@@ -29,12 +29,7 @@ class Main {
 
 		// INICIO
 
-		
-		String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Logout"};
-		
-		String[] opcionesTecnico = {"Reparar Maquina", "Habilitar Maquina", "Deshabilitar Maquina", "Logout"};
-		
-		String opcion;
+
 
 		// Pantalla de Bienvenida
 
