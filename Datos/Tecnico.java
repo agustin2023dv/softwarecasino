@@ -1,8 +1,11 @@
 package Datos;
 
+import Interface.Menu;
+
+import java.sql.Connection;
 import java.util.Date;
 
-public class Tecnico extends Empleado{
+public class Tecnico extends Empleado implements Menu {
 	
 	private int idTecnico;
 
@@ -32,9 +35,15 @@ public Tecnico(){};
 	}
 	
 	public void deshabilitarMaquina(Maquina maquina) {
+
 		if (maquina.getHabilitada()) {
 			maquina.setHabilitada(false);
 		}
+	}
+
+	public void mostrarMenu(int id) {
+
+
 	}
 	
 }
