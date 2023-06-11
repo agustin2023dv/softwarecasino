@@ -11,6 +11,7 @@ public class Juego {
     private  int jugadoresMinimos;
     private int jugadoresMaximos;
 
+    public Juego(){};
 
     public Juego(int idJuego, String nombre, String descripcion, int jugadoresMinimos, int jugadoresMaximos, Maquina maquina) {
         this.idJuego = idJuego;

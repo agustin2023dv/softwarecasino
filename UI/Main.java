@@ -3,6 +3,7 @@ package UI;
 import Datos.Administrador;
 import Datos.Cliente;
 import Datos.Conexion;
+import Datos.EmpleadoCaja;
 import Logica.*;
 
 import Logica.Validacion.*;
@@ -20,22 +21,18 @@ class Main {
 		//CONEXION BD
 		Connection conexion = Conexion.conectar();
 		Validacion validacion = new Validacion();
+
+
 		Administrador adm = new Administrador();
 		Cliente cliente = new Cliente();
+		EmpleadoCaja empCaja = new EmpleadoCaja();
 
 		// INICIO
 
 
-
-		// MENUES
-		String []opcionesCliente = {"Ver perfil","Jugar", "Ver historial partidas","Agregar dinero",
-				"Retirar dinero","Salir"};
-
 		String []opcionesAdminsitrador = {"Ver cliente","Eliminar cliente",
 				"Ver caja", "Eliminar juego",
 				"Editar juego","Editar datos cliente", "Salir"};
-		
-		String []opcionesECaja = {"Agregar dinero", "Entregar dinero", "Logout"};
 		
 		String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Logout"};
 		
@@ -61,184 +58,32 @@ class Main {
 
 
 		// LOGIN
-		String idUsuario = JOptionPane.showInputDialog(null,"Id usuario:");
+		int idUsuario;
+
+		idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "ID de usuario:"));
+
 		String contrasena = JOptionPane.showInputDialog(null,"Contraseña:");
 
 
-
-		// Verificamos si existe
-		String consultaUsuario = "SELECT * FROM usuario WHERE id_usuario = ? AND contrasena = ?";
-
 		// Verificamos el tipo de usuario que es
-
-		String consultaCliente = "SELECT * FROM cliente as c INNER JOIN usuario as u WHERE c.id_usuario = ?";
-		String consultaAdministrador = "SELECT * FROM administrador as a INNER JOIN usuario as u WHERE a.id_usuario = ?";
 		String consultaEmpleado = "SELECT * FROM empleado as e INNER JOIN usuario as u WHERE e.id_usuario = ?";
 
+		if(validacion.validacionLogin(idUsuario,contrasena)){
 
-
-		try {
-
-
-			PreparedStatement statementUsuario = conexion.prepareStatement(consultaUsuario);
-			statementUsuario.setString(1,idUsuario);
-			statementUsuario.setString(2, contrasena);
-
-			ResultSet resultSetUsuario = statementUsuario.executeQuery();
-
-			if (resultSetUsuario.next()) {
-				// Usuario y contraseña válidos, redireccionar al menú correspondiente
-
-				// Verificar si es un cliente
-				PreparedStatement statementCliente = conexion.prepareStatement(consultaCliente);
-				statementCliente.setString(1, idUsuario);
-				ResultSet resultSetCliente = statementCliente.executeQuery();
-
-				if (resultSetCliente.next()) {
-					// Es un cliente, mostrar el menú de cliente
-					int idCliente = resultSetCliente.getInt("id_usuario");
-					int juego;
-					do{
-						opcion = (String) JOptionPane.showInputDialog(null,"Opciones Cliente",
-						"Opcion",JOptionPane.DEFAULT_OPTION,null, opcionesCliente,opcionesCliente);
-
-					switch (opcion){
-						case "Ver perfil":
-							JOptionPane.showMessageDialog(null,cliente.verCuenta(idCliente));
-							break;
-						case "Jugar":
-
-							juego = Integer.parseInt(JOptionPane.showInputDialog(null,
-									"Seleccione juego", "Hola"));
-							break;
-						case "Ver historial partidas":
-							JOptionPane.showMessageDialog(null,cliente.getHistorialPartidas(idCliente));
-							break;
-						case "Agregar dinero":
-							double monto;
-							monto = Double.parseDouble(JOptionPane.showInputDialog(null,
-									"Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
-
-							break;
-						case "Retirar dinero":
-							break;
-					}
-					}while(!opcion.equals("Salir"));
-				}
-
-				// Verificar si es un administrador
-				PreparedStatement statementAdministrador = conexion.prepareStatement(consultaAdministrador);
-				statementAdministrador.setString(1, idUsuario);
-				ResultSet resultSetAdministrador = statementAdministrador.executeQuery();
-
-
-				if (resultSetAdministrador.next()) {
-					// Es un administrador, mostrar el menú de administrador
-					do {
-						
-						opcion = (String)JOptionPane.showInputDialog(null,"Opciones Administrador",
-								"Opcion",JOptionPane.DEFAULT_OPTION,null, opcionesAdminsitrador,opcionesAdminsitrador);
-						int id;
-						switch (opcion) {
-						case "Ver cliente":
-							JOptionPane.showMessageDialog(null, "Eligió Visualizar Cliente");
-							id =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
-							JOptionPane.showMessageDialog(null, adm.revisarCuentaCliente(id));
-							break;
-						case "Eliminar cliente":
-							JOptionPane.showMessageDialog(null, "Eligió Eliminar Cliente");
-							id =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
-								adm.eliminarUsuario(id);
-								JOptionPane.showMessageDialog(null, "Se elimino con exito el cliente con id" + id);
-							break;
-						case "Ver caja":
-							JOptionPane.showMessageDialog(null, "Eligió Ver Caja");
-							id =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID de la Caja"));
-							JOptionPane.showMessageDialog(null, adm.verCaja(id));
-							break;
-						case "Eliminar juego":
-							JOptionPane.showMessageDialog(null, "Eligió Eliminar Juego");
-							id =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID del Juego"));
-							JOptionPane.showMessageDialog(null, adm.eliminarJuego(id));
-							break;
-						case "Editar juego":
-							JOptionPane.showMessageDialog(null, "Eligió Editar Juego");
-							id =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID del Juego"));
-							String descripcion;
-							descripcion = JOptionPane.showInputDialog("Ingrese la descripcion del Juego");
-							int jugadoresMinimos =Integer.parseInt( JOptionPane.showInputDialog("Ingrese los jugadores mínimos del Juego"));
-							int jugadoresMaximos =Integer.parseInt( JOptionPane.showInputDialog("Ingrese los jugadores máximos del Juego"));
-							if(validacion.validarEditarJuego(descripcion, jugadoresMinimos, jugadoresMaximos, id)) {
-								adm.editarJuego(descripcion, jugadoresMaximos,id);
-							}
-							break;
-						case "Editar datos cliente":
-							JOptionPane.showMessageDialog(null, "Eligió Editar Cliente");
-							id =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
-							String email;
-							email = JOptionPane.showInputDialog("Ingrese el correo del Cliente");
-							String direccion;
-							direccion = JOptionPane.showInputDialog("Ingrese la direccion del Cliente");
-							if(validacion.validarActualizarCliente (email, direccion, id)) {
-								adm.actualizarCliente(email,direccion, id);
-							}
-							break;
-						case "Salir":
-							break;
-				
-						default:
-							break;
-						}
-					
-					}while(!opcion.equals("Salir"));
-				}
-
-				// Verificar si es un empleado
-				PreparedStatement statementEmpleado = conexion.prepareStatement(consultaEmpleado);
-				statementEmpleado.setString(1, idUsuario);
-				ResultSet resultSetEmpleado = statementEmpleado.executeQuery();
-
-
-				if (resultSetEmpleado.next()) {
-					// Es un empleado, mostrar el menú de empleado
-					do {
-						
-						 opcion = (String)JOptionPane.showInputDialog(null,"Opciones Administrador","Opcion",JOptionPane.DEFAULT_OPTION,null, opcionesAdminsitrador,opcionesAdminsitrador);
-						
-						switch (opcion) {
-						case "Ver cliente":
-							JOptionPane.showMessageDialog(null, "Eligió Visualizar Cliente");
-							int visualizarCliente =Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
-							JOptionPane.showMessageDialog(null, adm.revisarCuentaCliente(visualizarCliente));
-
-					}
-					
-					}while(!opcion.equals("Salir"));
-				}
-
-				// Cerrar los resultados y declaraciones
-				resultSetCliente.close();
-				resultSetAdministrador.close();
-				resultSetEmpleado.close();
-
-				statementCliente.close();
-				statementAdministrador.close();
-				statementEmpleado.close();
-
-
-			} else {
-				// Usuario o contraseña incorrectos
-				JOptionPane.showMessageDialog(null,
-						"Credenciales incorrectas. Por favor, inténtelo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
-
+			if(validacion.verificarCliente(idUsuario)){
+				cliente.mostrarMenu(idUsuario);
+			}
+			else if(validacion.verificarAdmin(idUsuario)){
+				adm.mostrarMenu(idUsuario);}
+			else if(validacion.verificarECaja(idUsuario)){
+				empCaja.mostrarMenu(idUsuario);
 			}
 
-			// Cerrar los resultados y declaraciones
-			resultSetUsuario.close();
-			statementUsuario.close();
-		} catch (SQLException e) {
-			// Manejo de la excepción SQLException
-			System.out.println("Error al ejecutar la consulta: " + e.getMessage());
+		} else {
+			// Usuario o contraseña incorrectos
+			JOptionPane.showMessageDialog(null,
+					"Credenciales incorrectas. Por favor, inténtelo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+
 		}
 
 

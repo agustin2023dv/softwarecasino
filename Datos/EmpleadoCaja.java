@@ -1,10 +1,14 @@
 package Datos;
 
+import Interface.Menu;
+import Logica.Validacion;
+
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Date;
 
-public class EmpleadoCaja extends Empleado{
+public class EmpleadoCaja extends Empleado implements Menu {
 
     private int idEmpleadoCaja;
 
@@ -16,6 +20,7 @@ public class EmpleadoCaja extends Empleado{
         this.idEmpleadoCaja = idEmpleadoCaja;
     }
 
+    public EmpleadoCaja(){};
     public int getIdEmpleadoCaja() {
         return idEmpleadoCaja;
     }
@@ -29,7 +34,7 @@ public class EmpleadoCaja extends Empleado{
         this.caja = caja;
     }
 
-    public void agregarDinero(double monto) {
+    public void agregarDinero(double monto, int id) {
         Conexion con = new Conexion();
         int caja = this.getCaja().getIdCaja();
         Date fecha = new Date();
@@ -39,7 +44,7 @@ public class EmpleadoCaja extends Empleado{
             String sql = "INSERT INTO transaccion_caja_empleado (empleado, caja, monto, fecha) VALUES (?, ?, ?, ?)";
 
             PreparedStatement stmt = conexion.prepareStatement(sql);
-            stmt.setInt(1, this.getIdEmpleado());
+            stmt.setInt(1, id);
             stmt.setInt(2, caja);
             stmt.setDouble(3, monto);
             stmt.setDate(4, new java.sql.Date(fecha.getTime()));
@@ -51,15 +56,37 @@ public class EmpleadoCaja extends Empleado{
     }
 
 
-    public void entregarDinero(double montoAEntregar, Cliente cliente) {
 
-        if (this.getCaja().getSaldoActual() >= montoAEntregar) {
-            this.getCaja().setSaldoActual(this.getCaja().getSaldoActual() - montoAEntregar);
-            cliente.setDineroDisponible(cliente.getDineroDisponible() + montoAEntregar);
-        }
-        else
-        {
-            System.out.println("No hay dinero disponible en la caja");
-        }
+
+    public void mostrarMenu(int id) {
+        String opcion;
+        String []opcionesECaja = {"Agregar dinero", "Ver algo", "Salir"};
+
+        Validacion validacion = new Validacion();
+        do {
+            opcion = (String) JOptionPane.showInputDialog(null, "Opciones Empleado CAJA", "Opcion",
+                    JOptionPane.DEFAULT_OPTION, null, opcionesECaja, opcionesECaja);
+
+
+            switch (opcion) {
+                case "Agregar dinero":
+
+                    double monto;
+                    monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Monto a agregar"));
+                    if(validacion.validarAgregarDinero(monto)){
+                        this.agregarDinero(monto, id);
+                    }
+
+
+                    break;
+                case "Ver algo":
+
+
+
+
+                    break;
+            }
+
+        } while (!opcion.equals("Salir"));
     }
 }

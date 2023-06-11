@@ -8,7 +8,7 @@ public class Empleado extends Usuario{
 
     private String puesto;
 
-
+public Empleado(){};
     public Empleado(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena, String direccion,
                     String correoElectronico, int idEmpleado, String puesto) {
         super(idUsuario, nombre, apellido, fecNacimiento, contrasena, direccion, correoElectronico);

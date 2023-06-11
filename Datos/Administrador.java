@@ -1,11 +1,15 @@
 package Datos;
 
+import Interface.Menu;
+import Logica.Validacion;
+
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 
-public class Administrador extends Usuario{
+public class Administrador extends Usuario implements Menu {
 
 	private int idAdministrador;
 	
@@ -160,6 +164,69 @@ public class Administrador extends Usuario{
 		}
 
 		return "La caja " + idCaja + " tiene un saldo de " + sumaMontos;
+	}
+
+	public void mostrarMenu(int idAdm) {
+		String[] opcionesAdminsitrador = { "Ver cliente", "Eliminar cliente", "Ver caja", "Eliminar juego",
+				"Editar juego", "Editar datos cliente", "Salir" };
+		String opcion;
+
+		Validacion validacion = new Validacion();
+		do {
+			opcion = (String) JOptionPane.showInputDialog(null, "Opciones Administrador", "Opcion",
+					JOptionPane.DEFAULT_OPTION, null, opcionesAdminsitrador, opcionesAdminsitrador);
+
+			int id;
+
+			switch (opcion) {
+				case "Ver cliente":
+					JOptionPane.showMessageDialog(null, "Eligió Visualizar Cliente");
+					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
+					JOptionPane.showMessageDialog(null, this.revisarCuentaCliente(id));
+					break;
+				case "Eliminar cliente":
+					JOptionPane.showMessageDialog(null, "Eligió Eliminar Cliente");
+					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
+					this.eliminarUsuario(id);
+					JOptionPane.showMessageDialog(null, "Se eliminó con éxito el cliente con ID: " + id);
+					break;
+				case "Ver caja":
+					JOptionPane.showMessageDialog(null, "Eligió Ver Caja");
+					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Caja"));
+					JOptionPane.showMessageDialog(null, this.verCaja(id));
+					break;
+				case "Eliminar juego":
+					JOptionPane.showMessageDialog(null, "Eligió Eliminar Juego");
+					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
+					JOptionPane.showMessageDialog(null, this.eliminarJuego(id));
+					break;
+				case "Editar juego":
+					JOptionPane.showMessageDialog(null, "Eligió Editar Juego");
+					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
+					String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del Juego");
+					int jugadoresMinimos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los jugadores mínimos del Juego"));
+					int jugadoresMaximos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los jugadores máximos del Juego"));
+					if (validacion.validarEditarJuego(descripcion, jugadoresMinimos, jugadoresMaximos, id)) {
+						this.editarJuego(descripcion, jugadoresMaximos, id);
+					}
+					break;
+				case "Editar datos cliente":
+					JOptionPane.showMessageDialog(null, "Eligió Editar Cliente");
+					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
+					String email = JOptionPane.showInputDialog("Ingrese el correo del Cliente");
+					String direccion = JOptionPane.showInputDialog("Ingrese la dirección del Cliente");
+					if (validacion.validarActualizarCliente(email, direccion, id)) {
+						this.actualizarCliente(email, direccion, id);
+					}
+					break;
+				case "Salir":
+					break;
+
+				default:
+					break;
+			}
+
+		} while (!opcion.equals("Salir"));
 	}
 
 }

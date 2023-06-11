@@ -60,20 +60,83 @@ public class Validacion {
 
 			return false; // No se encontró un usuario con el ID y contraseña proporcionados
 		}
-   
-//VALIDACIONES CLIENTE
-	
-	public static boolean validarCargaDinero(double monto) {
 
-		if (monto <= 0) {
-			return false; // El monto debe ser mayor que cero
+
+
+	public boolean verificarCliente(int idUsuario) {
+		// Consulta para verificar si es un cliente
+		String consultaCliente = "SELECT * FROM cliente WHERE id_usuario = ?";
+
+		try {
+			// Crear la conexión y preparar la consulta
+			Connection conexion = Conexion.conectar();
+			PreparedStatement statementCliente = conexion.prepareStatement(consultaCliente);
+
+			// Establecer el parámetro en la consulta
+			statementCliente.setInt(1, idUsuario);
+
+			// Ejecutar la consulta y obtener el resultado
+			ResultSet resultSetCliente = statementCliente.executeQuery();
+
+			// Verificar si hay algún resultado
+			boolean esCliente = resultSetCliente.next();
+
+			// Cerrar la conexión y liberar recursos
+			resultSetCliente.close();
+			statementCliente.close();
+			conexion.close();
+
+			// Devolver el resultado de la verificación
+			return esCliente;
+		} catch (SQLException e) {
+			// Manejar cualquier error de SQL aquí
+			e.printStackTrace();
+			return false;
 		}
-
-		return true; // Si el monto es mayor a 0 retorna true
 	}
 
-	public static boolean validarRetiroDinero(Cliente cliente, double monto) {
-		double dineroDisponible = cliente.getDineroDisponible();
+
+	public boolean verificarAdmin(int idUsuario) {
+		// Consulta para verificar si es un cliente
+		String consultaAdmin = "SELECT * FROM empleado WHERE id_usuario = ?";
+
+		try {
+			// Crear la conexión y preparar la consulta
+			Connection conexion = Conexion.conectar();
+			PreparedStatement statementAdmin = conexion.prepareStatement(consultaAdmin);
+
+			// Establecer el parámetro en la consulta
+			statementAdmin.setInt(1, idUsuario);
+
+			// Ejecutar la consulta y obtener el resultado
+			ResultSet resultSetAdmin = statementAdmin.executeQuery();
+
+			// Verificar si hay algún resultado
+			boolean esAdmin = resultSetAdmin.next();
+
+			// Cerrar la conexión y liberar recursos
+			resultSetAdmin.close();
+			statementAdmin.close();
+			conexion.close();
+
+			// Devolver el resultado de la verificación
+			return esAdmin;
+		} catch (SQLException e) {
+			// Manejar cualquier error de SQL aquí
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+
+//VALIDACIONES CLIENTE
+
+
+
+	public boolean validarRetiroDinero(int idCliente, double monto) {
+			Cliente cliente = new Cliente();
+
+			double dineroDisponible = cliente.getDineroDisponible(idCliente);
 
 		if (monto > dineroDisponible) {
 			return false; // El cliente no tiene suficiente dinero disponible para realizar el retiro
@@ -82,9 +145,8 @@ public class Validacion {
 		return true; // El cliente tiene suficiente dinero disponible
 	}
 
-	public boolean validarJugar(int idJuego, double monto){
+	public boolean validarJugar(double monto){
 
-			double dineroDisponible ;
 
 
 			if(monto<=0){
@@ -186,7 +248,41 @@ public class Validacion {
 		}
 	
 //VALIDACIONES EMPLEADO CAJA 
-	
+
+
+	public boolean verificarECaja(int id){
+
+		// Consulta para verificar si es un empleado caja
+		String consultaEmpleado = "SELECT * FROM empleado as e INNER JOIN usuario as u WHERE e.id_usuario = ?";
+
+		try {
+			// Crear la conexión y preparar la consulta
+			Connection conexion = Conexion.conectar();
+			PreparedStatement statementEmpleado = conexion.prepareStatement(consultaEmpleado);
+
+			// Establecer el parámetro en la consulta
+			statementEmpleado.setInt(1, id);
+
+			// Ejecutar la consulta y obtener el resultado
+			ResultSet resultSetAdmin = statementEmpleado.executeQuery();
+
+			// Verificar si hay algún resultado
+			boolean esAdmin = resultSetAdmin.next();
+
+			// Cerrar la conexión y liberar recursos
+			resultSetAdmin.close();
+			statementEmpleado.close();
+			conexion.close();
+
+			// Devolver el resultado de la verificación
+			return esAdmin;
+		} catch (SQLException e) {
+			// Manejar cualquier error de SQL aquí
+			e.printStackTrace();
+			return false;
+		}
+
+	}
 	public boolean validarAgregarDinero (double montoAAgregar) {
 		
 		if(montoAAgregar >= 1) {
@@ -196,15 +292,6 @@ public class Validacion {
 		}	
 	}
 	
-	public boolean validarEntregarDinero (double montoAEntregar, Cliente cliente) {
 
-			double saldoDisponible = cliente.getDineroDisponible();
-
-		if(montoAEntregar < 1 || montoAEntregar > saldoDisponible) {
-            return true;
-		}else {
-            return false;
-		}	
-	}
     
 }
