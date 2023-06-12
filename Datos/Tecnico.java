@@ -105,8 +105,12 @@ public class Tecnico extends Empleado implements Menu {
 				int idmaquina;
 				JOptionPane.showMessageDialog(null, "Eligió Reparar Máquina");
 				idmaquina = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Maquina"));
-				String reparar = this.repararMaquina(idmaquina);
-				JOptionPane.showMessageDialog(null, reparar);	
+
+				if(validacion.validarExistenciaMaquina(idmaquina)){
+					this.repararMaquina(idmaquina);
+					JOptionPane.showMessageDialog(null,"La maquina numero "+idmaquina+ " ha sido reparada exitosamente",
+							"Reparacion exitosa",JOptionPane.INFORMATION_MESSAGE);
+				}
 				break;
 				
 			case "Encender Maquina":
