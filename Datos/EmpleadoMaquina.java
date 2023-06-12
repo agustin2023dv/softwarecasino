@@ -45,6 +45,6 @@ public class EmpleadoMaquina extends Empleado implements Menu{
     }
 
     public void mostrarMenu(int id){
-        String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Logout"};
+        String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Salir"};
     }
 }
