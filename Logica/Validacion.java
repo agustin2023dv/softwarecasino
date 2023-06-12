@@ -299,7 +299,7 @@ public class Validacion {
 	public boolean verificarTecnico(int idUsuario){
 
 		// Consulta para verificar si es un Tecnico
-		String consultaTecnico = "SELECT * FROM empleado WHERE tipo_empleado = 3 AND id_usuario = ?";
+		String consultaTecnico = "SELECT * FROM empleado WHERE tipo_empleado = 2 AND id_usuario = ?";
 
 		try {
 			// Crear la conexión y preparar la consulta
@@ -336,7 +336,7 @@ public class Validacion {
 	public boolean verificarEMaquina(int idUsuario){
 
 		// Consulta para verificar si es un empleado maquina
-		String consultaEMaquina = "SELECT * FROM empleado WHERE tipo_empleado = 2 AND id_usuario = ?";
+		String consultaEMaquina = "SELECT * FROM empleado WHERE tipo_empleado = 3 AND id_usuario = ?";
 
 		try {
 			// Crear la conexión y preparar la consulta
