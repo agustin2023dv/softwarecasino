@@ -55,12 +55,13 @@ class Main {
 		int intentosLogin = 0;
 		int idUsuario;
 
-		idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "ID de usuario:"));
 
-		String contrasena = JOptionPane.showInputDialog(null, "Contraseña:");
 
 // Verificamos el tipo de usuario que es
 		do {
+			idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "ID de usuario:"));
+
+			String contrasena = JOptionPane.showInputDialog(null, "Contraseña:");
 			if (validacion.validacionLogin(idUsuario, contrasena)) {
 
 				if (validacion.verificarCliente(idUsuario)) {
