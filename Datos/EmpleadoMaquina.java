@@ -34,65 +34,41 @@ public class EmpleadoMaquina extends Empleado implements Menu{
     
     // Metodos
     
-    public String encenderMaquina(int id) {
-        Conexion con = new Conexion();
-        try {
-            Connection conexion = con.conectar();
+    public boolean encenderMaquina(int id) {
+		Conexion con = new Conexion();
+		try {
+			Connection conexion = con.conectar();
 
-	            String sql = "SELECT * FROM maquina WHERE id_maquina = ?";
-	            PreparedStatement stmt = conexion.prepareStatement(sql);
-	            stmt.setInt(1, id);
-	            ResultSet rs = stmt.executeQuery();
-	            
-	            if (rs.next()) {  
-					Maquina maquina = new Maquina(id, rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
-	                
-	            	if (rs.getBoolean("daniada")) {
-	            		return "La maquina se encuentra dañada, no se puede encender.";
-	            	} else if (rs.getBoolean("habilitada")){
-	            		return "La maquina ya se encuentra encendida.";							
-					} else {
-						maquina.encender();
-						return "Encendiendo Maquina.";
-					}
-	          	
-				} else {
-					return "No se encontró la máquina con ID: " + id;
-				}
-            
-        } catch (Exception e) {
-        	return "Hubo un error: " + e.getMessage();
-        }
+			String sql = "UPDATE maquina SET habilitada = true WHERE id_maquina = ?;";
+			PreparedStatement stmt = conexion.prepareStatement(sql);
+			stmt.setInt(1, id);
+
+
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+			return false;
+		}
+		return true;
     }
     
     
-    public String apagarMaquina(int id) {
+    public boolean apagarMaquina(int id) {
         Conexion con = new Conexion();
         try {
             Connection conexion = con.conectar();
 
-	            String sql = "SELECT * FROM maquina WHERE id_maquina = ?";
+	            String sql = "UPDATE maquina SET habilitada = false WHERE id_maquina = ?;";
 	            PreparedStatement stmt = conexion.prepareStatement(sql);
 	            stmt.setInt(1, id);
-	            ResultSet rs = stmt.executeQuery();
 	            
-	            if (rs.next()) {  
-					Maquina maquina = new Maquina(id, rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
-	                
-	            	if (rs.getBoolean("habilitada")) {
-	            		maquina.apagar();
-	            		return "La maquina se encuentra encendida. Apagado exitoso.";
-	            	} else{
-	            		return "La maquina ya se encuentra apagada.";							
-					} 
-	          	
-				} else {
-					return "No se encontró la máquina con ID: " + id;
-				}
+
             
         } catch (Exception e) {
-        	return "Hubo un error: " + e.getMessage();
+        	JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+			return false;
         }
+		return true;
     }
     
     
@@ -103,25 +79,33 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 
         String opcion;
 
-        JOptionPane.showMessageDialog(null, "Ingresó como Empleado Máquina");
         Validacion validacion = new Validacion();
 		do {
 			
-			opcion = (String) JOptionPane.showInputDialog(null, "Opciones Empleado Maquina", "Opcion",
+			opcion = (String) JOptionPane.showInputDialog(null, "Opciones Empleado Maquina", "Menu empleado maquina",
 					JOptionPane.DEFAULT_OPTION, null, opcionesEMaquina, opcionesEMaquina);
 			int idmaquina;
 			switch (opcion) {
 			
 			case "Encender Maquina":
 				idmaquina = Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID de la Maquina a encender"));
-				String encender = this.encenderMaquina(idmaquina);
-				JOptionPane.showMessageDialog(null, encender);
+
+				if(validacion.validarExistenciaMaquina(idmaquina)){
+					this.encenderMaquina(idmaquina);
+					JOptionPane.showMessageDialog(null,"La maquina numero "+idmaquina+" ha sido encendida exitosamente",
+							"Encendido exitoso",JOptionPane.INFORMATION_MESSAGE);
+				}
 				break;
 				
 			case "Apagar Maquina":
 				idmaquina = Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID de la Maquina a apagar"));
-				String apagar = this.apagarMaquina(idmaquina);
-				JOptionPane.showMessageDialog(null, apagar);
+
+				if(validacion.validarExistenciaMaquina(idmaquina)){
+					this.apagarMaquina(idmaquina);
+					JOptionPane.showMessageDialog(null,"La maquina numero "+idmaquina+" ha sido apagada exitosamente",
+							"Apagado exitoso",JOptionPane.INFORMATION_MESSAGE);
+				}
+
 				break;
 				
 			case "Salir":

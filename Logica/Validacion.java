@@ -481,5 +481,35 @@ public class Validacion {
 		}
 
 	}
+
+	public boolean validarExistenciaMaquina(int idMaquina){
+		Conexion con = new Conexion();
+
+		try {
+			Connection conexion = con.conectar();
+			String sql = "SELECT  count(*) as count " +
+					"FROM maquina WHERE id_maquina = ?";
+
+			PreparedStatement stmt = conexion.prepareStatement(sql);
+			stmt.setInt(1, idMaquina);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				int count = rs.getInt("count");
+				return count > 0; //
+			}
+			else{
+				JOptionPane.showMessageDialog(null,
+						"No se encontro la maquina con ID "+idMaquina, "Error", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,
+					"Hubo un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+		}
+		return false;
+	}
     
 }
