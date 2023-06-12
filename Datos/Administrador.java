@@ -182,13 +182,16 @@ public class Administrador extends Usuario implements Menu {
 					JOptionPane.showMessageDialog(null, "Eligió Visualizar Cliente");
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
 
-
-					JOptionPane.showMessageDialog(null, this.revisarCuentaCliente(id));
+					if(validacion.validarExistenciaCliente(id)){
+						JOptionPane.showMessageDialog(null, this.revisarCuentaCliente(id));}
 					break;
 				case "Eliminar cliente":
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
-					this.eliminarUsuario(id);
-					JOptionPane.showMessageDialog(null, "Se eliminó con éxito el cliente con ID: " + id);
+					if(validacion.validarExistenciaCliente(id)){
+						this.eliminarUsuario(id);
+						JOptionPane.showMessageDialog(null, "Se eliminó con éxito el cliente con ID: " + id);
+					}
+
 					break;
 				case "Ver caja":
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Caja"));
@@ -197,6 +200,7 @@ public class Administrador extends Usuario implements Menu {
 					break;
 				case "Eliminar juego":
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
+
 					JOptionPane.showMessageDialog(null, this.eliminarJuego(id));
 					break;
 				case "Editar juego":

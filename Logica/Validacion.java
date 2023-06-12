@@ -236,11 +236,13 @@ public class Validacion {
 
 
 
-	public boolean validarRevisarCtaCliente(int idUsuario) {
+	public boolean validarExistenciaCliente(int idUsuario) {
 
 		Conexion con = new Conexion();
 
 		if(idUsuario <= 0 || idUsuario >99 ){
+			JOptionPane.showMessageDialog(null,
+					"El ID del Usuario debe ser un numero entre 1 y 99", "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		else{
@@ -259,13 +261,22 @@ public class Validacion {
 					int count = rs.getInt("count");
 					return count > 0; // Devuelve true si el ID de usuario existe en la base de datos
 				}
+				else{
+					JOptionPane.showMessageDialog(null,
+							"No se encontro el usuario con ID "+idUsuario, "Error", JOptionPane.ERROR_MESSAGE);
+					return false;
+				}
 			} catch (Exception e) {
-				System.out.println("Hubo un error: " + e.getMessage());
+				JOptionPane.showMessageDialog(null,
+						"Hubo un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			return true; // Devuelve false si ocurrió algún error o el ID de usuario no existe en la base de datos
 	}
 		}
-	
+
+
+
+
 //VALIDACIONES EMPLEADO CAJA 
 
 
