@@ -56,7 +56,6 @@ class Main {
 		int idUsuario;
 
 
-
 // Verificamos el tipo de usuario que es
 		do {
 			idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "ID de usuario:"));

@@ -146,15 +146,19 @@ public class Validacion {
 		return true; // El cliente tiene suficiente dinero disponible
 	}
 
-	public boolean validarJugar(double monto){
+	public boolean validarJugar(double monto, int idCliente){
+		Cliente cliente = new Cliente();
 
+		double dineroDisponible = cliente.getDineroDisponible(idCliente);
 
-			if(monto<=0){
+			if(monto<=0 || dineroDisponible<monto){
 				return false;}
 			else{
 				return true;
 			}
 	}
+
+
 	
 //VALIDACIONES ADMINISTRADOR
 
