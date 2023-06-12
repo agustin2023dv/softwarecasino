@@ -330,18 +330,8 @@ public class Validacion {
 
 	}
 	
-		
-	public boolean validarTickets (int montoTickets) {
-		
-		if(montoTickets >= 1) {
-            return true;
-		} else {
-            return false;
-		}	
-	}
 	
-	
-// Validaciones Tecnico
+// Validaciones Empleado Maquina
 
 	public boolean verificarEMaquina(int idUsuario){
 

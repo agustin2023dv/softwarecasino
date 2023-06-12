@@ -41,8 +41,7 @@ public class Tecnico extends Empleado implements Menu {
             ResultSet rs = stmt.executeQuery();
 			
             if (rs.next()) {  
-				Maquina maquina = new Maquina(id, rs.getInt("saldoTickets"),
-						rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
+				Maquina maquina = new Maquina(id, rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
                 
             	if (rs.getBoolean("daniada")) {
             		maquina.reparar();
@@ -73,8 +72,7 @@ public class Tecnico extends Empleado implements Menu {
 	            ResultSet rs = stmt.executeQuery();
 	            
 	            if (rs.next()) {  
-					Maquina maquina = new Maquina(id, rs.getInt("saldoTickets"),
-							rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
+					Maquina maquina = new Maquina(id, rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
 	                
 	            	if (rs.getBoolean("daniada")) {
 	            		return "La maquina se encuentra dañada, no se puede encender.";
@@ -106,8 +104,7 @@ public class Tecnico extends Empleado implements Menu {
 	            ResultSet rs = stmt.executeQuery();
 	            
 	            if (rs.next()) {  
-					Maquina maquina = new Maquina(id, rs.getInt("saldoTickets"),
-							rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
+					Maquina maquina = new Maquina(id, rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
 	                
 	            	if (rs.getBoolean("habilitada")) {
 	            		maquina.apagar();
@@ -131,7 +128,7 @@ public class Tecnico extends Empleado implements Menu {
 		String[] opcionesTecnico = {"Reparar Maquina", "Encender Maquina", "Apagar Maquina", "Salir"};
 		String opcion;
 		
-		JOptionPane.showMessageDialog(null, "Ingreso como Tecnico");
+		JOptionPane.showMessageDialog(null, "Ingresó como Tecnico");
 		Validacion validacion = new Validacion();
 		do {
 			
