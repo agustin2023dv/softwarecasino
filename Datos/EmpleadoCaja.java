@@ -60,7 +60,7 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
     public void mostrarMenu(int id) {
         String opcion;
-        String []opcionesECaja = {"Agregar dinero", "Ver algo", "Salir"};
+        String []opcionesECaja = {"Agregar dinero", "Salir"};
 
         Validacion validacion = new Validacion();
         do {
