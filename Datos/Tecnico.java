@@ -31,33 +31,22 @@ public class Tecnico extends Empleado implements Menu {
 	
 	//metodos
 	
-	public String repararMaquina(int id) {
+	public boolean repararMaquina(int id) {
 		Conexion con = new Conexion();
 		try {
 			Connection conexion = con.conectar();
-			String sql = "SELECT * FROM maquina WHERE id_maquina = ?";
-            PreparedStatement stmt = conexion.prepareStatement(sql);
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-			
-            if (rs.next()) {  
-				Maquina maquina = new Maquina(id, rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
-                
-            	if (rs.getBoolean("daniada")) {
-            		maquina.reparar();
-            		return "La maquina se encuentra dañada. Reparación exitosa.";
-            	} else{
-            		return "La maquina no se encuentra dañada.";							
-				} 
-          	
-			} else {
-				return "No se encontró la máquina con ID: " + id;
-			}
-            
-            
+
+			String sql = "UPDATE maquina SET daniada = false WHERE id_maquina = ?;";
+			PreparedStatement stmt = conexion.prepareStatement(sql);
+			stmt.setInt(1, id);
+
+
+
 		} catch (Exception e) {
-        	return "Hubo un error: " + e.getMessage();
-        }
+			JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 
