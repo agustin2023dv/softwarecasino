@@ -140,30 +140,35 @@ public class Administrador extends Usuario implements Menu {
 			return false;
 		}
 	}
-
 	public String verCaja(int idCaja) {
+	    double sumaMontos = 0.0;
+	    Conexion con = new Conexion();
 
-		double sumaMontos = 0.0;
-		Conexion con = new Conexion();
+	    try {
+	        Connection conexion = con.conectar();
+	        String sql = "SELECT c.id_caja, SUM(tcc.monto) AS suma_montos " +
+	                     "FROM caja AS c " +
+	                     "LEFT JOIN transaccion_caja_cliente AS tcc ON c.id_caja = tcc.caja " +
+	                     "LEFT JOIN transaccion_caja_empleado AS tce ON c.id_caja = tce.caja " +
+	                     "WHERE c.id_caja = ? " +
+	                     "GROUP BY c.id_caja";
 
-		try {
-			Connection conexion = con.conectar();
-			String sql = "SELECT c.id_caja, SUM(tcc.monto) AS suma_montos " +
-					"FROM caja AS c INNER JOIN transaccion_caja_cliente AS tcc ON " +
-					"c.id_caja = tcc.caja WHERE c.id_caja = ? " +
-					"GROUP BY c.id_caja";
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setInt(1, idCaja);
 
-			PreparedStatement stmt = conexion.prepareStatement(sql);
-			stmt.setInt(1, idCaja);
+	        ResultSet rs = stmt.executeQuery();
 
-			ResultSet rs = stmt.executeQuery();
-
-			sumaMontos = rs.getDouble("suma_montos");
-		} catch (Exception e) {
-			System.out.println("Hubo un error: " + e.getMessage());
-		}
-
-		return "La caja " + idCaja + " tiene un saldo de " + sumaMontos;
+	        if (rs.next()) {
+	            sumaMontos = rs.getDouble("suma_montos");
+	            System.out.println(sumaMontos);
+	        } else {
+	            // No se encontraron registros para la caja especificada
+	            return "La caja " + idCaja + " no existe o no tiene transacciones.";
+	        }
+	    } catch (Exception e) {
+	        System.out.println("Hubo un error: " + e.getMessage());
+	    }
+	    return "La caja " + idCaja + " tiene un saldo de " + sumaMontos;
 	}
 
 	public void mostrarMenu(int idAdm) {
