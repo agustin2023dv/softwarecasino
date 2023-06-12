@@ -371,8 +371,36 @@ public class Validacion {
 		}
 
 	}
-	public boolean validarAgregarDinero (double montoAAgregar) {
-		
+	public boolean validarAgregarDinero (double montoAAgregar, int idCaja) {
+
+		Conexion con = new Conexion();
+
+		try {
+			Connection conexion = con.conectar();
+			String sql = "SELECT  id_caja " +
+					"FROM caja WHERE id_caja = ?";
+
+			PreparedStatement stmt = conexion.prepareStatement(sql);
+			stmt.setInt(1, idCaja);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				int count = rs.getInt("count");
+				return count > 0; //
+			}
+			else{
+				JOptionPane.showMessageDialog(null,
+						"No se encontro la caja con ID "+idCaja, "Error", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,
+					"Hubo un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+		}
+
+
 		if(montoAAgregar >= 1) {
             return true;
 		}else {

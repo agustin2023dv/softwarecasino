@@ -402,7 +402,7 @@ public class Cliente extends Usuario implements Menu {
                         monto = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
 
-                        if (validar.validarAgregarDinero(monto)) {
+                        if (validar.validarAgregarDinero(monto,3)) {
                             this.cargarSaldoOnline(monto, idCliente);
                         }
                         break;

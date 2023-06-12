@@ -6,8 +6,6 @@ import Logica.Validacion;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
 
 public class EmpleadoCaja extends Empleado implements Menu {
@@ -54,13 +52,12 @@ public class EmpleadoCaja extends Empleado implements Menu {
         String opcion;
         String []opcionesECaja = {"Agregar dinero", "Salir"};
 
-        JOptionPane.showMessageDialog(null, "Ingresó como Empleado Caja");
         Validacion validacion = new Validacion();
 
 
 
         do {
-            opcion = (String) JOptionPane.showInputDialog(null, "Opciones Empleado CAJA", "Opcion",
+            opcion = (String) JOptionPane.showInputDialog(null, "Opciones Empleado CAJA", "Menu Empleado caja",
                     JOptionPane.DEFAULT_OPTION, null, opcionesECaja, opcionesECaja);
 
 
@@ -69,12 +66,16 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
                     int idCaja;
                     double monto;
-                    monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Monto a agregar"));
-                    idCaja = Integer.parseInt(JOptionPane.showInputDialog(null, "ID caja a depositar"));
+                    monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Monto a agregar",
+                            "Dposito de dinero"));
+                    idCaja = Integer.parseInt(JOptionPane.showInputDialog(null, "ID caja a depositar",
+                            "Deposito de dinero"));
 
 
-                    if(validacion.validarAgregarDinero(monto)){
+                    if(validacion.validarAgregarDinero(monto, idCaja)){
                         this.agregarDinero(monto, id,idCaja);
+                        JOptionPane.showMessageDialog(null, "Ha depositado $"+monto+" correctamente " +
+                                "en la caja numero "+idCaja, "Deposito exitoso",JOptionPane.INFORMATION_MESSAGE);
                     }
                     break;
             }
