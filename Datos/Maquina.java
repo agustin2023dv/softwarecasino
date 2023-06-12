@@ -17,6 +17,11 @@ public class Maquina {
 		
 	//constructor
 	
+	public Maquina() {
+		
+	}
+	
+	
 	public Maquina(int idMaquina, boolean daniada, boolean habilitada) {
         this.idMaquina = idMaquina;
         this.daniada = daniada;
