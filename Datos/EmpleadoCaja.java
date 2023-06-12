@@ -12,7 +12,6 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
     private int idEmpleadoCaja;
 
-    private Caja caja;
 
     public EmpleadoCaja(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena,
                         String correoElectronico, String direccion, int idEmpleado, String puesto, int idEmpleadoCaja) {
@@ -26,20 +25,16 @@ public class EmpleadoCaja extends Empleado implements Menu {
     }
     public void setIdEmpleadoCaja(int idEmpleadoCaja) {
         this.idEmpleadoCaja = idEmpleadoCaja;
-    }
-    public Caja getCaja() {
-        return caja;
-    }
-    public void setCaja(Caja caja) {
-        this.caja = caja;
-    }
+}
+
 
    public void agregarDinero(double monto, int id, int idCaja) {
         Conexion con = new Conexion();
         Date fecha = new Date();
 
         try (Connection conexion = con.conectar();
-             PreparedStatement stmt = conexion.prepareStatement("INSERT INTO transaccion_caja_empleado (empleado, caja, monto, fecha) VALUES (?, ?, ?, ?)")) {
+             PreparedStatement stmt = conexion.prepareStatement("INSERT INTO transaccion_caja_empleado (empleado, caja, monto, fecha) " +
+                     "VALUES (?, ?, ?, ?)")) {
 
             stmt.setInt(1, id);
             stmt.setInt(2, idCaja);
@@ -65,11 +60,14 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
             switch (opcion) {
                 case "Agregar dinero":
-
+int idCaja;
                     double monto;
                     monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Monto a agregar"));
+                    idCaja = Integer.parseInt(JOptionPane.showInputDialog(null, "ID caja a depositar"));
+
+
                     if(validacion.validarAgregarDinero(monto)){
-                        this.agregarDinero(monto, id);
+                        this.agregarDinero(monto, id,idCaja);
                     }
                     break;
             }
