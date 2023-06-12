@@ -100,6 +100,7 @@ public class Validacion {
 		// Consulta para verificar si es un cliente
 		String consultaAdmin = "SELECT * FROM empleado WHERE id_usuario = ? and tipo_empleado = 4";
 
+
 		try {
 			// Crear la conexión y preparar la consulta
 			Connection conexion = Conexion.conectar();
@@ -250,10 +251,10 @@ public class Validacion {
 //VALIDACIONES EMPLEADO CAJA 
 
 
-	public boolean verificarECaja(int id){
+	public boolean verificarECaja(int idUsuario){
 
 		// Consulta para verificar si es un empleado caja
-		String consultaEmpleado = "SELECT * FROM empleado as e INNER JOIN usuario as u WHERE e.id_usuario = ?";
+		String consultaEmpleado = "SELECT * FROM empleado WHERE tipo_empleado = 1 AND id_usuario = ?";
 
 		try {
 			// Crear la conexión y preparar la consulta
@@ -261,7 +262,7 @@ public class Validacion {
 			PreparedStatement statementEmpleado = conexion.prepareStatement(consultaEmpleado);
 
 			// Establecer el parámetro en la consulta
-			statementEmpleado.setInt(1, id);
+			statementEmpleado.setInt(1, idUsuario);
 
 			// Ejecutar la consulta y obtener el resultado
 			ResultSet resultSetAdmin = statementEmpleado.executeQuery();
@@ -293,5 +294,87 @@ public class Validacion {
 	}
 	
 
+// Validaciones Tecnico
+	
+	public boolean verificarTecnico(int idUsuario){
+
+		// Consulta para verificar si es un Tecnico
+		String consultaTecnico = "SELECT * FROM empleado WHERE tipo_empleado = 3 AND id_usuario = ?";
+
+		try {
+			// Crear la conexión y preparar la consulta
+			Connection conexion = Conexion.conectar();
+			PreparedStatement statementTecnico = conexion.prepareStatement(consultaTecnico);
+
+			// Establecer el parámetro en la consulta
+			statementTecnico.setInt(1, idUsuario);
+
+			// Ejecutar la consulta y obtener el resultado
+			ResultSet resultSetTecnico = statementTecnico.executeQuery();
+
+			// Verificar si hay algún resultado
+			boolean esTecnico = resultSetTecnico.next();
+
+			// Cerrar la conexión y liberar recursos
+			resultSetTecnico.close();
+			statementTecnico.close();
+			conexion.close();
+
+			// Devolver el resultado de la verificación
+			return esTecnico;
+		} catch (SQLException e) {
+			// Manejar cualquier error de SQL aquí
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+	
+		
+	public boolean validarTickets (int montoTickets) {
+		
+		if(montoTickets >= 1) {
+            return true;
+		} else {
+            return false;
+		}	
+	}
+	
+	
+// Validaciones Tecnico
+
+	public boolean verificarEMaquina(int idUsuario){
+
+		// Consulta para verificar si es un empleado maquina
+		String consultaEMaquina = "SELECT * FROM empleado WHERE tipo_empleado = 2 AND id_usuario = ?";
+
+		try {
+			// Crear la conexión y preparar la consulta
+			Connection conexion = Conexion.conectar();
+			PreparedStatement statementEMaquina = conexion.prepareStatement(consultaEMaquina);
+
+			// Establecer el parámetro en la consulta
+			statementEMaquina.setInt(1, idUsuario);
+
+			// Ejecutar la consulta y obtener el resultado
+			ResultSet resultSetEMaquina = statementEMaquina.executeQuery();
+
+			// Verificar si hay algún resultado
+			boolean esEMaquina = resultSetEMaquina.next();
+
+			// Cerrar la conexión y liberar recursos
+			resultSetEMaquina.close();
+			statementEMaquina.close();
+			conexion.close();
+
+			// Devolver el resultado de la verificación
+			return esEMaquina;
+		} catch (SQLException e) {
+			// Manejar cualquier error de SQL aquí
+			e.printStackTrace();
+			return false;
+		}
+
+	}
     
 }

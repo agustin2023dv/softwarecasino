@@ -4,6 +4,8 @@ import Datos.Administrador;
 import Datos.Cliente;
 import Datos.Conexion;
 import Datos.EmpleadoCaja;
+import Datos.EmpleadoMaquina;
+import Datos.Tecnico;
 import Logica.*;
 
 import Logica.Validacion.*;
@@ -26,7 +28,8 @@ class Main {
 		Administrador adm = new Administrador();
 		Cliente cliente = new Cliente();
 		EmpleadoCaja empCaja = new EmpleadoCaja();
-
+		Tecnico tecnico = new Tecnico();
+		EmpleadoMaquina empMaquina = new EmpleadoMaquina();
 		// INICIO
 
 
@@ -61,13 +64,17 @@ class Main {
 		if(validacion.validacionLogin(idUsuario,contrasena)){
 
 			if(validacion.verificarCliente(idUsuario)){
-				cliente.mostrarMenu(idUsuario);
-			}
+				cliente.mostrarMenu(idUsuario);}
 			else if(validacion.verificarAdmin(idUsuario)){
 				adm.mostrarMenu(idUsuario);}
 			else if(validacion.verificarECaja(idUsuario)){
-				empCaja.mostrarMenu(idUsuario);
+				empCaja.mostrarMenu(idUsuario);}
+			else if(validacion.verificarTecnico(idUsuario)) {
+				tecnico.mostrarMenu(idUsuario);}
+			else if(validacion.verificarEMaquina(idUsuario)) {
+				empMaquina.mostrarMenu(idUsuario);
 			}
+			
 
 		} else {
 			// Usuario o contraseña incorrectos
