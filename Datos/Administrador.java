@@ -158,7 +158,7 @@ public class Administrador extends Usuario implements Menu {
 	        stmt.setInt(1, idCaja);
 
 	        ResultSet rs = stmt.executeQuery();
-			
+
 	    } catch (Exception e) {
 	        System.out.println("Hubo un error: " + e.getMessage());
 	    }
@@ -186,24 +186,20 @@ public class Administrador extends Usuario implements Menu {
 					JOptionPane.showMessageDialog(null, this.revisarCuentaCliente(id));
 					break;
 				case "Eliminar cliente":
-					JOptionPane.showMessageDialog(null, "Eligió Eliminar Cliente");
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
 					this.eliminarUsuario(id);
 					JOptionPane.showMessageDialog(null, "Se eliminó con éxito el cliente con ID: " + id);
 					break;
 				case "Ver caja":
-					JOptionPane.showMessageDialog(null, "Eligió Ver Caja");
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Caja"));
 					if(validacion.validarVerCaja(id)){
 						JOptionPane.showMessageDialog(null, this.verCaja(id));}
 					break;
 				case "Eliminar juego":
-					JOptionPane.showMessageDialog(null, "Eligió Eliminar Juego");
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
 					JOptionPane.showMessageDialog(null, this.eliminarJuego(id));
 					break;
 				case "Editar juego":
-					JOptionPane.showMessageDialog(null, "Eligió Editar Juego");
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
 					String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del Juego");
 					int jugadoresMinimos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los jugadores mínimos del Juego"));
@@ -213,7 +209,6 @@ public class Administrador extends Usuario implements Menu {
 					}
 					break;
 				case "Editar datos cliente":
-					JOptionPane.showMessageDialog(null, "Eligió Editar Cliente");
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
 					String email = JOptionPane.showInputDialog("Ingrese el correo del Cliente");
 					String direccion = JOptionPane.showInputDialog("Ingrese la dirección del Cliente");
