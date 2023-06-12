@@ -190,15 +190,27 @@ public class Validacion {
 	public boolean validarEditarJuego (String descripcion, int jugadoresMinimos, int jugadoresMaximos, int idJuego) {
 
 		if(jugadoresMinimos < 1 || jugadoresMaximos > 6) {
-            System.out.println("La cantidad de jugadores mínimos debe ser mayor o igual a 1 y menor o igual a 6"); 
+			JOptionPane.showMessageDialog(null,"La cantidad de jugadores mínimos debe ser mayor o igual a 1 y menor o igual a 6"
+			"Error",JOptionPane.ERROR_MESSAGE);
             return false;
 		}else if (descripcion.length() < 10 || descripcion.length() > 100){
-            System.out.println("La descripcion debe tener entre 10 y 100 caracteres"); 
+			JOptionPane.showMessageDialog(null,"La descripcion debe tener entre 10 y 100 caracteres",
+					"Error",JOptionPane.ERROR_MESSAGE);
 			 return false;
 		}else {
 			return true;
 		}
-		
+	}
+
+
+
+	public boolean validarEliminarJuego(int idJuego){
+			if(idJuego>0){
+				return true;
+			}
+			else{
+				return false;
+			}
 	}
 	public boolean validarActualizarCliente (String email, String direccion, int idCliente) {
 			Conexion con = new Conexion();

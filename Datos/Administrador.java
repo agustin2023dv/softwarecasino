@@ -192,6 +192,7 @@ public class Administrador extends Usuario implements Menu {
 						JOptionPane.showMessageDialog(null, "Se eliminó con éxito el cliente con ID: " + id);
 					}
 
+
 					break;
 				case "Ver caja":
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Caja"));
