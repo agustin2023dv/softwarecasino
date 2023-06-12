@@ -74,6 +74,7 @@ public class Administrador extends Usuario implements Menu {
 			String email = rs.getString("email");
 			String fecNacimiento = rs.getString("fec_nacimiento");
 
+
 			resultado += "Nombre: " + nombre + "\n";
 			resultado += "Apellido: " + apellido + "\n";
 			resultado += "Dirección: " + direccion + "\n";
@@ -178,7 +179,7 @@ public class Administrador extends Usuario implements Menu {
 
 		Validacion validacion = new Validacion();
 		do {
-			opcion = (String) JOptionPane.showInputDialog(null, "Opciones Administrador", "Opcion",
+			opcion = (String) JOptionPane.showInputDialog(null, "Eliga la accion que desea realizar", "Menu Administrador",
 					JOptionPane.DEFAULT_OPTION, null, opcionesAdminsitrador, opcionesAdminsitrador);
 
 			int id;

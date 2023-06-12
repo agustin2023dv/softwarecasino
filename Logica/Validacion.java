@@ -3,6 +3,7 @@ package Logica;
 
 import Datos.*;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,13 +15,34 @@ public class Validacion {
 
 		public  boolean validacionLogin(int idUsuario, String contrasena) {
 			// Validar el ID de usuario
+
+			try {
+				// Intentar convertir el idUsuario a entero utilizando Integer.parseInt
+				int id = Integer.parseInt(String.valueOf(idUsuario));
+
+				// Resto de tu lógica de validación del login
+
+
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null,"El ID debe ser un valor numerico","Error",
+						JOptionPane.ERROR_MESSAGE);
+				return false; // Si el login es inválido
+			}
+
+
+
+
 			if (idUsuario < 0 || idUsuario > 99) {
+				JOptionPane.showMessageDialog(null,"El usuario debe ser un numero entre 1 y 99","Error",
+						JOptionPane.ERROR_MESSAGE);
 				return false; // El ID de usuario debe estar entre 0 y 99
 			}
 
 			// Validar la contraseña
 			int longitudContrasena = contrasena.length();
 			if (longitudContrasena < 6 || longitudContrasena > 15) {
+				JOptionPane.showMessageDialog(null,"La contraseña debe tener entre 6 y 15 caracteres","Error",
+						JOptionPane.ERROR_MESSAGE);
 				return false; // La contraseña debe tener entre 6 y 15 caracteres
 			}
 
@@ -46,14 +68,16 @@ public class Validacion {
 					}
 				}
 			} catch (SQLException e) {
-				System.out.println("Hubo un error al validar el login: " + e.getMessage());
+				JOptionPane.showMessageDialog(null,"Hubo un error al validar el login: " + e.getMessage(),"Error",
+						JOptionPane.ERROR_MESSAGE);
 			} finally {
 				// Cerrar la conexión y liberar recursos
 				if (conexion != null) {
 					try {
 						conexion.close();
 					} catch (SQLException e) {
-						System.out.println("Error al cerrar la conexión: " + e.getMessage());
+						JOptionPane.showMessageDialog(null,"Error al cerrar la conexión: " + e.getMessage(),"Error",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}

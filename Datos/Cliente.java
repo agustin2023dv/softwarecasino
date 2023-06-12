@@ -354,7 +354,8 @@ public class Cliente extends Usuario implements Menu {
             String opcion;
 
             do {
-                opcion = (String) JOptionPane.showInputDialog(frame, "Opciones Cliente", "Menu cliente",
+                opcion = (String) JOptionPane.showInputDialog(frame, "Bienvenido! Eliga que accion desea realizar",
+                        "Menu cliente",
                         JOptionPane.PLAIN_MESSAGE, null, opcionesCliente, opcionesCliente[0]);
 
                 switch (opcion) {

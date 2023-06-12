@@ -2,26 +2,18 @@ package UI;
 
 import Datos.Administrador;
 import Datos.Cliente;
-import Datos.Conexion;
 import Datos.EmpleadoCaja;
 import Datos.EmpleadoMaquina;
 import Datos.Tecnico;
 import Logica.*;
 
-import Logica.Validacion.*;
 import javax.swing.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 
 class Main {
 
 	public static void main(String[] args) {
 
 		//CONEXION BD
-		Connection conexion = Conexion.conectar();
 		Validacion validacion = new Validacion();
 
 
@@ -57,9 +49,11 @@ class Main {
 
 
 		do {
-			idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "ID de usuario:"));
+			idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "ID de usuario:",
+					"Ingrese su usuario", JOptionPane.PLAIN_MESSAGE));
 
-			String contrasena = JOptionPane.showInputDialog(null, "Contraseña:");
+			String contrasena = JOptionPane.showInputDialog(null, "Contraseña:",
+					"Ingrese su contraseña", JOptionPane.PLAIN_MESSAGE);
 			if (validacion.validacionLogin(idUsuario, contrasena)) {
 
 				if (validacion.verificarCliente(idUsuario)) {
@@ -77,7 +71,8 @@ class Main {
 			} else {
 				// Usuario o contraseña incorrectos
 				JOptionPane.showMessageDialog(null,
-						"Credenciales incorrectas. Por favor, inténtelo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+						"Credenciales incorrectas. Por favor, inténtelo de nuevo. Le quedan "
+								+(2-intentosLogin)+" intentos", "Error", JOptionPane.ERROR_MESSAGE);
 				intentosLogin++;
 			}
 		} while (intentosLogin < 3);
