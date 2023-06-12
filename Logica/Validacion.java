@@ -16,19 +16,6 @@ public class Validacion {
 		public  boolean validacionLogin(int idUsuario, String contrasena) {
 			// Validar el ID de usuario
 
-			try {
-				// Intentar convertir el idUsuario a entero utilizando Integer.parseInt
-				int id = Integer.parseInt(String.valueOf(idUsuario));
-
-				// Resto de tu lógica de validación del login
-
-
-			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null,"El ID debe ser un valor numerico","Error",
-						JOptionPane.ERROR_MESSAGE);
-				return false; // Si el login es inválido
-			}
-
 
 
 
