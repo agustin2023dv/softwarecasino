@@ -76,14 +76,6 @@ public class EmpleadoCaja extends Empleado implements Menu {
                     if(validacion.validarAgregarDinero(monto)){
                         this.agregarDinero(monto, id);
                     }
-
-
-                    break;
-                case "Ver algo":
-
-
-
-
                     break;
             }
 
