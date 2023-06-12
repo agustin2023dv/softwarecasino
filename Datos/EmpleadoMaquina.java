@@ -45,8 +45,7 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 	            ResultSet rs = stmt.executeQuery();
 	            
 	            if (rs.next()) {  
-					Maquina maquina = new Maquina(id, rs.getInt("saldoTickets"),
-							rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
+					Maquina maquina = new Maquina(id, rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
 	                
 	            	if (rs.getBoolean("daniada")) {
 	            		return "La maquina se encuentra dañada, no se puede encender.";
@@ -78,8 +77,7 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 	            ResultSet rs = stmt.executeQuery();
 	            
 	            if (rs.next()) {  
-					Maquina maquina = new Maquina(id, rs.getInt("saldoTickets"),
-							rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
+					Maquina maquina = new Maquina(id, rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
 	                
 	            	if (rs.getBoolean("habilitada")) {
 	            		maquina.apagar();
@@ -98,87 +96,14 @@ public class EmpleadoMaquina extends Empleado implements Menu{
     }
     
     
-    public String recargarTicketsMaquina(int id, int saldoTickets) {
-    	Conexion con = new Conexion();
-    	
-    	try {
-    		Connection conexion = con.conectar();
-    		String sql = "SELECT * FROM maquina WHERE id_maquina = ?";
-            PreparedStatement stmt = conexion.prepareStatement(sql);
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-    		
-            if (rs.next()) {  
-				Maquina maquina = new Maquina(id, rs.getInt("saldoTickets"),
-						rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
-				
-				int nuevoSaldoTickets= rs.getInt("saldoTickets") + saldoTickets;
-				maquina.setSaldoTickets(nuevoSaldoTickets);
-				maquina.actualizarSaldoTickets();
-                
-				return "Se han agregado " + saldoTickets + "." + "\nEl total ahora es de " + nuevoSaldoTickets + ".";
-          	
-			} else {
-				return "No se encontró la máquina con ID: " + id;
-			}
-    		
-    		
-    	} catch (Exception e) {
-    		return "Hubo un error: " + e.getMessage();
-    	}
-    }
-    
-    
-    public String retirarTicketsMaquina(int id, int saldoTickets) {
-    	Conexion con = new Conexion();
-    	
-    	try {
-    		Connection conexion = con.conectar();
-    		String sql = "SELECT * FROM maquina WHERE id_maquina = ?";
-            PreparedStatement stmt = conexion.prepareStatement(sql);
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-    		
-            if (rs.next()) {  
-				Maquina maquina = new Maquina(id, rs.getInt("saldoTickets"),
-						rs.getBoolean("daniada"), rs.getBoolean("habilitada"));
-				
-				if (rs.getInt("saldoTickets") > saldoTickets) {
-					
-				
-					int nuevoSaldoTickets= rs.getInt("saldoTickets") - saldoTickets;
-					maquina.setSaldoTickets(nuevoSaldoTickets);
-					maquina.actualizarSaldoTickets();
-		            
-					return "Se han agregado " + saldoTickets + "." + "\nEl total ahora es de " + nuevoSaldoTickets + ".";
-				} else { 
-					return "No se pueden retirar " + saldoTickets + " tickets." + "\nHay " + rs.getInt("saldoTickets") + "tickets.";
-				}
-				
-			} else {
-				return "No se encontró la máquina con ID: " + id;
-			}
-    		
-    		
-    	} catch (Exception e) {
-    		return "Hubo un error: " + e.getMessage();
-    	}
-    }
-
-    
-    
-    
-    
-    
-    
     // Menu
     
     public void mostrarMenu(int id){
-        String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Retirar Tickets", "Recargar Tickets", "Salir"};
+        String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Salir"};
 
         String opcion;
 
-        JOptionPane.showMessageDialog(null, "Ingreso como Empleado Máquina");
+        JOptionPane.showMessageDialog(null, "Ingresó como Empleado Máquina");
         Validacion validacion = new Validacion();
 		do {
 			
@@ -198,26 +123,6 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 				String apagar = this.apagarMaquina(idmaquina);
 				JOptionPane.showMessageDialog(null, apagar);
 				break;
-			
-			case "Retirar Tickets": 
-				int retirarSaldoTickets;
-				idmaquina = Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID de la Maquina"));
-				retirarSaldoTickets = Integer.parseInt( JOptionPane.showInputDialog("Ingrese la cantidad de tickets a retirar."));
-				if (validacion.validarTickets(retirarSaldoTickets)) {
-					String retirarTickets = this.retirarTicketsMaquina(idmaquina, retirarSaldoTickets);
-					JOptionPane.showMessageDialog(null, retirarTickets);
-				}	
-				break;
-			
-			case "Recargar Tickets":
-				int agregarSaldoTickets;
-				idmaquina = Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID de la Maquina"));
-				agregarSaldoTickets = Integer.parseInt( JOptionPane.showInputDialog("Ingrese la cantidad de tickets a agregar."));
-				if (validacion.validarTickets(agregarSaldoTickets)) {
-					String agregarTickets = this.recargarTicketsMaquina(idmaquina, agregarSaldoTickets);
-					JOptionPane.showMessageDialog(null, agregarTickets);
-				}
-				break;
 				
 			case "Salir":
 				
@@ -228,11 +133,5 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 		
 		} while(!opcion.equals("Salir"));
     
-    
-    
-    
-    
-    
-
     }
 }

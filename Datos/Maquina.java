@@ -17,9 +17,13 @@ public class Maquina {
 		
 	//constructor
 	
-	public Maquina(int idMaquina, int saldoTickets, boolean daniada, boolean habilitada) {
+	public Maquina() {
+		
+	}
+	
+	
+	public Maquina(int idMaquina, boolean daniada, boolean habilitada) {
         this.idMaquina = idMaquina;
-        this.saldoTickets = saldoTickets;
         this.daniada = daniada;
         this.habilitada = habilitada;
     }
@@ -41,23 +45,6 @@ public class Maquina {
             System.out.println("Hubo un error al registrar la transaccion: " + e.getMessage());
         }
 	}
-	
-	public void actualizarSaldoTickets () {
-		
-		Conexion con = new Conexion();
-		try {
-			Connection conexion = con.conectar();
-			String sql = "UPDATE maquina SET saldoTickets = ? WHERE id_maquina = ?";
-			PreparedStatement stmt = conexion.prepareStatement(sql);
-			stmt.setInt(1, this.saldoTickets);
-			stmt.setInt(2, this.idMaquina);
-			stmt.executeUpdate();
-			
-		} catch (Exception e) {
-            System.out.println("Hubo un error al registrar la transaccion: " + e.getMessage());
-        }
-	}
-	
 	
 	public void encender() {
         Conexion con = new Conexion();

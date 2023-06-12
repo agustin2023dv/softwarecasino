@@ -54,6 +54,7 @@ public class EmpleadoCaja extends Empleado implements Menu {
         String opcion;
         String []opcionesECaja = {"Agregar dinero", "Salir"};
 
+        JOptionPane.showMessageDialog(null, "Ingresó como Empleado Caja");
         Validacion validacion = new Validacion();
 
 
