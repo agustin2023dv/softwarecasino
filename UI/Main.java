@@ -30,7 +30,6 @@ class Main {
 		EmpleadoCaja empCaja = new EmpleadoCaja();
 		Tecnico tecnico = new Tecnico();
 		EmpleadoMaquina empMaquina = new EmpleadoMaquina();
-		// INICIO
 
 
 
@@ -44,6 +43,9 @@ class Main {
 		JOptionPane.showMessageDialog(null, "Bienvenido al casino Jocker",
 				"Casino Jocker", JOptionPane.PLAIN_MESSAGE, iconoInicio);
 
+		String rutaGracias= "img/graciasPorJugar.png";
+		ImageIcon iconoGracias = new ImageIcon(rutaGracias);
+
 
 		// Pantalla pre login . Seleccion de tipo de usuario
 
@@ -56,7 +58,6 @@ class Main {
 		int idUsuario;
 
 
-// Verificamos el tipo de usuario que es
 		do {
 			idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "ID de usuario:"));
 
@@ -77,24 +78,14 @@ class Main {
 
 			} else {
 				// Usuario o contraseña incorrectos
-				JOptionPane.showMessageDialog(null, "Credenciales incorrectas. Por favor, inténtelo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,
+						"Credenciales incorrectas. Por favor, inténtelo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
 				intentosLogin++;
 			}
 		} while (intentosLogin < 3);
 
 
 
-		// Iconos: Pulgar arriba , Pulgar abajo, Gracias por jugar
-
-			String rutaImagenGano= "img/thumbs-up.png";
-			ImageIcon iconoGano = new ImageIcon(rutaImagenGano);
-
-			String rutaImagenPerdio= "img/thumbs-down.png";
-			ImageIcon iconoPerdio = new ImageIcon(rutaImagenPerdio);
-
-
-			String rutaGracias= "img/graciasPorJugar.png";
-			ImageIcon iconoGracias = new ImageIcon(rutaGracias);
 
 
 	}}

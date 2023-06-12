@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
+
 import Logica.Validacion;
 
 public class Cliente extends Usuario implements Menu {
@@ -114,12 +116,11 @@ public class Cliente extends Usuario implements Menu {
         try {
             Connection conexion = con.conectar();
 
-            String sql = "SELECT SUM(tcc.monto) + SUM(p.monto_apostado) AS total_monto\n" +
-                    "FROM transaccion_caja_cliente tcc\n" +
-                    "INNER JOIN cliente c ON tcc.cliente = c.id_cliente\n" +
-                    "INNER JOIN partida p ON p.cliente = c.id_cliente\n" +
-                    "INNER JOIN movimiento_caja_apuesta mca ON mca.partida = p.id_partida\n" +
-                    "WHERE c.id_cliente = ?";
+            String sql = "SELECT SUM(tcc.monto)  AS total_monto " +
+                    "  FROM transaccion_caja_cliente tcc\n" +
+                    "            INNER JOIN cliente c ON tcc.cliente = c.id_cliente\n" +
+                    "            WHERE c.id_usuario = ?"
+          ;;
 
             PreparedStatement stmt = conexion.prepareStatement(sql);
             stmt.setInt(1, id);
@@ -140,12 +141,14 @@ public class Cliente extends Usuario implements Menu {
     public void cargarSaldoOnline(double monto, int id){
         Conexion con = new Conexion();
 
-        int caja = (int) (Math.random() * 4);
+        int caja = (int) (Math.random() * 3) + 1;
         int tipoTransaccion = 1;
         Date fecha = new Date();
 
+
         try {
             Connection conexion = con.conectar();
+
             String sql = "INSERT INTO transaccion_caja_cliente(monto, tipo_transaccion, cliente, fecha, caja) VALUES (?, ?, ?, ?,?)";
 
             PreparedStatement stmt = conexion.prepareStatement(sql);
@@ -153,7 +156,7 @@ public class Cliente extends Usuario implements Menu {
             stmt.setDouble(1, monto);
             stmt.setInt(2, tipoTransaccion);
             stmt.setInt(3, id);
-            stmt.setDate(4, (java.sql.Date) fecha);
+            stmt.setDate(4, new java.sql.Date(fecha.getTime()));
             stmt.setInt(5, caja);
 
             stmt.executeUpdate();
@@ -165,7 +168,8 @@ public class Cliente extends Usuario implements Menu {
     public void retirarDinero(double monto, int id) {
         Conexion con = new Conexion();
 
-        int cajaAleatoria = (int) (Math.random() * 4);
+        Random random = new Random();
+        int cajaAleatoria = random.nextInt(3) + 1;
         int tipoTransaccion = 0;
         Date fecha = new Date();
         monto = monto * (-1);
@@ -208,12 +212,14 @@ public class Cliente extends Usuario implements Menu {
             if (rs.next()) {
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
+                String dineroDisponible = String.valueOf(this.getDineroDisponible(id));
                 String direccion = rs.getString("direccion");
                 String email = rs.getString("email");
                 String fecNacimiento = rs.getString("fec_nacimiento");
 
                 infoCuenta += "Nombre: " + nombre + "\n";
                 infoCuenta += "Apellido: " + apellido + "\n";
+                infoCuenta += "Dinero disponible: "+dineroDisponible+"\n";
                 infoCuenta += "Dirección: " + direccion + "\n";
                 infoCuenta += "Email: " + email + "\n";
                 infoCuenta += "Fecha de Nacimiento: " + fecNacimiento + "\n";
@@ -235,6 +241,12 @@ public class Cliente extends Usuario implements Menu {
 
     public boolean jugar(int idJuego, int idCliente,double apuesta) {
 
+        String rutaImagenGano= "img/thumbs-up.png";
+        ImageIcon iconoGano = new ImageIcon(rutaImagenGano);
+
+
+
+
         Juego juego = new Juego();
 
         boolean jugo = true;
@@ -243,23 +255,30 @@ public class Cliente extends Usuario implements Menu {
         Date fecha = new Date();
         boolean resultado;
 
-        if (apuesta > this.getDineroDisponible(idCliente)) {
-            jugo = false;
-            System.out.print("No tiene suficiente dinero disponible");
-            return jugo;
-        } else {
+        resultado = juego.generarResultado();
 
-            resultado = juego.generarResultado();
-
+        EmpleadoCaja emp = new EmpleadoCaja();
             if (resultado) {
-                this.dineroDisponible += apuesta * 4;
+                double monto;
+                monto = apuesta*4;
+
+                this.cargarSaldoOnline(monto,idCliente);
+
+                emp.agregarDinero(monto*(-1),1,3);
+
+                JOptionPane.showMessageDialog(null,"Felicitaciones! has ganado "+monto,"Ganaste",
+                        JOptionPane.INFORMATION_MESSAGE,iconoGano);
             } else {
-                juego.getMaquina().setSaldoTickets((int) (juego.getMaquina().getSaldoTickets() + apuesta));
+
+                emp.agregarDinero(apuesta,1,2);
+                JOptionPane.showMessageDialog(null,"LO SENTIMOS! has perdido ","Perdiste",
+                        JOptionPane.INFORMATION_MESSAGE,iconoGano);
             }
-
             // Registrar la partida en la base de datos
-
             try {
+
+
+
                 Connection conexion = con.conectar();
                 String sql = "INSERT INTO partida (juego, cliente, monto_apostado, fecha, resultado) " +
                         "VALUES (?, ?, ?, ?, ?)";
@@ -275,39 +294,39 @@ public class Cliente extends Usuario implements Menu {
                 stmt.executeUpdate();
 
             } catch (Exception e) {
-                System.out.println("Hubo un error al registrar la partida: " + e.getMessage());
+                JOptionPane.showMessageDialog(null,"Hubo un error al registrar la partida: " + e.getMessage());
             }
 
-            this.setCantPartidasJugadas(this.getCantPartidasJugadas()+1);
             return jugo;
         }
-    }
+
 
 
     public void mostrarMenu(int id) {
+
         JFrame frame = new JFrame("Mi Aplicación");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Connection conexion = Conexion.conectar();
-        String consultaCliente = "SELECT * FROM cliente as c INNER JOIN usuario as u ON c.id_usuario = u.id_usuario" +
-                " WHERE c.id_usuario = ?";
 
+        String queryCliente = "SELECT id_cliente FROM cliente AS c INNER JOIN usuario AS u ON c.id_usuario = u.id_usuario";
         ArrayList<String> nombresJuegos = new ArrayList<>();
-
         Validacion validar = new Validacion();
+        int idCliente = 0;
 
         try {
-            PreparedStatement statementCliente = conexion.prepareStatement(consultaCliente);
-            statementCliente.setInt(1, id);
-            ResultSet resultSetCliente = statementCliente.executeQuery();
 
 
-            // Se hace query para traer los nombres de los juegos
+            PreparedStatement statementIDCliente = conexion.prepareStatement(queryCliente);
+
+            ResultSet resultSetIDCliente = statementIDCliente.executeQuery();
+
+            if (resultSetIDCliente.next()) {
+                idCliente = resultSetIDCliente.getInt("id_cliente");
+            }
 
             String consultaJuegos = "SELECT nombre FROM juego";
             PreparedStatement statementJuegos = conexion.prepareStatement(consultaJuegos);
-            ResultSet resultSetJuegos = statementJuegos.executeQuery() ;
-
-            // Se crea el combobox para cargar los juegoss
+            ResultSet resultSetJuegos = statementJuegos.executeQuery();
 
             DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
 
@@ -316,11 +335,12 @@ public class Cliente extends Usuario implements Menu {
                 comboBoxModel.addElement(nombreJuego);
             }
 
-            int idJuegoSeleccionado= 0;
+            int idJuegoSeleccionado = 0;
 
-            String[] opcionesCliente = {"Ver perfil", "Jugar", "Ver historial partidas", "Agregar dinero",
-                    "Retirar dinero", "Salir"};
-            int juego;
+            String[] opcionesCliente = {
+                    "Ver perfil", "Jugar", "Ver historial partidas",
+                    "Agregar dinero", "Retirar dinero", "Salir"
+            };
 
             String opcion;
 
@@ -334,67 +354,61 @@ public class Cliente extends Usuario implements Menu {
                         break;
 
                     case "Jugar":
-
                         double apuesta = 0;
-
 
                         JComboBox<String> comboBoxJuegos = new JComboBox<>(comboBoxModel);
 
-                    // Mostrar el JComboBox al usuario y obtener la selección
                         int opcionSeleccionada = JOptionPane.showOptionDialog(null, comboBoxJuegos,
                                 "Seleccione juego", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
                                 null, null, null);
 
-                    // Obtener el valor seleccionado del JComboBox
-
                         if (opcionSeleccionada == JOptionPane.OK_OPTION) {
-                            String juegoSeleccionado = (String) comboBoxJuegos.getSelectedItem();
-                            idJuegoSeleccionado = comboBoxJuegos.getSelectedIndex();
-                            // Aquí puedes realizar las acciones correspondientes con el juego seleccionado
+                            idJuegoSeleccionado = comboBoxJuegos.getSelectedIndex() +1;
                         }
 
                         apuesta = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Cuánto desea apostar?"));
 
-                        if(validar.validarJugar(apuesta)){
-                            this.jugar(idJuegoSeleccionado,id,apuesta);}
-                        else{
-                            System.out.print("ERROR");
+                        if (validar.validarJugar(apuesta, id)) {
+                            this.jugar(idJuegoSeleccionado, idCliente, apuesta);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error");
                         }
 
                         break;
 
-
                     case "Ver historial partidas":
                         JOptionPane.showMessageDialog(null, getHistorialPartidas(id));
                         break;
-                    case "Agregar dinero":
 
+                    case "Agregar dinero":
                         double monto;
                         monto = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
 
-                        if(validar.validarAgregarDinero(monto)){
-                            this.cargarSaldoOnline(monto, id);}
-
+                        if (validar.validarAgregarDinero(monto)) {
+                            this.cargarSaldoOnline(monto, idCliente);
+                        }
                         break;
-                    case "Retirar dinero":
 
+                    case "Retirar dinero":
                         double retiro;
                         retiro = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
 
-                        if(validar.validarRetiroDinero(id,retiro)){
-                            this.retirarDinero(retiro, id);}
+                        if (validar.validarRetiroDinero(idCliente, retiro)) {
+                            this.retirarDinero(retiro, idCliente);
+                        }
                         break;
                 }
             } while (!opcion.equals("Salir"));
 
-            resultSetCliente.close();
-            statementCliente.close();
 
             resultSetJuegos.close();
             statementJuegos.close();
+
+            resultSetIDCliente.close();
+            statementIDCliente.close();
 
             conexion.close();
 
