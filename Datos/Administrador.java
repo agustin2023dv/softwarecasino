@@ -202,7 +202,11 @@ public class Administrador extends Usuario implements Menu {
 				case "Eliminar juego":
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
 
-					JOptionPane.showMessageDialog(null, this.eliminarJuego(id));
+					if(validacion.validarEliminarJuego(id)){
+						this.eliminarJuego(id);
+						JOptionPane.showMessageDialog(null, "El juego ha sido eliminado con exito");
+					}
+
 					break;
 				case "Editar juego":
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));

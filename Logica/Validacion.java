@@ -233,12 +233,30 @@ public class Validacion {
 
 
 	public boolean validarEliminarJuego(int idJuego){
-			if(idJuego>0){
-				return true;
+		Conexion con = new Conexion();
+
+		try {
+			Connection conexion = con.conectar();
+			String sql = "SELECT count(*) " +
+					"FROM juego WEHERE id_juego= ?";
+
+			PreparedStatement stmt = conexion.prepareStatement(sql);
+			stmt.setInt(1, idJuego);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				int count = rs.getInt("count");
 			}
 			else{
+				JOptionPane.showMessageDialog(null,"No existe ningun juego en el sistema con el ID "+idJuego
+						,"Error",JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
+		} catch (Exception e) {
+			System.out.println("Hubo un error: " + e.getMessage());
+		}
+		return true;
 	}
 	public boolean validarActualizarCliente (String email, String direccion, int idCliente) {
 			Conexion con = new Conexion();
