@@ -12,7 +12,6 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
     private int idEmpleadoCaja;
 
-    private Caja caja;
 
     public EmpleadoCaja(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena,
                         String correoElectronico, String direccion, int idEmpleado, String puesto, int idEmpleadoCaja) {
@@ -26,26 +25,19 @@ public class EmpleadoCaja extends Empleado implements Menu {
     }
     public void setIdEmpleadoCaja(int idEmpleadoCaja) {
         this.idEmpleadoCaja = idEmpleadoCaja;
-    }
-    public Caja getCaja() {
-        return caja;
-    }
-    public void setCaja(Caja caja) {
-        this.caja = caja;
-    }
+}
 
-    public void agregarDinero(double monto, int id) {
+
+   public void agregarDinero(double monto, int id, int idCaja) {
         Conexion con = new Conexion();
-        int caja = this.getCaja().getIdCaja();
         Date fecha = new Date();
 
-        try {
-            Connection conexion = con.conectar();
-            String sql = "INSERT INTO transaccion_caja_empleado (empleado, caja, monto, fecha) VALUES (?, ?, ?, ?)";
+        try (Connection conexion = con.conectar();
+             PreparedStatement stmt = conexion.prepareStatement("INSERT INTO transaccion_caja_empleado (empleado, caja, monto, fecha) " +
+                     "VALUES (?, ?, ?, ?)")) {
 
-            PreparedStatement stmt = conexion.prepareStatement(sql);
             stmt.setInt(1, id);
-            stmt.setInt(2, caja);
+            stmt.setInt(2, idCaja);
             stmt.setDouble(3, monto);
             stmt.setDate(4, new java.sql.Date(fecha.getTime()));
 
@@ -56,11 +48,9 @@ public class EmpleadoCaja extends Empleado implements Menu {
     }
 
 
-
-
     public void mostrarMenu(int id) {
         String opcion;
-        String []opcionesECaja = {"Agregar dinero", "Ver algo", "Salir"};
+        String []opcionesECaja = {"Agregar dinero", "Salir"};
 
         JOptionPane.showMessageDialog(null, "Ingresó como Empleado Caja");
         Validacion validacion = new Validacion();
@@ -71,11 +61,14 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
             switch (opcion) {
                 case "Agregar dinero":
-
+int idCaja;
                     double monto;
                     monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Monto a agregar"));
+                    idCaja = Integer.parseInt(JOptionPane.showInputDialog(null, "ID caja a depositar"));
+
+
                     if(validacion.validarAgregarDinero(monto)){
-                        this.agregarDinero(monto, id);
+                        this.agregarDinero(monto, id,idCaja);
                     }
                     break;
             }
