@@ -43,8 +43,6 @@ class Main {
 		JOptionPane.showMessageDialog(null, "Bienvenido al casino Jocker",
 				"Casino Jocker", JOptionPane.PLAIN_MESSAGE, iconoInicio);
 
-		String rutaGracias= "img/graciasPorJugar.png";
-		ImageIcon iconoGracias = new ImageIcon(rutaGracias);
 
 
 		// Pantalla pre login . Seleccion de tipo de usuario

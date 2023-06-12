@@ -91,10 +91,17 @@ public class Cliente extends Usuario implements Menu {
                 double montoApostado = rs.getDouble("monto_apostado");
                 int resultado = rs.getInt("resultado");
 
+                String rdo;
+                if(resultado == 0){
+                    rdo = "Perdió";
+                }
+                else {
+                    rdo = "Ganó";
+                }
                 historial.append("Fecha: ").append(fecha).append("\n");
                 historial.append("Juego: ").append(nombreJuego).append("\n");
                 historial.append("Monto Apostado: ").append(montoApostado).append("\n");
-                historial.append("Resultado: ").append(resultado).append("\n");
+                historial.append("Resultado: ").append(rdo).append("\n");
                 historial.append("------------------------\n");
             }
         } catch (Exception e) {
@@ -245,6 +252,8 @@ public class Cliente extends Usuario implements Menu {
         ImageIcon iconoGano = new ImageIcon(rutaImagenGano);
 
 
+        String rutaImagenPerdio= "img/thumbs-down.png";
+        ImageIcon iconoPerdio = new ImageIcon(rutaImagenPerdio);
 
 
         Juego juego = new Juego();
@@ -272,7 +281,7 @@ public class Cliente extends Usuario implements Menu {
 
                 emp.agregarDinero(apuesta,1,2);
                 JOptionPane.showMessageDialog(null,"LO SENTIMOS! has perdido ","Perdiste",
-                        JOptionPane.INFORMATION_MESSAGE,iconoGano);
+                        JOptionPane.INFORMATION_MESSAGE,iconoPerdio);
             }
             // Registrar la partida en la base de datos
             try {
@@ -345,12 +354,13 @@ public class Cliente extends Usuario implements Menu {
             String opcion;
 
             do {
-                opcion = (String) JOptionPane.showInputDialog(frame, "Opciones Cliente", "Opcion",
+                opcion = (String) JOptionPane.showInputDialog(frame, "Opciones Cliente", "Menu cliente",
                         JOptionPane.PLAIN_MESSAGE, null, opcionesCliente, opcionesCliente[0]);
 
                 switch (opcion) {
                     case "Ver perfil":
-                        JOptionPane.showMessageDialog(null, verCuenta(id));
+                        JOptionPane.showMessageDialog(null, verCuenta(id), "Información cuenta cliente",
+                                JOptionPane.INFORMATION_MESSAGE);
                         break;
 
                     case "Jugar":
@@ -371,14 +381,18 @@ public class Cliente extends Usuario implements Menu {
 
                         if (validar.validarJugar(apuesta, id)) {
                             this.jugar(idJuegoSeleccionado, idCliente, apuesta);
+
                         } else {
                             JOptionPane.showMessageDialog(null, "Error");
                         }
 
+
+
                         break;
 
                     case "Ver historial partidas":
-                        JOptionPane.showMessageDialog(null, getHistorialPartidas(id));
+                        JOptionPane.showMessageDialog(null, getHistorialPartidas(idCliente), "Historial de partidas",
+                                JOptionPane.INFORMATION_MESSAGE);
                         break;
 
                     case "Agregar dinero":
@@ -394,7 +408,7 @@ public class Cliente extends Usuario implements Menu {
                     case "Retirar dinero":
                         double retiro;
                         retiro = Double.parseDouble(JOptionPane.showInputDialog(null,
-                                "Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
+                                "Cuánto dinero desea retirar?", "Retiro de dinero", JOptionPane.QUESTION_MESSAGE));
 
                         if (validar.validarRetiroDinero(idCliente, retiro)) {
                             this.retirarDinero(retiro, idCliente);
