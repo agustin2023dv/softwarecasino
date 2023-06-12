@@ -176,9 +176,13 @@ public class Validacion {
 	public boolean validarVerCaja(int idCaja){
 
 			if(idCaja<=0 || idCaja>4){
+				JOptionPane.showMessageDialog(null,
+						"La caja " + idCaja + " no existe o no tiene transacciones.",
+						"Error", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 			else{
+
 				return true;
 			}
 	}

@@ -158,14 +158,7 @@ public class Administrador extends Usuario implements Menu {
 	        stmt.setInt(1, idCaja);
 
 	        ResultSet rs = stmt.executeQuery();
-
-	        if (rs.next()) {
-	            sumaMontos = rs.getDouble("suma_montos");
-	            System.out.println(sumaMontos);
-	        } else {
-	            // No se encontraron registros para la caja especificada
-	            return "La caja " + idCaja + " no existe o no tiene transacciones.";
-	        }
+			
 	    } catch (Exception e) {
 	        System.out.println("Hubo un error: " + e.getMessage());
 	    }
@@ -188,6 +181,8 @@ public class Administrador extends Usuario implements Menu {
 				case "Ver cliente":
 					JOptionPane.showMessageDialog(null, "Eligió Visualizar Cliente");
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
+
+
 					JOptionPane.showMessageDialog(null, this.revisarCuentaCliente(id));
 					break;
 				case "Eliminar cliente":
@@ -199,7 +194,8 @@ public class Administrador extends Usuario implements Menu {
 				case "Ver caja":
 					JOptionPane.showMessageDialog(null, "Eligió Ver Caja");
 					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Caja"));
-					JOptionPane.showMessageDialog(null, this.verCaja(id));
+					if(validacion.validarVerCaja(id)){
+						JOptionPane.showMessageDialog(null, this.verCaja(id));}
 					break;
 				case "Eliminar juego":
 					JOptionPane.showMessageDialog(null, "Eligió Eliminar Juego");

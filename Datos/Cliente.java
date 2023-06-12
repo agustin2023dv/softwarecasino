@@ -195,8 +195,9 @@ public class Cliente extends Usuario implements Menu {
 
             stmt.executeUpdate();
         } catch (Exception e) {
-            System.out.println("Hubo un error al registrar la transacción: " + e.getMessage());
-            // Puedes considerar registrar el error en un archivo de registro
+            JOptionPane.showMessageDialog(null,
+                    "Hubo un error al registrar la transacción: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
