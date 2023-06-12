@@ -6,6 +6,8 @@ import Logica.Validacion;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class EmpleadoCaja extends Empleado implements Menu {
@@ -53,6 +55,9 @@ public class EmpleadoCaja extends Empleado implements Menu {
         String []opcionesECaja = {"Agregar dinero", "Salir"};
 
         Validacion validacion = new Validacion();
+
+
+
         do {
             opcion = (String) JOptionPane.showInputDialog(null, "Opciones Empleado CAJA", "Opcion",
                     JOptionPane.DEFAULT_OPTION, null, opcionesECaja, opcionesECaja);
@@ -60,7 +65,8 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
             switch (opcion) {
                 case "Agregar dinero":
-int idCaja;
+
+                    int idCaja;
                     double monto;
                     monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Monto a agregar"));
                     idCaja = Integer.parseInt(JOptionPane.showInputDialog(null, "ID caja a depositar"));
