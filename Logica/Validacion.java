@@ -98,7 +98,7 @@ public class Validacion {
 
 	public boolean verificarAdmin(int idUsuario) {
 		// Consulta para verificar si es un cliente
-		String consultaAdmin = "SELECT * FROM empleado WHERE id_usuario = ?";
+		String consultaAdmin = "SELECT * FROM empleado WHERE id_usuario = ? and tipo_empleado = 4";
 
 		try {
 			// Crear la conexión y preparar la consulta
