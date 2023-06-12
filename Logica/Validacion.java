@@ -149,7 +149,6 @@ public class Validacion {
 	public boolean validarJugar(double monto){
 
 
-
 			if(monto<=0){
 				return false;}
 			else{

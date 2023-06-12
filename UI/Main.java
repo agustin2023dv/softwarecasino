@@ -52,36 +52,35 @@ class Main {
 
 
 		// LOGIN
+		int intentosLogin = 0;
 		int idUsuario;
 
 		idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "ID de usuario:"));
 
-		String contrasena = JOptionPane.showInputDialog(null,"Contraseña:");
+		String contrasena = JOptionPane.showInputDialog(null, "Contraseña:");
 
+// Verificamos el tipo de usuario que es
+		do {
+			if (validacion.validacionLogin(idUsuario, contrasena)) {
 
-		// Verificamos el tipo de usuario que es
+				if (validacion.verificarCliente(idUsuario)) {
+					cliente.mostrarMenu(idUsuario);
+				} else if (validacion.verificarAdmin(idUsuario)) {
+					adm.mostrarMenu(idUsuario);
+				} else if (validacion.verificarECaja(idUsuario)) {
+					empCaja.mostrarMenu(idUsuario);
+				} else if (validacion.verificarTecnico(idUsuario)) {
+					tecnico.mostrarMenu(idUsuario);
+				} else if (validacion.verificarEMaquina(idUsuario)) {
+					empMaquina.mostrarMenu(idUsuario);
+				}
 
-		if(validacion.validacionLogin(idUsuario,contrasena)){
-
-			if(validacion.verificarCliente(idUsuario)){
-				cliente.mostrarMenu(idUsuario);}
-			else if(validacion.verificarAdmin(idUsuario)){
-				adm.mostrarMenu(idUsuario);}
-			else if(validacion.verificarECaja(idUsuario)){
-				empCaja.mostrarMenu(idUsuario);}
-			else if(validacion.verificarTecnico(idUsuario)) {
-				tecnico.mostrarMenu(idUsuario);}
-			else if(validacion.verificarEMaquina(idUsuario)) {
-				empMaquina.mostrarMenu(idUsuario);
+			} else {
+				// Usuario o contraseña incorrectos
+				JOptionPane.showMessageDialog(null, "Credenciales incorrectas. Por favor, inténtelo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+				intentosLogin++;
 			}
-			
-
-		} else {
-			// Usuario o contraseña incorrectos
-			JOptionPane.showMessageDialog(null,
-					"Credenciales incorrectas. Por favor, inténtelo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
-
-		}
+		} while (intentosLogin < 3);
 
 
 
