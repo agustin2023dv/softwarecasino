@@ -34,18 +34,15 @@ public class EmpleadoCaja extends Empleado implements Menu {
         this.caja = caja;
     }
 
-    public void agregarDinero(double monto, int id) {
+   public void agregarDinero(double monto, int id, int idCaja) {
         Conexion con = new Conexion();
-        int caja = this.getCaja().getIdCaja();
         Date fecha = new Date();
 
-        try {
-            Connection conexion = con.conectar();
-            String sql = "INSERT INTO transaccion_caja_empleado (empleado, caja, monto, fecha) VALUES (?, ?, ?, ?)";
+        try (Connection conexion = con.conectar();
+             PreparedStatement stmt = conexion.prepareStatement("INSERT INTO transaccion_caja_empleado (empleado, caja, monto, fecha) VALUES (?, ?, ?, ?)")) {
 
-            PreparedStatement stmt = conexion.prepareStatement(sql);
             stmt.setInt(1, id);
-            stmt.setInt(2, caja);
+            stmt.setInt(2, idCaja);
             stmt.setDouble(3, monto);
             stmt.setDate(4, new java.sql.Date(fecha.getTime()));
 
@@ -54,8 +51,6 @@ public class EmpleadoCaja extends Empleado implements Menu {
             System.out.println("Hubo un error al agregar dinero: " + e.getMessage());
         }
     }
-
-
 
 
     public void mostrarMenu(int id) {
