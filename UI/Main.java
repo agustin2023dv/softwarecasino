@@ -54,17 +54,23 @@ class Main {
 
 			String contrasena = JOptionPane.showInputDialog(null, "Contraseña:",
 					"Ingrese su contraseña", JOptionPane.PLAIN_MESSAGE);
-			if (validacion.validacionLogin(idUsuario, contrasena)) {
 
-				if (validacion.verificarCliente(idUsuario)) {
+			if (validacion.verificarUsuario(idUsuario, contrasena)) {
+
+				if (cliente.login(idUsuario,contrasena)) {
 					cliente.mostrarMenu(idUsuario);
-				} else if (validacion.verificarAdmin(idUsuario)) {
+
+				} else if (adm.login(idUsuario,contrasena)) {
+
 					adm.mostrarMenu(idUsuario);
-				} else if (validacion.verificarECaja(idUsuario)) {
+				} else if (empCaja.login(idUsuario,contrasena)) {
+
 					empCaja.mostrarMenu(idUsuario);
-				} else if (validacion.verificarTecnico(idUsuario)) {
+				} else if (tecnico.login(idUsuario,contrasena)) {
+
 					tecnico.mostrarMenu(idUsuario);
-				} else if (validacion.verificarEMaquina(idUsuario)) {
+				} else if (empMaquina.login(idUsuario,contrasena)) {
+
 					empMaquina.mostrarMenu(idUsuario);
 				}
 
