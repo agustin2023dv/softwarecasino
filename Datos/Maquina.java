@@ -9,7 +9,6 @@ public class Maquina {
 	
 	private int idMaquina;
 
-	private int saldoTickets;
 	private boolean daniada;
 	private boolean habilitada;
 
@@ -92,13 +91,7 @@ public class Maquina {
 
 
 
-	public int getSaldoTickets() {
-		return saldoTickets;
-	}
 
-	public void setSaldoTickets(int saldoTickets) {
-		this.saldoTickets = saldoTickets;
-	}
 
 	public boolean getDaniada() {
 		return daniada;

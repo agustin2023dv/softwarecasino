@@ -255,7 +255,7 @@ public class Validacion {
 
 //VALIDACIONES EMPLEADO CAJA 
 
-
+// FALTA CORREGIR NOMBRE DE VARIABLES EN EL METODO
 	public boolean verificarECaja(int idUsuario){
 
 		// Consulta para verificar si es un empleado caja

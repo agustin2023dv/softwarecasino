@@ -6,6 +6,7 @@ import Logica.Validacion;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -87,7 +88,77 @@ public class Tecnico extends Empleado implements Menu {
 		return true;
 	}
 
-    //menu
+    //MENU
+
+	public boolean login(int id, String contrasena){
+
+		// Realizar la consulta a la base de datos
+		Conexion con = new Conexion();
+		Connection conexion = null;
+
+		try {
+			conexion = con.conectar();
+			String sql = "SELECT COUNT(*) FROM usuario WHERE id_usuario = ? AND contrasena = ?";
+
+			PreparedStatement stmt = conexion.prepareStatement(sql);
+			stmt.setInt(1, id);
+			stmt.setString(2, contrasena);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				int count = rs.getInt(1);
+
+				if (count > 0) {
+					return true; // Existe un usuario con el ID y contraseña proporcionados
+				}
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Hubo un error al validar el login: " + e.getMessage(),"Error",
+					JOptionPane.ERROR_MESSAGE);
+		} finally {
+			// Cerrar la conexión y liberar recursos
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					JOptionPane.showMessageDialog(null,"Error al cerrar la conexión: " + e.getMessage(),"Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+
+		// Consulta para verificar si es un Tecnico
+		String consultaTecnico = "SELECT * FROM empleado WHERE tipo_empleado = 2 AND id_usuario = ?";
+
+		try {
+
+			PreparedStatement statementTecnico = conexion.prepareStatement(consultaTecnico);
+
+			// Establecer el parámetro en la consulta
+			statementTecnico.setInt(1, id);
+
+			// Ejecutar la consulta y obtener el resultado
+			ResultSet resultSetTecnico = statementTecnico.executeQuery();
+
+			// Verificar si hay algún resultado
+			boolean esTecnico = resultSetTecnico.next();
+
+			// Cerrar la conexión y liberar recursos
+			resultSetTecnico.close();
+			statementTecnico.close();
+			conexion.close();
+
+			// Devolver el resultado de la verificación
+			return esTecnico;
+		} catch (SQLException e) {
+			// Manejar cualquier error de SQL aquí
+			e.printStackTrace();
+			return false;
+		}
+
+
+	}
     
 	public void mostrarMenu(int id) {
 		String[] opcionesTecnico = {"Reparar Maquina", "Encender Maquina", "Apagar Maquina", "Salir"};

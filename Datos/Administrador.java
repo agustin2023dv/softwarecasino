@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class Administrador extends Usuario implements Menu {
@@ -169,6 +170,77 @@ public class Administrador extends Usuario implements Menu {
 	    }
 	    return "La caja " + idCaja + " tiene un saldo de " + sumaMontos;
 	}
+
+	public boolean login(int id, String contrasena){
+
+		// Realizar la consulta a la base de datos
+		Conexion con = new Conexion();
+		Connection conexion = null;
+
+		try {
+			conexion = con.conectar();
+			String sql = "SELECT COUNT(*) FROM usuario WHERE id_usuario = ? AND contrasena = ?";
+
+			PreparedStatement stmt = conexion.prepareStatement(sql);
+			stmt.setInt(1, id);
+			stmt.setString(2, contrasena);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				int count = rs.getInt(1);
+
+				if (count > 0) {
+					return true; // Existe un usuario con el ID y contraseña proporcionados
+				}
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Hubo un error al validar el login: " + e.getMessage(),"Error",
+					JOptionPane.ERROR_MESSAGE);
+		} finally {
+			// Cerrar la conexión y liberar recursos
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					JOptionPane.showMessageDialog(null,"Error al cerrar la conexión: " + e.getMessage(),"Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+
+		// Consulta para verificar si es un cliente
+		String consultaAdmin = "SELECT * FROM empleado WHERE id_usuario = ? and tipo_empleado = 4";
+
+
+		try {
+			PreparedStatement statementAdmin = conexion.prepareStatement(consultaAdmin);
+
+			// Establecer el parámetro en la consulta
+			statementAdmin.setInt(1, id);
+
+			// Ejecutar la consulta y obtener el resultado
+			ResultSet resultSetAdmin = statementAdmin.executeQuery();
+
+			// Verificar si hay algún resultado
+			boolean esAdmin = resultSetAdmin.next();
+
+			// Cerrar la conexión y liberar recursos
+			resultSetAdmin.close();
+			statementAdmin.close();
+			conexion.close();
+
+			// Devolver el resultado de la verificación
+			return esAdmin;
+		} catch (SQLException e) {
+			// Manejar cualquier error de SQL aquí
+			e.printStackTrace();
+			return false;
+		}
+
+
+	}
+
 
 	public void mostrarMenu(int idAdm) {
 		String[] opcionesAdminsitrador = { "Ver cliente", "Eliminar cliente", "Ver caja", "Eliminar juego",
