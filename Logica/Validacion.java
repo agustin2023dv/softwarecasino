@@ -214,34 +214,17 @@ public class Validacion {
 
 
 	public boolean validarEliminarJuego(int idJuego){
-		Conexion con = new Conexion();
 
-		try {
-			Connection conexion = con.conectar();
-			String sql = "SELECT count(*) " +
-					"FROM juego WEHERE id_juego= ?";
-
-			PreparedStatement stmt = conexion.prepareStatement(sql);
-			stmt.setInt(1, idJuego);
-
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				int count = rs.getInt("count");
-			}
-			else{
-				JOptionPane.showMessageDialog(null,"No existe ningun juego en el sistema con el ID "+idJuego
-						,"Error",JOptionPane.ERROR_MESSAGE);
+			if(idJuego<0 || idJuego>50){
 				return false;
 			}
-		} catch (Exception e) {
-			System.out.println("Hubo un error: " + e.getMessage());
-		}
-		return true;
-	}
-	public boolean validarActualizarCliente (String email, String direccion, int idCliente) {
-			Conexion con = new Conexion();
+			else {
+				return true;
+			}
 
+	}
+
+	public boolean validarActualizarCliente (String email, String direccion, int idCliente) {
 
 		if(idCliente<= 0 || idCliente >99 || email.equals("") || direccion.equals("")
 			||	email.length() < 10 || email.length() > 30 || direccion.length() < 10 || direccion.length() > 30){
@@ -249,35 +232,14 @@ public class Validacion {
 			return false;
 		}
 		else{
-			try {
-				Connection conexion = con.conectar();
-				String sql = "SELECT count(*) " +
-						"FROM usuario u INNER JOIN cliente c" +
-						"ON u.id_usuario=c.id_usuario  WHERE c.id_usuario = ?";
-
-				PreparedStatement stmt = conexion.prepareStatement(sql);
-				stmt.setInt(1, idCliente);
-
-				ResultSet rs = stmt.executeQuery();
-
-				if (rs.next()) {
-					int count = rs.getInt("count");
-					return count > 0; // Devuelve true si el ID de usuario existe en la base de datos
-				}
-			} catch (Exception e) {
-				System.out.println("Hubo un error: " + e.getMessage());
-			}
-			return true; // Devuelve false si ocurrió algún error o el ID de usuario no existe en la base de datos
-		}
+			return true;
 		}
 
-
+		}
 
 
 
 	public boolean validarExistenciaCliente(int idUsuario) {
-
-		Conexion con = new Conexion();
 
 		if(idUsuario <= 0 || idUsuario >99 ){
 			JOptionPane.showMessageDialog(null,
@@ -285,34 +247,9 @@ public class Validacion {
 			return false;
 		}
 		else{
-			try {
-				Connection conexion = con.conectar();
-				String sql = "SELECT count(*) " +
-						"FROM usuario u INNER JOIN cliente c" +
-						"ON u.id_usuario=c.id_usuario  WHERE c.id_usuario = ?";
-
-				PreparedStatement stmt = conexion.prepareStatement(sql);
-				stmt.setInt(1, idUsuario);
-
-				ResultSet rs = stmt.executeQuery();
-
-				if (rs.next()) {
-					int count = rs.getInt("count");
-					return count > 0; // Devuelve true si el ID de usuario existe en la base de datos
-				}
-				else{
-					JOptionPane.showMessageDialog(null,
-							"No se encontro el usuario con ID "+idUsuario, "Error", JOptionPane.ERROR_MESSAGE);
-					return false;
-				}
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null,
-						"Hubo un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-			}
-			return true; // Devuelve false si ocurrió algún error o el ID de usuario no existe en la base de datos
+			return true;
 	}
 		}
-
 
 
 
@@ -354,35 +291,7 @@ public class Validacion {
 	}
 	public boolean validarAgregarDinero (double montoAAgregar, int idCaja) {
 
-		Conexion con = new Conexion();
-
-		try {
-			Connection conexion = con.conectar();
-			String sql = "SELECT  id_caja " +
-					"FROM caja WHERE id_caja = ?";
-
-			PreparedStatement stmt = conexion.prepareStatement(sql);
-			stmt.setInt(1, idCaja);
-
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				int count = rs.getInt("count");
-				return count > 0; //
-			}
-			else{
-				JOptionPane.showMessageDialog(null,
-						"No se encontro la caja con ID "+idCaja, "Error", JOptionPane.ERROR_MESSAGE);
-				return false;
-			}
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
-		}
-
-
-		if(montoAAgregar >= 1) {
+		if(montoAAgregar > 0 && idCaja >0 && idCaja<4) {
             return true;
 		}else {
             return false;

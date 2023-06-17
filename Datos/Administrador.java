@@ -52,7 +52,10 @@ public class Administrador extends Usuario implements Menu {
 		}
 	}
 
+	// ACA DEBERIAMOS HACER UN COMBOBOX CON LOS CLIENTES Y LISTO
+
 	public String revisarCuentaCliente(int idUsuario) {
+
 		String resultado = "";
 		Conexion con = new Conexion();
 
@@ -81,7 +84,8 @@ public class Administrador extends Usuario implements Menu {
 			resultado += "Email: " + email + "\n";
 			resultado += "Fecha de Nacimiento: " + fecNacimiento + "\n";
 		} catch (Exception e) {
-			System.out.println("Hubo un error: " + e.getMessage());
+			JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+
 			resultado = "Hubo un error al consultar la cuenta del cliente.";
 		}
 
@@ -105,6 +109,7 @@ public class Administrador extends Usuario implements Menu {
 	}
 
 	public boolean eliminarJuego(int idJuego) {
+
 		Conexion con = new Conexion();
 		try {
 			Connection conexion = con.conectar();

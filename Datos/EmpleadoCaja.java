@@ -6,6 +6,7 @@ import Logica.Validacion;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Date;
 
 public class EmpleadoCaja extends Empleado implements Menu {
@@ -33,7 +34,8 @@ public class EmpleadoCaja extends Empleado implements Menu {
         Date fecha = new Date();
 
         try (Connection conexion = con.conectar();
-             PreparedStatement stmt = conexion.prepareStatement("INSERT INTO transaccion_caja_empleado (empleado, caja, monto, fecha) " +
+             PreparedStatement stmt = conexion.prepareStatement("INSERT INTO transaccion_caja_empleado (empleado, caja, monto, fecha) "
+                     +
                      "VALUES (?, ?, ?, ?)")) {
 
             stmt.setInt(1, id);
@@ -42,8 +44,11 @@ public class EmpleadoCaja extends Empleado implements Menu {
             stmt.setDate(4, new java.sql.Date(fecha.getTime()));
 
             stmt.executeUpdate();
+
+
         } catch (Exception e) {
-            System.out.println("Hubo un error al agregar dinero: " + e.getMessage());
+            JOptionPane.showMessageDialog(null,"Hubo un error al agregar dinero: " + e.getMessage(),"Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
