@@ -4,10 +4,6 @@ package Logica;
 import Datos.*;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Validacion {
     
@@ -171,33 +167,13 @@ public class Validacion {
 
 
 	public boolean validarExistenciaMaquina(int idMaquina){
-		Conexion con = new Conexion();
 
-		try {
-			Connection conexion = con.conectar();
-			String sql = "SELECT  count(*) as count " +
-					"FROM maquina WHERE id_maquina = ?";
+		if(idMaquina<1 || idMaquina>3) {
 
-			PreparedStatement stmt = conexion.prepareStatement(sql);
-			stmt.setInt(1, idMaquina);
-
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				int count = rs.getInt("count");
-				return count > 0; //
-			}
-			else{
-				JOptionPane.showMessageDialog(null,
-						"No se encontro la maquina con ID "+idMaquina, "Error", JOptionPane.ERROR_MESSAGE);
-				return false;
-			}
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
+			return false;}
+		else{
+			return  true;
 		}
-		return false;
 	}
     
 }
