@@ -213,7 +213,8 @@ public class Administrador extends Usuario implements Menu {
 					String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del Juego");
 					int jugadoresMinimos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los jugadores mínimos del Juego"));
 					int jugadoresMaximos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los jugadores máximos del Juego"));
-					if (validacion.validarEditarJuego(descripcion, jugadoresMinimos, jugadoresMaximos, id)) {
+
+					if (validacion.validarEditarJuego(descripcion, jugadoresMinimos, jugadoresMaximos)) {
 						this.editarJuego(descripcion, jugadoresMaximos, id);
 					}
 					break;

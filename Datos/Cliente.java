@@ -17,7 +17,6 @@ import Logica.Validacion;
 
 public class Cliente extends Usuario implements Menu {
     private int idCliente;
-    private int cantPartidasJugadas;
 
     private double dineroDisponible;
    
@@ -49,13 +48,7 @@ public class Cliente extends Usuario implements Menu {
         this.idCliente = idCliente;
     }
 
-    public int getCantPartidasJugadas() {
-        return cantPartidasJugadas;
-    }
 
-    public void setCantPartidasJugadas(int cantPartidasJugadas) {
-        this.cantPartidasJugadas = cantPartidasJugadas;
-    }
 
 
     public void setDineroDisponible(double dineroDisponible) {
@@ -105,8 +98,7 @@ public class Cliente extends Usuario implements Menu {
                 historial.append("------------------------\n");
             }
         } catch (Exception e) {
-            System.out.println("Hubo un error: " + e.getMessage());
-            return "Hubo un error al obtener el historial de partidas.";
+            return "Hubo un error al obtener el historial de partidas." + e.getMessage();
         }
 
         return historial.toString();
@@ -242,10 +234,6 @@ public class Cliente extends Usuario implements Menu {
         return infoCuenta;
     }
 
-    public void solicitarAsistencia(){
-
-        System.out.print("En unos instantes un asistente lo auxiliará. Gracias.");
-    }
 
     public boolean jugar(int idJuego, int idCliente,double apuesta) {
 
@@ -393,7 +381,8 @@ public class Cliente extends Usuario implements Menu {
                         break;
 
                     case "Ver historial partidas":
-                        JOptionPane.showMessageDialog(null, getHistorialPartidas(idCliente), "Historial de partidas",
+                        JOptionPane.showMessageDialog(null, getHistorialPartidas(idCliente),
+                                "Historial de partidas",
                                 JOptionPane.INFORMATION_MESSAGE);
                         break;
 
@@ -402,7 +391,7 @@ public class Cliente extends Usuario implements Menu {
                         monto = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
 
-                        if (validar.validarAgregarDinero(monto,3)) {
+                        if (validar.validarCargaDinero(idCliente,monto)) {
                             this.cargarSaldoOnline(monto, idCliente);
                         }
                         break;

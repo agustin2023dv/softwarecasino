@@ -17,8 +17,6 @@ public class Validacion {
 			// Validar el ID de usuario
 
 
-
-
 			if (idUsuario < 0 || idUsuario > 99) {
 				JOptionPane.showMessageDialog(null,"El usuario debe ser un numero entre 1 y 99","Error",
 						JOptionPane.ERROR_MESSAGE);
@@ -143,7 +141,16 @@ public class Validacion {
 
 //VALIDACIONES CLIENTE
 
+	public boolean validarCargaDinero(int idCliente, double monto){
 
+			if(idCliente>0 && idCliente<100 && monto>0){
+				return true;
+			}
+			else{
+				return false;
+			}
+
+	}
 
 	public boolean validarRetiroDinero(int idCliente, double monto) {
 			Cliente cliente = new Cliente();
@@ -187,33 +194,7 @@ public class Validacion {
 			}
 	}
 
-	public boolean validarEditarJuego (String descripcion, int jugadoresMinimos, int jugadoresMaximos, int idJuego) {
-
-			Conexion con = new Conexion();
-
-		try {
-			Connection conexion = con.conectar();
-			String sql = "SELECT count(*) " +
-					"FROM juego WEHERE id_juego= ?";
-
-			PreparedStatement stmt = conexion.prepareStatement(sql);
-			stmt.setInt(1, idJuego);
-
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				int count = rs.getInt("count");
-			}
-			else{
-				JOptionPane.showMessageDialog(null,"No existe ningun juego en el sistema con el ID "+idJuego
-						,"Error",JOptionPane.ERROR_MESSAGE);
-				return false;
-			}
-		} catch (Exception e) {
-			System.out.println("Hubo un error: " + e.getMessage());
-		}
-
-
+	public boolean validarEditarJuego (String descripcion, int jugadoresMinimos, int jugadoresMaximos) {
 
 
 		if(jugadoresMinimos < 1 || jugadoresMaximos > 6) {
