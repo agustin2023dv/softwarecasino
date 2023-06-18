@@ -298,16 +298,16 @@ public class Cliente extends Usuario implements Menu {
             return jugo;
         }
 
-    public boolean login(int id, String contrasena) {
+    public boolean login(String nombreUsuario, String contrasena) {
         Conexion con = new Conexion();
 
         try (Connection conexion = con.conectar()) {
             String sql = "SELECT COUNT(*) FROM usuario u " +
                     "INNER JOIN cliente c ON u.id_usuario = c.id_usuario " +
-                    "WHERE u.id_usuario = ? AND u.contrasena = ?";
+                    "WHERE u.nombre_usuario = ? AND u.contrasena = ?";
 
             PreparedStatement stmt = conexion.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, nombreUsuario);
             stmt.setString(2, contrasena);
 
             ResultSet rs = stmt.executeQuery();
@@ -328,7 +328,7 @@ public class Cliente extends Usuario implements Menu {
     }
 
 
-    public void mostrarMenu(int id) {
+    public void mostrarMenu(String id) {
 
         JFrame frame = new JFrame("Mi Aplicación");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -377,7 +377,7 @@ public class Cliente extends Usuario implements Menu {
 
                 switch (opcion) {
                     case "Ver perfil":
-                        JOptionPane.showMessageDialog(null, verCuenta(id), "Información cuenta cliente",
+                        JOptionPane.showMessageDialog(null, verCuenta(1), "Información cuenta cliente",
                                 JOptionPane.INFORMATION_MESSAGE);
                         break;
 
@@ -397,7 +397,7 @@ public class Cliente extends Usuario implements Menu {
                         apuesta = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Cuánto desea apostar?"));
 
-                        if (validar.validarJugar(apuesta, id)) {
+                        if (validar.validarJugar(apuesta, 2)) {
                             this.jugar(idJuegoSeleccionado, idCliente, apuesta);
 
                         } else {

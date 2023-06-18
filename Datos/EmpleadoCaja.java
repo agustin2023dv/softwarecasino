@@ -54,18 +54,18 @@ public class EmpleadoCaja extends Empleado implements Menu {
     }
 
 
-    public boolean login(int id, String contrasena) {
+    public boolean login(String nombreUsuario, String contrasena) {
         // Realizar la consulta a la base de datos
         Conexion con = new Conexion();
 
         try (Connection conexion = con.conectar()) {
             String sql = "SELECT COUNT(*) FROM usuario u " +
                     "LEFT JOIN empleado e ON u.id_usuario = e.id_usuario " +
-                    "WHERE u.id_usuario = ? AND u.contrasena = ? " +
+                    "WHERE u.nombre_usuario = ? AND u.contrasena = ? " +
                     "AND e.tipo_empleado = 1";
 
             PreparedStatement stmt = conexion.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, nombreUsuario);
             stmt.setString(2, contrasena);
 
             ResultSet rs = stmt.executeQuery();
@@ -86,7 +86,7 @@ public class EmpleadoCaja extends Empleado implements Menu {
     }
 
 
-    public void mostrarMenu(int id) {
+    public void mostrarMenu(String id) {
         String opcion;
         String []opcionesECaja = {"Agregar dinero", "Salir"};
 
@@ -111,7 +111,7 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
 
                     if(validacion.validarAgregarDinero(monto, idCaja)){
-                        this.agregarDinero(monto, id,idCaja);
+                        this.agregarDinero(monto, 1,idCaja);
                         JOptionPane.showMessageDialog(null, "Ha depositado $"+monto+" correctamente " +
                                 "en la caja numero "+idCaja, "Deposito exitoso",JOptionPane.INFORMATION_MESSAGE);
                     }

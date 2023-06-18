@@ -75,17 +75,17 @@ public class EmpleadoMaquina extends Empleado implements Menu{
     
     // Menu
 
-	public boolean login(int id, String contrasena) {
+	public boolean login(String nombreUsuario, String contrasena) {
 		Conexion con = new Conexion();
 
 		try (Connection conexion = con.conectar()) {
 			String sql = "SELECT COUNT(*) FROM usuario u " +
 					"LEFT JOIN empleado e ON u.id_usuario = e.id_usuario " +
-					"WHERE u.id_usuario = ? AND u.contrasena = ? " +
+					"WHERE u.nombre_usuario = ? AND u.contrasena = ? " +
 					"AND e.tipo_empleado = 3";
 
 			PreparedStatement stmt = conexion.prepareStatement(sql);
-			stmt.setInt(1, id);
+			stmt.setString(1, nombreUsuario);
 			stmt.setString(2, contrasena);
 
 			ResultSet rs = stmt.executeQuery();
@@ -107,7 +107,7 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 	}
 
 
-    public void mostrarMenu(int id){
+    public void mostrarMenu(String id){
         String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Salir"};
 
         String opcion;

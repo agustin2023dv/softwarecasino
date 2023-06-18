@@ -45,12 +45,13 @@ class Main {
 
 		// LOGIN
 		int intentosLogin = 0;
-		int idUsuario;
+
 
 
 		do {
-			idUsuario = Integer.parseInt(JOptionPane.showInputDialog(null, "ID de usuario:",
-					"Ingrese su usuario", JOptionPane.PLAIN_MESSAGE));
+
+			String	idUsuario = JOptionPane.showInputDialog(null, "ID de usuario:",
+					"Ingrese su usuario", JOptionPane.PLAIN_MESSAGE);
 
 			String contrasena = JOptionPane.showInputDialog(null, "Contraseña:",
 					"Ingrese su contraseña", JOptionPane.PLAIN_MESSAGE);
