@@ -75,15 +75,14 @@ public class EmpleadoMaquina extends Empleado implements Menu{
     
     // Menu
 
-	public boolean login(int id, String contrasena){
-
-		// Realizar la consulta a la base de datos
+	public boolean login(int id, String contrasena) {
 		Conexion con = new Conexion();
-		Connection conexion = null;
 
-		try {
-			conexion = con.conectar();
-			String sql = "SELECT COUNT(*) FROM usuario WHERE id_usuario = ? AND contrasena = ?";
+		try (Connection conexion = con.conectar()) {
+			String sql = "SELECT COUNT(*) FROM usuario u " +
+					"LEFT JOIN empleado e ON u.id_usuario = e.id_usuario " +
+					"WHERE u.id_usuario = ? AND u.contrasena = ? " +
+					"AND e.tipo_empleado = 3";
 
 			PreparedStatement stmt = conexion.prepareStatement(sql);
 			stmt.setInt(1, id);
@@ -95,54 +94,16 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 				int count = rs.getInt(1);
 
 				if (count > 0) {
-					return true; // Existe un usuario con el ID y contraseña proporcionados
+					return true; // Existe un usuario con el ID y contraseña proporcionados y es EMaquina
 				}
 			}
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,"Hubo un error al validar el login: " + e.getMessage(),"Error",
+			JOptionPane.showMessageDialog(null,
+					"Hubo un error al validar el login: " + e.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
-		} finally {
-			// Cerrar la conexión y liberar recursos
-			if (conexion != null) {
-				try {
-					conexion.close();
-				} catch (SQLException e) {
-					JOptionPane.showMessageDialog(null,"Error al cerrar la conexión: " + e.getMessage(),"Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-			}
 		}
 
-		// Consulta para verificar si es un empleado maquina
-		String consultaEMaquina = "SELECT * FROM empleado WHERE tipo_empleado = 3 AND id_usuario = ?";
-
-		try {
-
-			PreparedStatement statementEMaquina = conexion.prepareStatement(consultaEMaquina);
-
-			// Establecer el parámetro en la consulta
-			statementEMaquina.setInt(1, id);
-
-			// Ejecutar la consulta y obtener el resultado
-			ResultSet resultSetEMaquina = statementEMaquina.executeQuery();
-
-			// Verificar si hay algún resultado
-			boolean esEMaquina = resultSetEMaquina.next();
-
-			// Cerrar la conexión y liberar recursos
-			resultSetEMaquina.close();
-			statementEMaquina.close();
-			conexion.close();
-
-			// Devolver el resultado de la verificación
-			return esEMaquina;
-		} catch (SQLException e) {
-			// Manejar cualquier error de SQL aquí
-			e.printStackTrace();
-			return false;
-		}
-
-
+		return false;
 	}
 
 
