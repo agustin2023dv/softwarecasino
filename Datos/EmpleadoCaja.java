@@ -14,6 +14,7 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
     private int idEmpleadoCaja;
 
+    private JFrame ventana;
 
     public EmpleadoCaja(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena,
                         String correoElectronico, String direccion, int idEmpleado, String puesto, int idEmpleadoCaja) {
@@ -108,6 +109,12 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
 
     public void mostrarMenu(String id) {
+        ventana = new JFrame("Empleado Caja");
+        ventana.setSize(500, 300);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+
         String opcion;
         String []opcionesECaja = {"Agregar dinero", "Salir"};
 
