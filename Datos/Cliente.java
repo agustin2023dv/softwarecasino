@@ -342,6 +342,7 @@ public class Cliente extends Usuario implements Menu {
         Juego juego = new Juego();
         Caja caja1 = new Caja();
 
+
         Conexion con = new Conexion();
 
         Date fecha = new Date();
@@ -360,11 +361,24 @@ public class Cliente extends Usuario implements Menu {
         saldo2 =caja1.getSaldoActual(2);
         saldo3 = caja1.getSaldoActual(3);
 
-        if (saldo < monto && saldo2<monto && saldo3 <monto) {
+
+        if(juego.getMaquina().getDaniada(idJuego)){
+            JOptionPane.showMessageDialog(null, "Lo sentimos, la maquina esta dañada",
+                    "Maquina dañada", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        else if(juego.getMaquina().getHabilitada(idJuego)){
+            JOptionPane.showMessageDialog(null, "Lo sentimos, la maquina no esta habilitada",
+                    "Maquina no habilitada", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+            else if (saldo < monto && saldo2<monto && saldo3 <monto) {
+
             JOptionPane.showMessageDialog(null, "Lo sentimos, no hay suficiente dinero en las cajas " +
                             "para afrontar la apuesta",
                     "Saldo insuficiente", JOptionPane.ERROR_MESSAGE);
-            return false;
+                return false;
+
         } else {
             if (resultado) {
                 this.cargarSaldoOnline(monto, nombre_usuario);

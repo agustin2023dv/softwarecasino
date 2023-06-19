@@ -1,5 +1,6 @@
 package Datos;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -93,20 +94,90 @@ public class Maquina {
 
 
 
-	public boolean getDaniada() {
-		return daniada;
+    public boolean getDaniada(int id) {
+        Conexion con = new Conexion();
+        boolean daniada = false;
+
+        try {
+            Connection conexion = con.conectar();
+
+            String sql = "SELECT daniada FROM maquina WHERE id_maquina = ?";
+
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                daniada = rs.getBoolean("daniada");
+            }
+        } catch (Exception e) {
+            System.out.println("Hubo un error: " + e.getMessage());
+        }
+
+        return daniada;
+    }
+
+	public void setDaniada(int id) {
+
+
+        Conexion con = new Conexion();
+        try {
+            Connection conexion = con.conectar();
+
+            String sql = "UPDATE maquina SET daniada = true WHERE id_maquina = ?;";
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+
+        }
 	}
 
-	public void setDaniada(boolean daniada) {
-		this.daniada = daniada;
+	public boolean getHabilitada(int id) {
+
+        Conexion con = new Conexion();
+        boolean habilitada = false;
+
+        try {
+            Connection conexion = con.conectar();
+
+            String sql = "SELECT habilitada FROM maquina WHERE id_maquina = ?";
+
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                habilitada = rs.getBoolean("habilitada");
+            }
+        } catch (Exception e) {
+            System.out.println("Hubo un error: " + e.getMessage());
+        }
+
+        return habilitada;
 	}
 
-	public boolean getHabilitada() {
-		return habilitada;
-	}
+	public void setHabilitada(int id) {
 
-	public void setHabilitada(boolean habilitada) {
-		this.habilitada = habilitada;
+        Conexion con = new Conexion();
+        try {
+            Connection conexion = con.conectar();
+
+            String sql = "UPDATE maquina SET habilitada = true WHERE id_maquina = ?;";
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+
+        }
 	}
 
 

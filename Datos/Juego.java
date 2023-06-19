@@ -80,6 +80,12 @@ public class Juego {
     }
 
     public Maquina getMaquina() {
+
+        Maquina maquina = new Maquina();
+
+
+
+
         return maquina;
     }
 
