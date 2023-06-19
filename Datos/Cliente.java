@@ -40,8 +40,56 @@ public class Cliente extends Usuario implements Menu {
 
 
 
-    public int getIdCliente() {
+    public int getIdCliente(String nombre_usuario) {
+        Conexion con = new Conexion();
+        int idCliente= 0; // Valor por defecto en caso de que no se encuentre el usuario
+
+        try (Connection conexion = con.conectar();
+             PreparedStatement stmt = conexion.prepareStatement("SELECT id_usuario FROM usuario WHERE nombre_usuario = ?");
+        ) {
+            stmt.setString(1, nombre_usuario);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                idCliente = rs.getInt("id_usuario");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al obtener el ID del usuario: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
         return idCliente;
+    }
+
+
+    public int getNroCliente(int id){
+
+        int nroCliente = 0;
+
+        Conexion con = new Conexion();
+        try (Connection conexion = con.conectar();
+             PreparedStatement stmt = conexion.prepareStatement("SELECT id_cliente FROM cliente WHERE id_usuario = ?");
+        ) {
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                nroCliente = rs.getInt("id_cliente");
+                return nroCliente;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al obtener el ID del usuario: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return nroCliente;
+        }
+
+
+        return nroCliente;
+
+
     }
 
     public void setIdCliente(int idCliente) {
@@ -59,11 +107,19 @@ public class Cliente extends Usuario implements Menu {
 
     // Metodos del cliente
 
-    public String getHistorialPartidas(int idCliente) {
+    public String getHistorialPartidas(String idCliente) {
 
         Conexion con = new Conexion();
         StringBuilder historial = new StringBuilder();
 
+
+
+        int id_cliente;
+
+        id_cliente = this.getIdCliente(idCliente);
+
+        int id;
+        id = this.getNroCliente(id_cliente);
         try  {
             Connection conexion = con.conectar();
 
@@ -74,7 +130,7 @@ public class Cliente extends Usuario implements Menu {
                     "ORDER BY p.fecha DESC";
 
             PreparedStatement stmt = conexion.prepareStatement(sql);
-            stmt.setInt(1, idCliente);
+            stmt.setInt(1, id);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -194,6 +250,9 @@ public class Cliente extends Usuario implements Menu {
     }
 
     public String verCuenta(int id) {
+
+
+
         String infoCuenta = "";
         Conexion con = new Conexion();
 
@@ -235,7 +294,12 @@ public class Cliente extends Usuario implements Menu {
     }
 
 
-    public boolean jugar(int idJuego, int idCliente,double apuesta) {
+    public boolean jugar(int idJuego, String nombre_usuario,double apuesta) {
+
+        int id_cliente ;
+        int cliente;
+        cliente = this.getIdCliente(nombre_usuario);
+        id_cliente= this.getNroCliente(cliente);
 
         String rutaImagenGano= "img/thumbs-up.png";
         ImageIcon iconoGano = new ImageIcon(rutaImagenGano);
@@ -247,7 +311,6 @@ public class Cliente extends Usuario implements Menu {
 
         Juego juego = new Juego();
 
-        boolean jugo = true;
         Conexion con = new Conexion();
 
         Date fecha = new Date();
@@ -260,15 +323,15 @@ public class Cliente extends Usuario implements Menu {
                 double monto;
                 monto = apuesta*4;
 
-                this.cargarSaldoOnline(monto,idCliente);
+                this.cargarSaldoOnline(monto,id_cliente);
 
-               // emp.agregarDinero(monto*(-1),1,3);
+               emp.agregarDinero(monto*(-1),"juancito23",3);
 
                 JOptionPane.showMessageDialog(null,"Felicitaciones! has ganado "+monto,"Ganaste",
                         JOptionPane.INFORMATION_MESSAGE,iconoGano);
             } else {
 
-           //     emp.agregarDinero(apuesta,1,2);
+               emp.agregarDinero(apuesta,"juancito23",2);
                 JOptionPane.showMessageDialog(null,"LO SENTIMOS! has perdido ","Perdiste",
                         JOptionPane.INFORMATION_MESSAGE,iconoPerdio);
             }
@@ -284,7 +347,7 @@ public class Cliente extends Usuario implements Menu {
                 PreparedStatement stmt = conexion.prepareStatement(sql);
 
                 stmt.setInt(1, idJuego);
-                stmt.setInt(2, idCliente);
+                stmt.setInt(2, id_cliente);
                 stmt.setDouble(3, apuesta);
                 stmt.setDate(4, new java.sql.Date(fecha.getTime()));
                 stmt.setBoolean(5, resultado);
@@ -295,7 +358,7 @@ public class Cliente extends Usuario implements Menu {
                 JOptionPane.showMessageDialog(null,"Hubo un error al registrar la partida: " + e.getMessage());
             }
 
-            return jugo;
+            return true;
         }
 
     public boolean login(String nombreUsuario, String contrasena) {
@@ -330,6 +393,8 @@ public class Cliente extends Usuario implements Menu {
 
     public void mostrarMenu(String id) {
 
+        int id_cliente;
+        id_cliente= this.getIdCliente(id);
         JFrame frame = new JFrame("Mi Aplicación");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Connection conexion = Conexion.conectar();
@@ -337,7 +402,6 @@ public class Cliente extends Usuario implements Menu {
         String queryCliente = "SELECT id_cliente FROM cliente AS c INNER JOIN usuario AS u ON c.id_usuario = u.id_usuario";
         ArrayList<String> nombresJuegos = new ArrayList<>();
         Validacion validar = new Validacion();
-        int idCliente = 0;
 
         try {
 
@@ -346,9 +410,9 @@ public class Cliente extends Usuario implements Menu {
 
             ResultSet resultSetIDCliente = statementIDCliente.executeQuery();
 
-            if (resultSetIDCliente.next()) {
+/*            if (resultSetIDCliente.next()) {
                 idCliente = resultSetIDCliente.getInt("id_cliente");
-            }
+            }*/
 
             String consultaJuegos = "SELECT nombre FROM juego";
             PreparedStatement statementJuegos = conexion.prepareStatement(consultaJuegos);
@@ -377,7 +441,7 @@ public class Cliente extends Usuario implements Menu {
 
                 switch (opcion) {
                     case "Ver perfil":
-                        JOptionPane.showMessageDialog(null, verCuenta(1), "Información cuenta cliente",
+                        JOptionPane.showMessageDialog(null, verCuenta(id_cliente), "Información cuenta cliente",
                                 JOptionPane.INFORMATION_MESSAGE);
                         break;
 
@@ -397,11 +461,9 @@ public class Cliente extends Usuario implements Menu {
                         apuesta = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Cuánto desea apostar?"));
 
-                        if (validar.validarJugar(apuesta, 2)) {
-                            this.jugar(idJuegoSeleccionado, idCliente, apuesta);
+                        if (validar.validarJugar(apuesta, id_cliente)) {
+                            this.jugar(idJuegoSeleccionado, id, apuesta);
 
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Error");
                         }
 
 
@@ -409,7 +471,7 @@ public class Cliente extends Usuario implements Menu {
                         break;
 
                     case "Ver historial partidas":
-                        JOptionPane.showMessageDialog(null, getHistorialPartidas(idCliente),
+                        JOptionPane.showMessageDialog(null, getHistorialPartidas(id),
                                 "Historial de partidas",
                                 JOptionPane.INFORMATION_MESSAGE);
                         break;
@@ -419,8 +481,8 @@ public class Cliente extends Usuario implements Menu {
                         monto = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
 
-                        if (validar.validarCargaDinero(idCliente,monto)) {
-                            this.cargarSaldoOnline(monto, idCliente);
+                        if (validar.validarCargaDinero(id_cliente,monto)) {
+                            this.cargarSaldoOnline(monto, id_cliente);
                         }
                         break;
 
@@ -429,8 +491,8 @@ public class Cliente extends Usuario implements Menu {
                         retiro = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Cuánto dinero desea retirar?", "Retiro de dinero", JOptionPane.QUESTION_MESSAGE));
 
-                        if (validar.validarRetiroDinero(idCliente, retiro)) {
-                            this.retirarDinero(retiro, idCliente);
+                        if (validar.validarRetiroDinero(id_cliente, retiro)) {
+                            this.retirarDinero(retiro, id_cliente);
                         }
                         break;
                 }

@@ -50,7 +50,7 @@ class Main {
 
 		do {
 
-			String	idUsuario = JOptionPane.showInputDialog(null, "ID de usuario:",
+			String	idUsuario = JOptionPane.showInputDialog(null, "Nombre de usuario:",
 					"Ingrese su usuario", JOptionPane.PLAIN_MESSAGE);
 
 			String contrasena = JOptionPane.showInputDialog(null, "Contraseña:",
