@@ -4,12 +4,14 @@ import Datos.*;
 import Logica.*;
 
 import javax.swing.*;
+import java.awt.*;
 
 class Main {
 
 	public static void main(String[] args) {
 
-		//CONEXION BD
+		 JFrame ventana;
+		 JLabel labelMensaje;
 		Validacion validacion = new Validacion();
 
 
@@ -28,8 +30,22 @@ class Main {
 
 		ImageIcon iconoInicio = new ImageIcon(rutaImagenInicio);
 
-		JOptionPane.showMessageDialog(null, "Bienvenido al casino Jocker",
-				"Casino Jocker", JOptionPane.PLAIN_MESSAGE, iconoInicio);
+		ventana = new JFrame("Casino Jocker");
+		ventana.setSize(400, 300);
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ventana.setLocationRelativeTo(null);
+
+		JPanel panel = new JPanel();
+
+		JLabel labelImagen = new JLabel(iconoInicio);
+		labelMensaje = new JLabel("Bienvenido al casino Jocker");
+		labelMensaje.setFont(new Font("Arial", Font.PLAIN, 24));
+
+		panel.add(labelImagen);
+		panel.add(labelMensaje);
+
+		ventana.add(panel);
+		ventana.setVisible(true);
 
 
 

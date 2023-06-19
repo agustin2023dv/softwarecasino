@@ -4,6 +4,7 @@ import Interface.Menu;
 import Logica.Validacion;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -140,8 +141,8 @@ public class EmpleadoCaja extends Empleado implements Menu {
                 int idCaja = Integer.parseInt(textFieldIdCaja.getText());
                 if (validacion.validarAgregarDinero(monto, idCaja)) {
                     agregarDinero(monto, id, idCaja);
-                    JOptionPane.showMessageDialog(null, "Ha depositado $" + monto + " correctamente " +
-                            "en la caja numero " + idCaja, "Deposito exitoso", JOptionPane.INFORMATION_MESSAGE);
+                    Label labelMensaje = null;
+                    labelMensaje.setText("Ha depositado $" + monto + " correctamente en la caja número " + idCaja);
                 }
             }
         });
