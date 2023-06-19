@@ -231,11 +231,23 @@ public class Cliente extends Usuario implements Menu {
 
         Conexion con = new Conexion();
 
-        int caja = (int) (Math.random() * 3) + 1;
+        Caja caja1 = new Caja();
+
+        int caja;
         int tipoTransaccion = 2;
         Date fecha = new Date();
 
         monto = monto*(-1);
+
+        if (caja1.getSaldoActual(1)>=monto) {
+            caja = 1;
+        }
+        else if(caja1.getSaldoActual(2)>=monto){
+            caja= 2;
+        }
+        else{
+            caja= 3;
+        }
 
         try {
             Connection conexion = con.conectar();
@@ -299,27 +311,22 @@ public class Cliente extends Usuario implements Menu {
     }
 
 
-    public boolean jugar(int idJuego, String nombre_usuario,double apuesta) {
+    public boolean jugar(int idJuego, String nombre_usuario, double apuesta) {
 
-        int id_cliente ;
+        int id_cliente;
         int cliente;
         cliente = this.getIdCliente(nombre_usuario);
-        id_cliente= this.getNroCliente(cliente);
+        id_cliente = this.getNroCliente(cliente);
 
-        String rutaImagenGano= "img/thumbs-up.png";
+        String rutaImagenGano = "img/thumbs-up.png";
         ImageIcon iconoGano = new ImageIcon(rutaImagenGano);
 
-
-        String rutaImagenPerdio= "img/thumbs-down.png";
+        String rutaImagenPerdio = "img/thumbs-down.png";
         ImageIcon iconoPerdio = new ImageIcon(rutaImagenPerdio);
 
 
-        int caja = (int) (Math.random() * 3) + 1;
-
         Juego juego = new Juego();
         Caja caja1 = new Caja();
-
-
 
         Conexion con = new Conexion();
 
@@ -328,41 +335,48 @@ public class Cliente extends Usuario implements Menu {
 
         resultado = juego.generarResultado();
         EmpleadoCaja emp = new EmpleadoCaja();
-        int contador = 0;
+
+        double monto;
+        monto = apuesta * 4;
+        int caja;
+        caja = 1;
+        double saldo, saldo2, saldo3;
+
+        saldo = caja1.getSaldoActual(1);
+        saldo2 =caja1.getSaldoActual(2);
+        saldo3 = caja1.getSaldoActual(3);
+
+        if (saldo < monto && saldo2<monto && saldo3 <monto) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, no hay suficiente dinero en las cajas " +
+                            "para afrontar la apuesta",
+                    "Saldo insuficiente", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
             if (resultado) {
-
-                double monto;
-                monto = apuesta*4;
-
-                this.cargarSaldoOnline(monto,nombre_usuario);
-
-
-
-                if(caja1.getSaldoActual(caja)<monto){
-                    JOptionPane.showMessageDialog(null, "Lo sentimos, no hay suficiente dinero en las cajas",
-                            "Saldo insuficiente", JOptionPane.ERROR_MESSAGE);
-                    return false;
+                this.cargarSaldoOnline(monto, nombre_usuario);
+                if(saldo>saldo2 && saldo>saldo3){
+                    caja = 1;
                 }
+                else if(saldo2>saldo && saldo2>saldo3){
+                    caja = 2;
+                }
+                else{
+                    caja = 3;
+                }
+                emp.agregarDinero(monto * (-1), "juancito23", caja);
 
-
-                emp.agregarDinero(monto*(-1),"juancito23",caja);
-
-                JOptionPane.showMessageDialog(null,"Felicitaciones! has ganado "+monto,"Ganaste",
-                        JOptionPane.INFORMATION_MESSAGE,iconoGano);
+                JOptionPane.showMessageDialog(null, "Felicitaciones! has ganado " + monto, "Ganaste",
+                        JOptionPane.INFORMATION_MESSAGE, iconoGano);
             } else {
+                this.cargarSaldoOnline(apuesta * (-1), nombre_usuario);
+                emp.agregarDinero(apuesta, "juancito23", caja);
 
-
-                this.cargarSaldoOnline(apuesta*(-1), nombre_usuario);
-                emp.agregarDinero(apuesta,"juancito23",caja);
-
-                JOptionPane.showMessageDialog(null,"LO SENTIMOS! has perdido ","Perdiste",
-                        JOptionPane.INFORMATION_MESSAGE,iconoPerdio);
+                JOptionPane.showMessageDialog(null, "LO SENTIMOS! has perdido ", "Perdiste",
+                        JOptionPane.INFORMATION_MESSAGE, iconoPerdio);
             }
+
             // Registrar la partida en la base de datos
             try {
-
-
-
                 Connection conexion = con.conectar();
                 String sql = "INSERT INTO partida (juego, cliente, monto_apostado, fecha, resultado) " +
                         "VALUES (?, ?, ?, ?, ?)";
@@ -376,13 +390,14 @@ public class Cliente extends Usuario implements Menu {
                 stmt.setBoolean(5, resultado);
 
                 stmt.executeUpdate();
-
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,"Hubo un error al registrar la partida: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Hubo un error al registrar la partida: " + e.getMessage());
             }
 
             return true;
         }
+    }
+
 
     public boolean login(String nombreUsuario, String contrasena) {
         Conexion con = new Conexion();
