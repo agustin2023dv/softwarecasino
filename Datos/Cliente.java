@@ -262,13 +262,13 @@ public class Cliente extends Usuario implements Menu {
 
                 this.cargarSaldoOnline(monto,idCliente);
 
-                emp.agregarDinero(monto*(-1),1,3);
+               // emp.agregarDinero(monto*(-1),1,3);
 
                 JOptionPane.showMessageDialog(null,"Felicitaciones! has ganado "+monto,"Ganaste",
                         JOptionPane.INFORMATION_MESSAGE,iconoGano);
             } else {
 
-                emp.agregarDinero(apuesta,1,2);
+           //     emp.agregarDinero(apuesta,1,2);
                 JOptionPane.showMessageDialog(null,"LO SENTIMOS! has perdido ","Perdiste",
                         JOptionPane.INFORMATION_MESSAGE,iconoPerdio);
             }

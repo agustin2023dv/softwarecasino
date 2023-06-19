@@ -22,15 +22,36 @@ public class EmpleadoCaja extends Empleado implements Menu {
     }
 
     public EmpleadoCaja(){};
-    public int getIdEmpleadoCaja() {
+    public int getIdEmpleadoCaja(String nombre_usuario) {
+        Conexion con = new Conexion();
+        int idEmpleadoCaja = 0; // Valor por defecto en caso de que no se encuentre el usuario
+
+        try (Connection conexion = con.conectar();
+             PreparedStatement stmt = conexion.prepareStatement("SELECT id_usuario FROM usuario WHERE nombre_usuario = ?");
+        ) {
+            stmt.setString(1, nombre_usuario);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                idEmpleadoCaja = rs.getInt("id_usuario");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al obtener el ID del usuario: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
         return idEmpleadoCaja;
     }
+
     public void setIdEmpleadoCaja(int idEmpleadoCaja) {
         this.idEmpleadoCaja = idEmpleadoCaja;
 }
 
 
-   public void agregarDinero(double monto, int id, int idCaja) {
+   public void agregarDinero(double monto, String nombre_usuario, int idCaja) {
+        int id;
+        id = this.getIdEmpleadoCaja(nombre_usuario);
         Conexion con = new Conexion();
         Date fecha = new Date();
 
@@ -111,7 +132,7 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
 
                     if(validacion.validarAgregarDinero(monto, idCaja)){
-                        this.agregarDinero(monto, 1,idCaja);
+                        this.agregarDinero(monto, id,idCaja);
                         JOptionPane.showMessageDialog(null, "Ha depositado $"+monto+" correctamente " +
                                 "en la caja numero "+idCaja, "Deposito exitoso",JOptionPane.INFORMATION_MESSAGE);
                     }
