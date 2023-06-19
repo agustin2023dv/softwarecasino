@@ -4,6 +4,8 @@ import Interface.Menu;
 import Logica.Validacion;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +17,17 @@ public class EmpleadoCaja extends Empleado implements Menu {
     private int idEmpleadoCaja;
 
     private JFrame ventana;
+
+    private JLabel labelMonto;
+    private JTextField textFieldMonto;
+    private JLabel labelIdCaja;
+    private JTextField textFieldIdCaja;
+    private JButton botonAgregarDinero;
+    private JPanel panel;
+
+
+
+
 
     public EmpleadoCaja(int idUsuario, String nombre, String apellido, Date fecNacimiento, String contrasena,
                         String correoElectronico, String direccion, int idEmpleado, String puesto, int idEmpleadoCaja) {
@@ -109,43 +122,38 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
 
     public void mostrarMenu(String id) {
+        Validacion validacion = new Validacion();
+
         ventana = new JFrame("Empleado Caja");
         ventana.setSize(500, 300);
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setLocationRelativeTo(null);
-        ventana.setVisible(true);
 
-        String opcion;
-        String []opcionesECaja = {"Agregar dinero", "Salir"};
-
-        Validacion validacion = new Validacion();
-
-
-
-        do {
-            opcion = (String) JOptionPane.showInputDialog(null, "Opciones Empleado CAJA", "Menu Empleado caja",
-                    JOptionPane.DEFAULT_OPTION, null, opcionesECaja, opcionesECaja);
-
-
-            switch (opcion) {
-                case "Agregar dinero":
-
-                    int idCaja;
-                    double monto;
-                    monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Monto a agregar",
-                            "Deposito de dinero",JOptionPane.PLAIN_MESSAGE));
-                    idCaja = Integer.parseInt(JOptionPane.showInputDialog(null, "ID caja a depositar",
-                            "Deposito de dinero",JOptionPane.PLAIN_MESSAGE));
-
-
-                    if(validacion.validarAgregarDinero(monto, idCaja)){
-                        this.agregarDinero(monto, id,idCaja);
-                        JOptionPane.showMessageDialog(null, "Ha depositado $"+monto+" correctamente " +
-                                "en la caja numero "+idCaja, "Deposito exitoso",JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    break;
+        labelMonto = new JLabel("Monto a agregar:");
+        textFieldMonto = new JTextField(10);
+        labelIdCaja = new JLabel("ID caja a depositar:");
+        textFieldIdCaja = new JTextField(10);
+        botonAgregarDinero = new JButton("Agregar dinero");
+        botonAgregarDinero.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                double monto = Double.parseDouble(textFieldMonto.getText());
+                int idCaja = Integer.parseInt(textFieldIdCaja.getText());
+                if (validacion.validarAgregarDinero(monto, idCaja)) {
+                    agregarDinero(monto, id, idCaja);
+                    JOptionPane.showMessageDialog(null, "Ha depositado $" + monto + " correctamente " +
+                            "en la caja numero " + idCaja, "Deposito exitoso", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
+        });
 
-        } while (!opcion.equals("Salir"));
+        panel = new JPanel();
+        panel.add(labelMonto);
+        panel.add(textFieldMonto);
+        panel.add(labelIdCaja);
+        panel.add(textFieldIdCaja);
+        panel.add(botonAgregarDinero);
+
+        ventana.add(panel);
+        ventana.setVisible(true);
     }
 }
