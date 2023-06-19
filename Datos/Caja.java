@@ -10,6 +10,8 @@ public class Caja {
     private double saldoActual;
     private EmpleadoCaja empleadoCaja;
 
+    public Caja(){}
+
     public Caja(int idCaja, double saldoActual, EmpleadoCaja empleadoCaja) {
         this.idCaja = idCaja;
         this.saldoActual = saldoActual;
@@ -36,7 +38,7 @@ public class Caja {
     }
 
 
-    public double getSaldoActual() {
+    public double getSaldoActual(int id) {
 
         Conexion con = new Conexion();
         double dineroDisponible = 0;
@@ -44,17 +46,23 @@ public class Caja {
         try {
             Connection conexion = con.conectar();
 
-            String sql = "SELECT SUM(mca.monto) + SUM(monto) AS total_saldo" +
-                    "FROM movimiento_caja_apuesta mca INNER JOIN caja c ON mca.caja = c.id_caja" +
-                    "INNER JOIN transaccion_caja_cliente tcc ON tcc.caja = c.id_caja" +
-                    "WHERE c.id_caja = ?";
+            String sql = "SELECT SUM(total) AS suma_total\n" +
+                    "FROM (\n" +
+                    "    SELECT SUM(monto) AS total\n" +
+                    "    FROM transaccion_caja_empleado\n" +
+                    "    WHERE caja = 1\n" +
+                    "    UNION ALL\n" +
+                    "    SELECT SUM(monto) AS total\n" +
+                    "    FROM transaccion_caja_cliente\n" +
+                    "    WHERE caja = ?\n" +
+                    ") AS subconsulta;";
 
             PreparedStatement stmt = conexion.prepareStatement(sql);
-            stmt.setInt(1, this.getIdCaja());
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                dineroDisponible = rs.getDouble("total_monto");
+                dineroDisponible = rs.getDouble("suma_total");
                 this.setSaldoActual(dineroDisponible);
             }
         } catch (Exception e) {

@@ -97,8 +97,6 @@ public class Cliente extends Usuario implements Menu {
     }
 
 
-
-
     public void setDineroDisponible(double dineroDisponible) {
         this.dineroDisponible = dineroDisponible;
     }
@@ -159,8 +157,6 @@ public class Cliente extends Usuario implements Menu {
 
         return historial.toString();
     }
-
-
 
 
 
@@ -262,8 +258,6 @@ public class Cliente extends Usuario implements Menu {
 
     public String verCuenta(int id) {
 
-
-
         String infoCuenta = "";
         Conexion con = new Conexion();
 
@@ -320,7 +314,12 @@ public class Cliente extends Usuario implements Menu {
         ImageIcon iconoPerdio = new ImageIcon(rutaImagenPerdio);
 
 
+        int caja = (int) (Math.random() * 3) + 1;
+
         Juego juego = new Juego();
+        Caja caja1 = new Caja();
+
+
 
         Conexion con = new Conexion();
 
@@ -328,15 +327,25 @@ public class Cliente extends Usuario implements Menu {
         boolean resultado;
 
         resultado = juego.generarResultado();
-
         EmpleadoCaja emp = new EmpleadoCaja();
+        int contador = 0;
             if (resultado) {
+
                 double monto;
                 monto = apuesta*4;
 
                 this.cargarSaldoOnline(monto,nombre_usuario);
 
-               emp.agregarDinero(monto*(-1),"juancito23",3);
+
+
+                if(caja1.getSaldoActual(caja)<monto){
+                    JOptionPane.showMessageDialog(null, "Lo sentimos, no hay suficiente dinero en las cajas",
+                            "Saldo insuficiente", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+
+
+                emp.agregarDinero(monto*(-1),"juancito23",caja);
 
                 JOptionPane.showMessageDialog(null,"Felicitaciones! has ganado "+monto,"Ganaste",
                         JOptionPane.INFORMATION_MESSAGE,iconoGano);
@@ -344,7 +353,8 @@ public class Cliente extends Usuario implements Menu {
 
 
                 this.cargarSaldoOnline(apuesta*(-1), nombre_usuario);
-               emp.agregarDinero(apuesta,"juancito23",2);
+                emp.agregarDinero(apuesta,"juancito23",caja);
+
                 JOptionPane.showMessageDialog(null,"LO SENTIMOS! has perdido ","Perdiste",
                         JOptionPane.INFORMATION_MESSAGE,iconoPerdio);
             }
