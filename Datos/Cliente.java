@@ -193,7 +193,13 @@ public class Cliente extends Usuario implements Menu {
     }
 
 
-    public void cargarSaldoOnline(double monto, int id){
+    public void cargarSaldoOnline(double monto, String nombre_usuario){
+
+        int id_cliente;
+        id_cliente = this.getIdCliente(nombre_usuario);
+        int id;
+        id = this.getNroCliente(id_cliente);
+
         Conexion con = new Conexion();
 
         int caja = (int) (Math.random() * 3) + 1;
@@ -220,18 +226,25 @@ public class Cliente extends Usuario implements Menu {
         }
     }
 
-    public void retirarDinero(double monto, int id) {
+    public void retirarDinero(double monto, String nombre_usuario) {
+
+        int id_cliente;
+        id_cliente = this.getIdCliente(nombre_usuario);
+        int id;
+        id = this.getNroCliente(id_cliente);
+
         Conexion con = new Conexion();
 
-        Random random = new Random();
-        int cajaAleatoria = random.nextInt(3) + 1;
-        int tipoTransaccion = 0;
+        int caja = (int) (Math.random() * 3) + 1;
+        int tipoTransaccion = 2;
         Date fecha = new Date();
-        monto = monto * (-1);
+
+        monto = monto*(-1);
 
         try {
             Connection conexion = con.conectar();
-            String sql = "INSERT INTO transaccion_caja_cliente (monto, tipo_transaccion, cliente, fecha, caja) VALUES (?, ?, ?, ?, ?)";
+
+            String sql = "INSERT INTO transaccion_caja_cliente(monto, tipo_transaccion, cliente, fecha, caja) VALUES (?, ?, ?, ?,?)";
 
             PreparedStatement stmt = conexion.prepareStatement(sql);
 
@@ -239,13 +252,11 @@ public class Cliente extends Usuario implements Menu {
             stmt.setInt(2, tipoTransaccion);
             stmt.setInt(3, id);
             stmt.setDate(4, new java.sql.Date(fecha.getTime()));
-            stmt.setInt(5, cajaAleatoria);
+            stmt.setInt(5, caja);
 
             stmt.executeUpdate();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,
-                    "Hubo un error al registrar la transacción: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
+            System.out.println("Hubo un error al registrar la transaccion: " + e.getMessage());
         }
     }
 
@@ -323,7 +334,7 @@ public class Cliente extends Usuario implements Menu {
                 double monto;
                 monto = apuesta*4;
 
-                this.cargarSaldoOnline(monto,id_cliente);
+                this.cargarSaldoOnline(monto,nombre_usuario);
 
                emp.agregarDinero(monto*(-1),"juancito23",3);
 
@@ -331,6 +342,8 @@ public class Cliente extends Usuario implements Menu {
                         JOptionPane.INFORMATION_MESSAGE,iconoGano);
             } else {
 
+
+                this.cargarSaldoOnline(apuesta*(-1), nombre_usuario);
                emp.agregarDinero(apuesta,"juancito23",2);
                 JOptionPane.showMessageDialog(null,"LO SENTIMOS! has perdido ","Perdiste",
                         JOptionPane.INFORMATION_MESSAGE,iconoPerdio);
@@ -482,7 +495,7 @@ public class Cliente extends Usuario implements Menu {
                                 "Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
 
                         if (validar.validarCargaDinero(id_cliente,monto)) {
-                            this.cargarSaldoOnline(monto, id_cliente);
+                            this.cargarSaldoOnline(monto, id);
                         }
                         break;
 
@@ -492,7 +505,7 @@ public class Cliente extends Usuario implements Menu {
                                 "Cuánto dinero desea retirar?", "Retiro de dinero", JOptionPane.QUESTION_MESSAGE));
 
                         if (validar.validarRetiroDinero(id_cliente, retiro)) {
-                            this.retirarDinero(retiro, id_cliente);
+                            this.retirarDinero(retiro, id);
                         }
                         break;
                 }
