@@ -1,10 +1,6 @@
 package UI;
 
-import Datos.Administrador;
-import Datos.Cliente;
-import Datos.EmpleadoCaja;
-import Datos.EmpleadoMaquina;
-import Datos.Tecnico;
+import Datos.*;
 import Logica.*;
 
 import javax.swing.*;
@@ -34,6 +30,7 @@ class Main {
 
 		JOptionPane.showMessageDialog(null, "Bienvenido al casino Jocker",
 				"Casino Jocker", JOptionPane.PLAIN_MESSAGE, iconoInicio);
+
 
 
 

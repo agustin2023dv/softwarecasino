@@ -222,8 +222,7 @@ public class Cliente extends Usuario implements Menu {
         }
     }
 
-    public void retirarDinero(double monto, String nombre_usuario) {
-
+    public boolean retirarDinero(double monto, String nombre_usuario) {
         int id_cliente;
         id_cliente = this.getIdCliente(nombre_usuario);
         int id;
@@ -233,40 +232,55 @@ public class Cliente extends Usuario implements Menu {
 
         Caja caja1 = new Caja();
 
-        int caja;
         int tipoTransaccion = 2;
         Date fecha = new Date();
 
-        monto = monto*(-1);
 
-        if (caja1.getSaldoActual(1)>=monto) {
+
+        double saldo, saldo1, saldo2;
+        saldo = caja1.getSaldoActual(1);
+        saldo1 = caja1.getSaldoActual(2);
+        saldo2 = caja1.getSaldoActual(3);
+
+        int caja = -1; // Variable para almacenar el número de caja con suficiente saldo
+
+        if (saldo >= monto) {
             caja = 1;
-        }
-        else if(caja1.getSaldoActual(2)>=monto){
-            caja= 2;
-        }
-        else{
-            caja= 3;
+        } else if (saldo1 >= monto) {
+            caja = 2;
+        } else if (saldo2 >= monto) {
+            caja = 3;
         }
 
-        try {
-            Connection conexion = con.conectar();
+        if (caja != -1) {
+            try {
+                monto = monto * (-1);
+                Connection conexion = con.conectar();
 
-            String sql = "INSERT INTO transaccion_caja_cliente(monto, tipo_transaccion, cliente, fecha, caja) VALUES (?, ?, ?, ?,?)";
+                String sql = "INSERT INTO transaccion_caja_cliente(monto, tipo_transaccion, cliente, fecha, caja) VALUES (?, ?, ?, ?,?)";
 
-            PreparedStatement stmt = conexion.prepareStatement(sql);
+                PreparedStatement stmt = conexion.prepareStatement(sql);
 
-            stmt.setDouble(1, monto);
-            stmt.setInt(2, tipoTransaccion);
-            stmt.setInt(3, id);
-            stmt.setDate(4, new java.sql.Date(fecha.getTime()));
-            stmt.setInt(5, caja);
+                stmt.setDouble(1, monto);
+                stmt.setInt(2, tipoTransaccion);
+                stmt.setInt(3, id);
+                stmt.setDate(4, new java.sql.Date(fecha.getTime()));
+                stmt.setInt(5, caja);
 
-            stmt.executeUpdate();
-        } catch (Exception e) {
-            System.out.println("Hubo un error al registrar la transaccion: " + e.getMessage());
+                stmt.executeUpdate();
+            } catch (Exception e) {
+                System.out.println("Hubo un error al registrar la transaccion: " + e.getMessage());
+                return false;
+            }
+
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Lo sentimos no tenemos dinero suficiente en una sola caja para el retiro", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
+
+
 
     public String verCuenta(int id) {
 

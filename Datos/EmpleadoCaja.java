@@ -126,9 +126,9 @@ public class EmpleadoCaja extends Empleado implements Menu {
                     int idCaja;
                     double monto;
                     monto = Double.parseDouble(JOptionPane.showInputDialog(null, "Monto a agregar",
-                            "Deposito de dinero"));
+                            "Deposito de dinero",JOptionPane.PLAIN_MESSAGE));
                     idCaja = Integer.parseInt(JOptionPane.showInputDialog(null, "ID caja a depositar",
-                            "Deposito de dinero"));
+                            "Deposito de dinero",JOptionPane.PLAIN_MESSAGE));
 
 
                     if(validacion.validarAgregarDinero(monto, idCaja)){
