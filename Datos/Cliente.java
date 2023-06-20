@@ -4,6 +4,9 @@ package Datos;
 import Interface.Menu;
 
 import javax.swing.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,8 +20,14 @@ import Logica.Validacion;
 
 public class Cliente extends Usuario implements Menu {
     private int idCliente;
-
     private double dineroDisponible;
+    private JFrame ventana;
+    private JButton botonVerPerfil;
+    private JButton botonJugar;
+    private JButton botonVerHistorial;
+    private JButton botonAgregarDinero;
+    private JButton botonRetirarDinero;
+    private JPanel panel;
    
 	public Cliente() {
 			
@@ -458,126 +467,109 @@ public class Cliente extends Usuario implements Menu {
 
 
     public void mostrarMenu(String id) {
+        int idCliente = getIdCliente(id);
+        ventana = new JFrame("Mi Aplicación");
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setSize(400, 300);
+        ventana.setLocationRelativeTo(null);
 
-        int id_cliente;
-        id_cliente= this.getIdCliente(id);
-        JFrame frame = new JFrame("Mi Aplicación");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Connection conexion = Conexion.conectar();
+        botonVerPerfil = new JButton("Ver perfil");
+        botonJugar = new JButton("Jugar");
+        botonVerHistorial = new JButton("Ver historial partidas");
+        botonAgregarDinero = new JButton("Agregar dinero");
+        botonRetirarDinero = new JButton("Retirar dinero");
 
-        String queryCliente = "SELECT id_cliente FROM cliente AS c INNER JOIN usuario AS u ON c.id_usuario = u.id_usuario";
-        ArrayList<String> nombresJuegos = new ArrayList<>();
+        panel = new JPanel();
+        panel.add(botonVerPerfil);
+        panel.add(botonJugar);
+        panel.add(botonVerHistorial);
+        panel.add(botonAgregarDinero);
+        panel.add(botonRetirarDinero);
+
+        ventana.add(panel);
+        ventana.setVisible(true);
+
         Validacion validar = new Validacion();
 
-        try {
-
-
-            PreparedStatement statementIDCliente = conexion.prepareStatement(queryCliente);
-
-            ResultSet resultSetIDCliente = statementIDCliente.executeQuery();
-
-/*            if (resultSetIDCliente.next()) {
-                idCliente = resultSetIDCliente.getInt("id_cliente");
-            }*/
-
-            String consultaJuegos = "SELECT nombre FROM juego";
-            PreparedStatement statementJuegos = conexion.prepareStatement(consultaJuegos);
-            ResultSet resultSetJuegos = statementJuegos.executeQuery();
-
-            DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
-
-            while (resultSetJuegos.next()) {
-                String nombreJuego = resultSetJuegos.getString("nombre");
-                comboBoxModel.addElement(nombreJuego);
+        botonVerPerfil.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, verCuenta(idCliente), "Información cuenta cliente",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
+        });
 
-            int idJuegoSeleccionado = 0;
+        botonJugar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                double apuesta = 0;
 
-            String[] opcionesCliente = {
-                    "Ver perfil", "Jugar", "Ver historial partidas",
-                    "Agregar dinero", "Retirar dinero", "Salir"
-            };
+                Connection conexion = Conexion.conectar();
+                String consultaJuegos = "SELECT nombre FROM juego";
+                ArrayList<String> nombresJuegos = new ArrayList<>();
 
-            String opcion;
+                try {
+                    PreparedStatement statementJuegos = conexion.prepareStatement(consultaJuegos);
+                    ResultSet resultSetJuegos = statementJuegos.executeQuery();
 
-            do {
-                opcion = (String) JOptionPane.showInputDialog(frame, "Bienvenido! Eliga que accion desea realizar",
-                        "Menu cliente",
-                        JOptionPane.PLAIN_MESSAGE, null, opcionesCliente, opcionesCliente[0]);
+                    while (resultSetJuegos.next()) {
+                        String nombreJuego = resultSetJuegos.getString("nombre");
+                        nombresJuegos.add(nombreJuego);
+                    }
 
-                switch (opcion) {
-                    case "Ver perfil":
-                        JOptionPane.showMessageDialog(null, verCuenta(id_cliente), "Información cuenta cliente",
-                                JOptionPane.INFORMATION_MESSAGE);
-                        break;
+                    String[] opcionesJuegos = nombresJuegos.toArray(new String[0]);
+                    JComboBox<String> comboBoxJuegos = new JComboBox<>(opcionesJuegos);
 
-                    case "Jugar":
-                        double apuesta = 0;
+                    int opcionSeleccionada = JOptionPane.showOptionDialog(null, comboBoxJuegos,
+                            "Seleccione juego", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, null, null);
 
-                        JComboBox<String> comboBoxJuegos = new JComboBox<>(comboBoxModel);
-
-                        int opcionSeleccionada = JOptionPane.showOptionDialog(null, comboBoxJuegos,
-                                "Seleccione juego", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
-                                null, null, null);
-
-                        if (opcionSeleccionada == JOptionPane.OK_OPTION) {
-                            idJuegoSeleccionado = comboBoxJuegos.getSelectedIndex() +1;
-                        }
-
+                    if (opcionSeleccionada == JOptionPane.OK_OPTION) {
+                        int idJuegoSeleccionado = opcionSeleccionada + 1;
                         apuesta = Double.parseDouble(JOptionPane.showInputDialog(null,
                                 "Cuánto desea apostar?"));
 
-                        if (validar.validarJugar(apuesta, id_cliente)) {
-                            this.jugar(idJuegoSeleccionado, id, apuesta);
-
+                        if (validar.validarJugar(apuesta, idCliente)) {
+                            jugar(idJuegoSeleccionado, id, apuesta);
                         }
+                    }
 
-
-
-                        break;
-
-                    case "Ver historial partidas":
-                        JOptionPane.showMessageDialog(null, getHistorialPartidas(id),
-                                "Historial de partidas",
-                                JOptionPane.INFORMATION_MESSAGE);
-                        break;
-
-                    case "Agregar dinero":
-                        double monto;
-                        monto = Double.parseDouble(JOptionPane.showInputDialog(null,
-                                "Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
-
-                        if (validar.validarCargaDinero(id_cliente,monto)) {
-                            this.cargarSaldoOnline(monto, id);
-                        }
-                        break;
-
-                    case "Retirar dinero":
-                        double retiro;
-                        retiro = Double.parseDouble(JOptionPane.showInputDialog(null,
-                                "Cuánto dinero desea retirar?", "Retiro de dinero", JOptionPane.QUESTION_MESSAGE));
-
-                        if (validar.validarRetiroDinero(id_cliente, retiro)) {
-                            this.retirarDinero(retiro, id);
-                        }
-                        break;
+                    resultSetJuegos.close();
+                    statementJuegos.close();
+                    conexion.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
                 }
-            } while (!opcion.equals("Salir"));
+            }
+        });
 
+        botonVerHistorial.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, getHistorialPartidas(id),
+                        "Historial de partidas",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
-            resultSetJuegos.close();
-            statementJuegos.close();
+        botonAgregarDinero.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                double monto = Double.parseDouble(JOptionPane.showInputDialog(null,
+                        "Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
 
-            resultSetIDCliente.close();
-            statementIDCliente.close();
+                if (validar.validarCargaDinero(idCliente, monto)) {
+                    cargarSaldoOnline(monto, id);
+                }
+            }
+        });
 
-            conexion.close();
+        botonRetirarDinero.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                double retiro = Double.parseDouble(JOptionPane.showInputDialog(null,
+                        "Cuánto dinero desea retirar?", "Retiro de dinero", JOptionPane.QUESTION_MESSAGE));
 
-            frame.dispose();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+                if (validar.validarRetiroDinero(idCliente, retiro)) {
+                    retirarDinero(retiro, id);
+                }
+            }
+        });
     }
-
 
 }
