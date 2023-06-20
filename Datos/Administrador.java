@@ -180,24 +180,24 @@ public class Administrador extends Usuario implements Menu {
 	}
 
 	public boolean actualizarCliente(String email, String direccion, int idCliente) {
-		Conexion con = new Conexion();
-		try {
-			Connection conexion = con.conectar();
-			String sql = "UPDATE usuario AS u INNER JOIN cliente AS c " +
-					"ON u.id_usuario = c.id_usuario " +
-					"SET u.email = ?, u.direccion = ? " +
-					"WHERE c.id_cliente = ?";
+	    Conexion con = new Conexion();
+	    try {
+	        Connection conexion = con.conectar();
+	        String sql = "UPDATE usuario AS u INNER JOIN cliente AS c " +
+	                     "ON u.id_usuario = c.id_usuario " +
+	                     "SET u.email = ?, u.direccion = ? " +
+	                     "WHERE c.id_cliente = ?";
 
-			PreparedStatement stmt = conexion.prepareStatement(sql);
-			stmt.setString(1, email);
-			stmt.setString(2, direccion);
-			stmt.setInt(3, idCliente);
-			stmt.executeUpdate();
-			return true;
-		} catch (Exception e) {
-			System.out.println("Hubo un error: " + e.getMessage());
-			return false;
-		}
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setString(1, email);
+	        stmt.setString(2, direccion);
+	        stmt.setInt(3, idCliente);
+	        stmt.executeUpdate();
+	        return true;
+	    } catch (Exception e) {
+	        System.out.println("Hubo un error: " + e.getMessage());
+	        return false;
+	    }
 	}
 	public String verCaja(int idCaja) {
 	    double sumaMontos = 0.0;
@@ -343,9 +343,11 @@ public class Administrador extends Usuario implements Menu {
                 int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
                 String email = JOptionPane.showInputDialog("Ingrese el correo del Cliente");
                 String direccion = JOptionPane.showInputDialog("Ingrese la dirección del Cliente");
-                if (validacion.validarActualizarCliente(email, direccion, idCliente)) {
+            	System.out.println(idCliente + direccion + email);
+               // if (validacion.validarActualizarCliente(email, direccion, idCliente)) {
+
                     actualizarCliente(email, direccion, idCliente);
-                }
+                //}
             }
         }); 
 	}
