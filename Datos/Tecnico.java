@@ -5,10 +5,17 @@ import Logica.Validacion;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class Tecnico extends Empleado implements Menu {
 	
@@ -125,57 +132,92 @@ public class Tecnico extends Empleado implements Menu {
 	}
     
 	public void mostrarMenu(String id) {
-		String[] opcionesTecnico = {"Reparar Maquina", "Encender Maquina", "Apagar Maquina", "Salir"};
-		String opcion;
-		
-		JOptionPane.showMessageDialog(null, "Ingresó como Tecnico");
-		Validacion validacion = new Validacion();
-		do {
-			
-			opcion = (String) JOptionPane.showInputDialog(null, "Opciones Empleado Tecnico", "Opcion",
-					JOptionPane.DEFAULT_OPTION, null, opcionesTecnico, opcionesTecnico);
-			switch (opcion) {
-			
-			case "Reparar Maquina":
-				int idmaquina;
-				JOptionPane.showMessageDialog(null, "Eligió Reparar Máquina");
-				idmaquina = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Maquina"));
+	    JFrame frame = new JFrame("Empleado Técnico");
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setSize(400, 200);
+	    frame.setLayout(null);
+	    frame.setLocationRelativeTo(null);
 
-				if(validacion.validarExistenciaMaquina(idmaquina)){
-					this.repararMaquina(idmaquina);
-					JOptionPane.showMessageDialog(null,"La maquina numero "+idmaquina+ " ha sido reparada exitosamente",
-							"Reparacion exitosa",JOptionPane.INFORMATION_MESSAGE);
-				}
-				break;
-				
-			case "Encender Maquina":
-				idmaquina = Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID de la Maquina a encender"));
+	    JLabel lblIdMaquina = new JLabel("ID de la Máquina:");
+	    lblIdMaquina.setBounds(20, 20, 120, 30);
+	    frame.add(lblIdMaquina);
 
-				if(validacion.validarExistenciaMaquina(idmaquina)){
-					this.encenderMaquina(idmaquina);
-					JOptionPane.showMessageDialog(null,"La maquina numero "+idmaquina+" ha sido encendida exitosamente",
-							"Encendido exitoso",JOptionPane.INFORMATION_MESSAGE);
-				}
-				break;
-				
-			case "Apagar Maquina":
-				idmaquina = Integer.parseInt( JOptionPane.showInputDialog("Ingrese el ID de la Maquina a apagar"));
+	    JTextField txtIdMaquina = new JTextField();
+	    txtIdMaquina.setBounds(150, 20, 100, 30);
+	    frame.add(txtIdMaquina);
 
-				if(validacion.validarExistenciaMaquina(idmaquina)){
-					this.apagarMaquina(idmaquina);
-					JOptionPane.showMessageDialog(null,"La maquina numero "+idmaquina+" ha sido apagada exitosamente",
-							"Apagado exitoso",JOptionPane.INFORMATION_MESSAGE);
-				}
-				break;	
-				
-			case "Salir":
-				
-				break;
-			default:
-				break;
-			}
-		} while(!opcion.equals("Salir"));
+	    JButton btnReparar = new JButton("Reparar Máquina");
+	    btnReparar.setBounds(20, 60, 150, 30);
 
+	    JButton btnEncender = new JButton("Encender Máquina");
+	    btnEncender.setBounds(180, 60, 150, 30);
+
+	    JButton btnApagar = new JButton("Apagar Máquina");
+	    btnApagar.setBounds(20, 100, 150, 30);
+
+	    Validacion validacion = new Validacion();
+
+	    btnReparar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            int idmaquina = Integer.parseInt(txtIdMaquina.getText());
+	            if (validacion.validarExistenciaMaquina(idmaquina)) {
+	                repararMaquina(idmaquina);
+	                JOptionPane.showMessageDialog(null, "La máquina número " + idmaquina + " ha sido reparada exitosamente",
+	                        "Reparación exitosa", JOptionPane.INFORMATION_MESSAGE);
+	            }
+	        }
+	    });
+
+	    btnEncender.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            int idmaquina = Integer.parseInt(txtIdMaquina.getText());
+	            if (validacion.validarExistenciaMaquina(idmaquina)) {
+	                encenderMaquina(idmaquina);
+	                JOptionPane.showMessageDialog(null, "La máquina número " + idmaquina + " ha sido encendida exitosamente",
+	                        "Encendido exitoso", JOptionPane.INFORMATION_MESSAGE);
+	            }
+	        }
+	    });
+
+	    btnApagar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            int idmaquina = Integer.parseInt(txtIdMaquina.getText());
+	            if (validacion.validarExistenciaMaquina(idmaquina)) {
+	                apagarMaquina(idmaquina);
+	                JOptionPane.showMessageDialog(null, "La máquina número " + idmaquina + " ha sido apagada exitosamente",
+	                        "Apagado exitoso", JOptionPane.INFORMATION_MESSAGE);
+	            }
+	        }
+	    });
+
+	    btnReparar.setEnabled(false);
+	    btnEncender.setEnabled(false);
+	    btnApagar.setEnabled(false);
+
+	    txtIdMaquina.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            String idMaquinaStr = txtIdMaquina.getText();
+	            if (!idMaquinaStr.isEmpty()) {
+	                int idMaquina = Integer.parseInt(idMaquinaStr);
+	                if (validacion.validarExistenciaMaquina(idMaquina)) {
+	                    btnReparar.setEnabled(true);
+	                    btnEncender.setEnabled(true);
+	                    btnApagar.setEnabled(true);
+	                } else {
+	                    btnReparar.setEnabled(false);
+	                    btnEncender.setEnabled(false);
+	                    btnApagar.setEnabled(false);
+	                    JOptionPane.showMessageDialog(null, "La máquina número " + idMaquina + " no existe",
+	                            "Error", JOptionPane.ERROR_MESSAGE);
+	                }
+	            }
+	        }
+	    });
+
+	    frame.add(btnReparar);
+	    frame.add(btnEncender);
+	    frame.add(btnApagar);
+
+	    frame.setVisible(true);
 	}
-	
 }
