@@ -5,6 +5,7 @@ import Logica.Validacion;
 
 import javax.swing.*;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -67,43 +68,83 @@ public class Administrador extends Usuario implements Menu {
 	// ACA DEBERIAMOS HACER UN COMBOBOX CON LOS CLIENTES Y LISTO
 
 	public String revisarCuentaCliente(int idUsuario) {
+	    String resultado = "";
+	    Conexion con = new Conexion();
 
-		String resultado = "";
-		Conexion con = new Conexion();
+	    try {
+	        Connection conexion = con.conectar();
+	        String sql = "SELECT u.nombre, u.apellido, u.direccion, u.email, u.fec_nacimiento " +
+	                "FROM usuario AS u INNER JOIN cliente AS c " +
+	                "ON u.id_usuario = c.id_usuario " +
+	                "WHERE u.id_usuario = ?";
 
-		try {
-			Connection conexion = con.conectar();
-			String sql = "SELECT u.nombre, u.apellido, u.direccion, u.email, u.fec_nacimiento " +
-					"FROM usuario AS u INNER JOIN cliente AS c " +
-					"ON u.id_usuario = c.id_usuario " +
-					"WHERE u.id_usuario = ?";
+	        PreparedStatement stmt = conexion.prepareStatement(sql);
+	        stmt.setInt(1, idUsuario);
 
-			PreparedStatement stmt = conexion.prepareStatement(sql);
-			stmt.setInt(1, idUsuario);
+	        ResultSet rs = stmt.executeQuery();
 
-			ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            String nombre = rs.getString("nombre");
+	            String apellido = rs.getString("apellido");
+	            String direccion = rs.getString("direccion");
+	            String email = rs.getString("email");
+	            String fecNacimiento = rs.getString("fec_nacimiento");
 
-			String nombre = rs.getString("nombre");
-			String apellido = rs.getString("apellido");
-			String direccion = rs.getString("direccion");
-			String email = rs.getString("email");
-			String fecNacimiento = rs.getString("fec_nacimiento");
+	            JFrame frame = new JFrame("Información cuenta cliente");
+	            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	            frame.setSize(300, 200);
+	            frame.setLocationRelativeTo(null);
 
+	            JPanel panel = new JPanel();
+	            panel.setLayout(new GridLayout(5, 2));
 
-			resultado += "Nombre: " + nombre + "\n";
-			resultado += "Apellido: " + apellido + "\n";
-			resultado += "Dirección: " + direccion + "\n";
-			resultado += "Email: " + email + "\n";
-			resultado += "Fecha de Nacimiento: " + fecNacimiento + "\n";
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+	            JLabel labelNombre = new JLabel("Nombre:");
+	            JTextField textFieldNombre = new JTextField(nombre);
+	            textFieldNombre.setEditable(false);
 
-			resultado = "Hubo un error al consultar la cuenta del cliente.";
-		}
+	            JLabel labelApellido = new JLabel("Apellido:");
+	            JTextField textFieldApellido = new JTextField(apellido);
+	            textFieldApellido.setEditable(false);
 
-		return resultado;
+	            JLabel labelDireccion = new JLabel("Dirección:");
+	            JTextField textFieldDireccion = new JTextField(direccion);
+	            textFieldDireccion.setEditable(false);
+
+	            JLabel labelEmail = new JLabel("Email:");
+	            JTextField textFieldEmail = new JTextField(email);
+	            textFieldEmail.setEditable(false);
+
+	            JLabel labelFecNacimiento = new JLabel("Fecha de Nacimiento:");
+	            JTextField textFieldFecNacimiento = new JTextField(fecNacimiento);
+	            textFieldFecNacimiento.setEditable(false);
+
+	            panel.add(labelNombre);
+	            panel.add(textFieldNombre);
+	            panel.add(labelApellido);
+	            panel.add(textFieldApellido);
+	            panel.add(labelDireccion);
+	            panel.add(textFieldDireccion);
+	            panel.add(labelEmail);
+	            panel.add(textFieldEmail);
+	            panel.add(labelFecNacimiento);
+	            panel.add(textFieldFecNacimiento);
+
+	            frame.add(panel);
+	            frame.setVisible(true);
+	        } else {
+	            resultado = "No se encontró información de la cuenta del cliente.";
+	        }
+
+	        rs.close();
+	        stmt.close();
+	        conexion.close();
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Hubo un error: " + e.getMessage());
+	        resultado = "Hubo un error al consultar la cuenta del cliente.";
+	    }
+
+	    return resultado;
 	}
-
 
 	public void eliminarUsuario(int idUsuario) {
 		Conexion con = new Conexion();
