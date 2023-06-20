@@ -4,6 +4,9 @@ import Interface.Menu;
 import Logica.Validacion;
 
 import javax.swing.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +16,14 @@ import java.util.Date;
 public class Administrador extends Usuario implements Menu {
 
 	private int idAdministrador;
+	private JFrame ventana;
+    private JButton botonVerCliente;
+    private JButton botonEliminarCliente;
+    private JButton botonVerCaja;
+    private JButton botonEliminarJuego;
+    private JButton botonEditarJuego;
+    private JButton botonEditarDatosCliente;
+    private JPanel panel;
 	
 	public Administrador() {
 		
@@ -207,74 +218,95 @@ public class Administrador extends Usuario implements Menu {
 
 
 	public void mostrarMenu(String idAdm) {
-		String[] opcionesAdminsitrador = { "Ver cliente", "Eliminar cliente", "Ver caja", "Eliminar juego",
-				"Editar juego", "Editar datos cliente", "Salir" };
-		String opcion;
+		String[] opcionesAdministrador = {"Ver cliente", "Eliminar cliente", "Ver caja", "Eliminar juego",
+                "Editar juego", "Editar datos cliente", "Salir"};
 
-		Validacion validacion = new Validacion();
-		do {
-			opcion = (String) JOptionPane.showInputDialog(null, "Eliga la accion que desea realizar", "Menu Administrador",
-					JOptionPane.DEFAULT_OPTION, null, opcionesAdminsitrador, opcionesAdminsitrador);
+        ventana = new JFrame("Administrador");
+        ventana.setSize(400, 300);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setLocationRelativeTo(null);
 
-			int id;
+        botonVerCliente = new JButton("Ver cliente");
+        botonEliminarCliente = new JButton("Eliminar cliente");
+        botonVerCaja = new JButton("Ver caja");
+        botonEliminarJuego = new JButton("Eliminar juego");
+        botonEditarJuego = new JButton("Editar juego");
+        botonEditarDatosCliente = new JButton("Editar datos cliente");
 
-			switch (opcion) {
-				case "Ver cliente":
-					JOptionPane.showMessageDialog(null, "Eligió Visualizar Cliente");
-					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
+        panel = new JPanel();
+        panel.add(botonVerCliente);
+        panel.add(botonEliminarCliente);
+        panel.add(botonVerCaja);
+        panel.add(botonEliminarJuego);
+        panel.add(botonEditarJuego);
+        panel.add(botonEditarDatosCliente);
 
-					if(validacion.validarExistenciaCliente(id)){
-						JOptionPane.showMessageDialog(null, this.revisarCuentaCliente(id));}
-					break;
-				case "Eliminar cliente":
-					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
-					if(validacion.validarExistenciaCliente(id)){
-						this.eliminarUsuario(id);
-						JOptionPane.showMessageDialog(null, "Se eliminó con éxito el cliente con ID: " + id);
-					}
+        ventana.add(panel);
+        ventana.setVisible(true);
 
+        Validacion validacion = new Validacion();
 
-					break;
-				case "Ver caja":
-					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Caja"));
-					if(validacion.validarVerCaja(id)){
-						JOptionPane.showMessageDialog(null, this.verCaja(id));}
-					break;
-				case "Eliminar juego":
-					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
+        botonVerCliente.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
+                if (validacion.validarExistenciaCliente(idCliente)) {
+                    JOptionPane.showMessageDialog(null, revisarCuentaCliente(idCliente));
+                }
+            }
+        });
 
-					if(validacion.validarEliminarJuego(id)){
-						this.eliminarJuego(id);
-						JOptionPane.showMessageDialog(null, "El juego ha sido eliminado con exito");
-					}
+        botonEliminarCliente.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
+                if (validacion.validarExistenciaCliente(idCliente)) {
+                    eliminarUsuario(idCliente);
+                    JOptionPane.showMessageDialog(null, "Se eliminó con éxito el cliente con ID: " + idCliente);
+                }
+            }
+        });
 
-					break;
-				case "Editar juego":
-					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
-					String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del Juego");
-					int jugadoresMinimos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los jugadores mínimos del Juego"));
-					int jugadoresMaximos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los jugadores máximos del Juego"));
+        botonVerCaja.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int idCaja = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Caja"));
+                if (validacion.validarVerCaja(idCaja)) {
+                    JOptionPane.showMessageDialog(null, verCaja(idCaja));
+                }
+            }
+        });
 
-					if (validacion.validarEditarJuego(descripcion, jugadoresMinimos, jugadoresMaximos)) {
-						this.editarJuego(descripcion, jugadoresMaximos, id);
-					}
-					break;
-				case "Editar datos cliente":
-					id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
-					String email = JOptionPane.showInputDialog("Ingrese el correo del Cliente");
-					String direccion = JOptionPane.showInputDialog("Ingrese la dirección del Cliente");
-					if (validacion.validarActualizarCliente(email, direccion, id)) {
-						this.actualizarCliente(email, direccion, id);
-					}
-					break;
-				case "Salir":
-					break;
+        botonEliminarJuego.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int idJuego = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
+                if (validacion.validarEliminarJuego(idJuego)) {
+                    eliminarJuego(idJuego);
+                    JOptionPane.showMessageDialog(null, "El juego ha sido eliminado con éxito");
+                }
+            }
+        });
 
-				default:
-					break;
-			}
+        botonEditarJuego.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int idJuego = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
+                String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del Juego");
+                int jugadoresMinimos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los jugadores mínimos del Juego"));
+                int jugadoresMaximos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los jugadores máximos del Juego"));
 
-		} while (!opcion.equals("Salir"));
+                if (validacion.validarEditarJuego(descripcion, jugadoresMinimos, jugadoresMaximos)) {
+                    editarJuego(descripcion, jugadoresMaximos, idJuego);
+                }
+            }
+        });
+
+        botonEditarDatosCliente.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
+                String email = JOptionPane.showInputDialog("Ingrese el correo del Cliente");
+                String direccion = JOptionPane.showInputDialog("Ingrese la dirección del Cliente");
+                if (validacion.validarActualizarCliente(email, direccion, idCliente)) {
+                    actualizarCliente(email, direccion, idCliente);
+                }
+            }
+        }); 
 	}
 
 }
