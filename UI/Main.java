@@ -71,7 +71,7 @@ class Main {
 		textNombreUsuario = new JTextField(10);
 		JLabel labelContrasena;
 		JPasswordField textContrasena;
-		labelContrasena = new JLabel("Nombre usuario");
+		labelContrasena = new JLabel("Contraseña");
 		textContrasena = new JPasswordField(10);
 
 		panelLogin.add(labelNombreUsuario);
@@ -87,10 +87,10 @@ class Main {
 
 		JPanel panelBoton = new JPanel();
 		panelBoton.add(btnLogin);
-
+	panelBoton.setSize(30,30);
 		panelLogin.add(panelBoton, BorderLayout.SOUTH);
 
-		
+
 		btnLogin.addActionListener(new ActionListener() {
 				int intentosLogin = 0;
 
