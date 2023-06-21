@@ -113,6 +113,19 @@ public abstract class Usuario {
     }
 
 
+    public void mostrarOperacionExitosa(String mensaje) {
+        JFrame exitoFrame = new JFrame("Operación Exitosa");
+        exitoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        exitoFrame.setSize(300, 150);
+        exitoFrame.setLayout(new FlowLayout());
+
+        JLabel labelExito = new JLabel(mensaje);
+
+        exitoFrame.add(labelExito);
+
+        exitoFrame.setVisible(true);
+    }
+
 
 
 }

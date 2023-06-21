@@ -255,6 +255,12 @@ public class Cliente extends Usuario implements Menu {
         saldo1 = caja1.getSaldoActual(2);
         saldo2 = caja1.getSaldoActual(3);
 
+        if(monto> this.getDineroDisponible(id_cliente)){
+
+            mostrarError("No tiene suficiente dinero disponible");
+            return false;
+        }
+
         int caja = -1; // Variable para almacenar el número de caja con suficiente saldo
 
         if (saldo >= monto) {
@@ -286,6 +292,7 @@ public class Cliente extends Usuario implements Menu {
                 return false;
             }
 
+            mostrarOperacionExitosa("Operacion exitosa");
             return true;
         } else {
             mostrarError("Lo sentimos no tenemos dinero suficiente en una sola caja para el retiro");
@@ -530,7 +537,7 @@ public class Cliente extends Usuario implements Menu {
                 textAreaVerPerfil.setText(informacionCuenta);
 
                 perfil.add(textAreaVerPerfil);
-                perfil.add(botonVolver);
+               // perfil.add(botonVolver);
                 perfil.setVisible(true);
             }
         });
@@ -670,12 +677,37 @@ public class Cliente extends Usuario implements Menu {
 
         botonRetirarDinero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                double retiro = Double.parseDouble(JOptionPane.showInputDialog(null,
-                        "Cuánto dinero desea retirar?", "Retiro de dinero", JOptionPane.QUESTION_MESSAGE));
+                JFrame inputFrame = new JFrame("Retiro de dinero");
+                inputFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                inputFrame.setSize(300, 150);
+                inputFrame.setLayout(new FlowLayout());
 
-                if (validar.validarRetiroDinero(idCliente, retiro)) {
-                    retirarDinero(retiro, id);
-                }
+                JLabel labelMonto = new JLabel("Cuánto dinero desea retirar?");
+                JTextField textFieldMonto = new JTextField(10);
+                JButton btnAceptar = new JButton("Aceptar");
+
+                inputFrame.add(labelMonto);
+                inputFrame.add(textFieldMonto);
+                inputFrame.add(btnAceptar);
+
+                btnAceptar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String inputMonto = textFieldMonto.getText();
+                        if (!inputMonto.isEmpty()) {
+                            try {
+                                double retiro = Double.parseDouble(inputMonto);
+                                if (validar.validarRetiroDinero(retiro)) {
+                                    retirarDinero(retiro, id);
+                                }
+                            } catch (NumberFormatException ex) {
+                                mostrarError("Ingrese un valor numérico válido para el monto.");
+                            }
+                        }
+                        inputFrame.dispose();
+                    }
+                });
+
+                inputFrame.setVisible(true);
             }
         });
     }

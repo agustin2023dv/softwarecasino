@@ -34,6 +34,8 @@ public class Validacion {
 
 //VALIDACIONES CLIENTE
 
+
+
 	public boolean validarCargaDinero(int idCliente, double monto){
 
 			if(idCliente>0 && idCliente<100 && monto>0){
@@ -45,16 +47,14 @@ public class Validacion {
 
 	}
 
-	public boolean validarRetiroDinero(int idCliente, double monto) {
-			Cliente cliente = new Cliente();
+	public boolean validarRetiroDinero(double monto) {
 
-			double dineroDisponible = cliente.getDineroDisponible(idCliente);
 
-		if (monto > dineroDisponible) {
-			return false; // El cliente no tiene suficiente dinero disponible para realizar el retiro
+		if (monto <0 || monto == 0) {
+			return false;
 		}
 
-		return true; // El cliente tiene suficiente dinero disponible
+		return true;
 	}
 
 	public boolean validarJugar(double monto, int idCliente){
