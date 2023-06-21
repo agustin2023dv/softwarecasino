@@ -476,18 +476,65 @@ public class Administrador extends Usuario implements Menu {
             }
         });
 
-        botonEditarJuego.addActionListener(new ActionListener() {
+ botonEditarJuego.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int idJuego = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
-                String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del Juego");
-                int jugadoresMinimos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los jugadores mínimos del Juego"));
-                int jugadoresMaximos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los jugadores máximos del Juego"));
+                JFrame inputFrame = new JFrame("Edición de juego");
+                inputFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                inputFrame.setSize(300, 250);
+                inputFrame.setLayout(new GridLayout(5, 2));
 
-                if (validacion.validarEditarJuego(descripcion, jugadoresMinimos, jugadoresMaximos)) {
-                    editarJuego(descripcion, jugadoresMaximos, idJuego);
-                }
+                JLabel labelIdJuego = new JLabel("ID del Juego:");
+                JTextField textFieldIdJuego = new JTextField(10);
+                JLabel labelDescripcion = new JLabel("Descripción:");
+                JTextField textFieldDescripcion = new JTextField(20);
+                JLabel labelJugadoresMinimos = new JLabel("Jugadores mínimos:");
+                JTextField textFieldJugadoresMinimos = new JTextField(10);
+                JLabel labelJugadoresMaximos = new JLabel("Jugadores máximos:");
+                JTextField textFieldJugadoresMaximos = new JTextField(10);
+                JButton btnAceptar = new JButton("Aceptar");
+
+                inputFrame.add(labelIdJuego);
+                inputFrame.add(textFieldIdJuego);
+                inputFrame.add(labelDescripcion);
+                inputFrame.add(textFieldDescripcion);
+                inputFrame.add(labelJugadoresMinimos);
+                inputFrame.add(textFieldJugadoresMinimos);
+                inputFrame.add(labelJugadoresMaximos);
+                inputFrame.add(textFieldJugadoresMaximos);
+                inputFrame.add(btnAceptar);
+
+                btnAceptar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String inputIdJuego = textFieldIdJuego.getText();
+                        String descripcion = textFieldDescripcion.getText();
+                        String inputJugadoresMinimos = textFieldJugadoresMinimos.getText();
+                        String inputJugadoresMaximos = textFieldJugadoresMaximos.getText();
+
+                        if (!inputIdJuego.isEmpty() && !descripcion.isEmpty() && !inputJugadoresMinimos.isEmpty() && !inputJugadoresMaximos.isEmpty()) {
+                            try {
+                                int idJuego = Integer.parseInt(inputIdJuego);
+                                int jugadoresMinimos = Integer.parseInt(inputJugadoresMinimos);
+                                int jugadoresMaximos = Integer.parseInt(inputJugadoresMaximos);
+
+                                if (validacion.validarEditarJuego(descripcion, jugadoresMinimos, jugadoresMaximos)) {
+                                    editarJuego(descripcion, jugadoresMaximos, idJuego);
+                                    inputFrame.dispose();
+                                } else {
+                                	mostrarError("Ingrese valores válidos");
+                                }
+                            } catch (NumberFormatException ex) {
+                            	 mostrarError("Ingrese valores válidos");
+                            }
+                        } else {
+                        	mostrarError("Ingrese valores válidos");
+                        }
+                    }
+                });
+                inputFrame.setLocationRelativeTo(null);
+                inputFrame.setVisible(true);
             }
         });
+
 
         botonEditarDatosCliente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
