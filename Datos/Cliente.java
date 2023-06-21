@@ -5,6 +5,7 @@ import Interface.Menu;
 
 import javax.swing.*;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -468,10 +469,18 @@ public class Cliente extends Usuario implements Menu {
 
     public void mostrarMenu(String id) {
         int idCliente = getIdCliente(id);
+
+        Font fontBtn = new Font("Arial", Font.BOLD, 12);
+
         ventana = new JFrame("Mi Aplicación");
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setSize(400, 300);
         ventana.setLocationRelativeTo(null);
+
+        JFrame perfil = new JFrame("Detalles de cuenta");
+        perfil.setSize(500,300);
+
+
 
         botonVerPerfil = new JButton("Ver perfil");
         botonJugar = new JButton("Jugar");
@@ -479,6 +488,9 @@ public class Cliente extends Usuario implements Menu {
         botonAgregarDinero = new JButton("Agregar dinero");
         botonRetirarDinero = new JButton("Retirar dinero");
 
+        JButton botonVolver = new JButton("Volver");
+        botonVolver.setPreferredSize(new Dimension(150, 30));
+        botonVolver.setFont(fontBtn);
 
         JTextArea textAreaVerPerfil;
         textAreaVerPerfil = new JTextArea();
@@ -497,16 +509,30 @@ public class Cliente extends Usuario implements Menu {
 
         Validacion validar = new Validacion();
 
+        botonVolver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+perfil.dispose();
+                ventana.setVisible(true);
+            }
+        });
+
         botonVerPerfil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+                ventana.dispose();
 
                 String informacionCuenta = verCuenta(idCliente);
 
                 textAreaVerPerfil.setText(informacionCuenta);
-                panel.add(textAreaVerPerfil);
+
+                perfil.add(textAreaVerPerfil);
+                perfil.add(botonVolver);
+                perfil.setVisible(true);
+               // panel.add(textAreaVerPerfil);
             }
         });
+
 
         botonJugar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
