@@ -1,5 +1,7 @@
 package Datos;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Date;
 
 public abstract class Usuario {
@@ -96,6 +98,18 @@ public abstract class Usuario {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    public void mostrarError(String mensaje) {
+        JFrame errorFrame = new JFrame("Error");
+        errorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        errorFrame.setSize(300, 100);
+        errorFrame.setLayout(new FlowLayout());
+
+        JLabel labelError = new JLabel(mensaje);
+        errorFrame.add(labelError);
+
+        errorFrame.setVisible(true);
     }
 
 

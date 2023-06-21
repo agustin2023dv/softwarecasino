@@ -197,7 +197,7 @@ public class Cliente extends Usuario implements Menu {
                 dineroDisponible = rs.getDouble("total_monto");
             }
         } catch (Exception e) {
-            System.out.println("Hubo un error: " + e.getMessage());
+            mostrarError("Hubo un error: " + e.getMessage());
         }
 
         return dineroDisponible;
@@ -233,7 +233,7 @@ public class Cliente extends Usuario implements Menu {
 
             stmt.executeUpdate();
         } catch (Exception e) {
-            System.out.println("Hubo un error al registrar la transaccion: " + e.getMessage());
+            mostrarError("Hubo un error al registrar la transaccion: " + e.getMessage());
         }
     }
 
@@ -284,13 +284,13 @@ public class Cliente extends Usuario implements Menu {
 
                 stmt.executeUpdate();
             } catch (Exception e) {
-                System.out.println("Hubo un error al registrar la transaccion: " + e.getMessage());
+                mostrarError("Hubo un error al registrar la transaccion: " + e.getMessage());
                 return false;
             }
 
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "Lo sentimos no tenemos dinero suficiente en una sola caja para el retiro", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Lo sentimos no tenemos dinero suficiente en una sola caja para el retiro");
             return false;
         }
     }
@@ -378,20 +378,16 @@ public class Cliente extends Usuario implements Menu {
 
 
         if(juego.getMaquina().getDaniada(idJuego)){
-            JOptionPane.showMessageDialog(null, "Lo sentimos, la maquina esta dañada",
-                    "Maquina dañada", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Lo sentimos, la maquina esta dañada");
             return false;
         }
         else if(juego.getMaquina().getHabilitada(idJuego)){
-            JOptionPane.showMessageDialog(null, "Lo sentimos, la maquina no esta habilitada",
-                    "Maquina no habilitada", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Lo sentimos, la maquina no esta habilitada");
             return false;
         }
             else if (saldo < monto && saldo2<monto && saldo3 <monto) {
 
-            JOptionPane.showMessageDialog(null, "Lo sentimos, no hay suficiente dinero en las cajas " +
-                            "para afrontar la apuesta",
-                    "Saldo insuficiente", JOptionPane.ERROR_MESSAGE);
+                mostrarError("Lo sentimos, no hay suficiente dinero en las cajas");
                 return false;
 
         } else {
@@ -414,6 +410,7 @@ public class Cliente extends Usuario implements Menu {
                 this.cargarSaldoOnline(apuesta * (-1), nombre_usuario);
                 emp.agregarDinero(apuesta, "juancito23", caja);
 
+
                 JOptionPane.showMessageDialog(null, "LO SENTIMOS! has perdido ", "Perdiste",
                         JOptionPane.INFORMATION_MESSAGE, iconoPerdio);
             }
@@ -434,7 +431,7 @@ public class Cliente extends Usuario implements Menu {
 
                 stmt.executeUpdate();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Hubo un error al registrar la partida: " + e.getMessage());
+                mostrarError("Hubo un error al registrar la partida: " + e.getMessage());
             }
 
             return true;
@@ -464,12 +461,13 @@ public class Cliente extends Usuario implements Menu {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al validar el login: " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            mostrarError("Hubo un error al validar el login: " + e.getMessage());
         }
 
         return false;
     }
+
+
 
 
     public void mostrarMenu(String id) {
@@ -585,8 +583,8 @@ public class Cliente extends Usuario implements Menu {
                                             jugar(idJuegoSeleccionado, id, apuesta);
                                         }
                                     } catch (NumberFormatException ex) {
-                                        JOptionPane.showMessageDialog(null, "Ingrese un valor numérico válido para la apuesta.",
-                                                "Error", JOptionPane.ERROR_MESSAGE);
+                                        mostrarError("Ingrese un valor numérico válido para la apuesta.");
+
                                     }
                                 }
                             }

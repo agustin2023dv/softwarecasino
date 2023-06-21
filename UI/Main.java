@@ -25,7 +25,7 @@ class Main {
 
 		mostrarPantallaBienvenida();
 
-				mostrarVentanaLogin();
+		mostrarVentanaLogin();
 
 	}
 
