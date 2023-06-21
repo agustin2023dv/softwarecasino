@@ -162,9 +162,9 @@ public class Tecnico extends Empleado implements Menu {
 	            int idmaquina = Integer.parseInt(txtIdMaquina.getText());
 	            if (validacion.validarExistenciaMaquina(idmaquina)) {
 	                repararMaquina(idmaquina);
-	                JOptionPane.showMessageDialog(null, "La máquina número " + idmaquina + " ha sido reparada exitosamente",
-	                        "Reparación exitosa", JOptionPane.INFORMATION_MESSAGE);
+					mostrarOperacionExitosa("La máquina número " + idmaquina + " ha sido reparada exitosamente");
 	            }
+				txtIdMaquina.setText("");
 	        }
 	    });
 
@@ -173,9 +173,9 @@ public class Tecnico extends Empleado implements Menu {
 	            int idmaquina = Integer.parseInt(txtIdMaquina.getText());
 	            if (validacion.validarExistenciaMaquina(idmaquina)) {
 	                encenderMaquina(idmaquina);
-	                JOptionPane.showMessageDialog(null, "La máquina número " + idmaquina + " ha sido encendida exitosamente",
-	                        "Encendido exitoso", JOptionPane.INFORMATION_MESSAGE);
+					mostrarOperacionExitosa("La máquina número " + idmaquina + " ha sido encendida exitosamente");
 	            }
+				txtIdMaquina.setText("");
 	        }
 	    });
 
@@ -184,9 +184,9 @@ public class Tecnico extends Empleado implements Menu {
 	            int idmaquina = Integer.parseInt(txtIdMaquina.getText());
 	            if (validacion.validarExistenciaMaquina(idmaquina)) {
 	                apagarMaquina(idmaquina);
-	                JOptionPane.showMessageDialog(null, "La máquina número " + idmaquina + " ha sido apagada exitosamente",
-	                        "Apagado exitoso", JOptionPane.INFORMATION_MESSAGE);
+					mostrarOperacionExitosa("La máquina número " + idmaquina + " ha sido apagada exitosamente");
 	            }
+				txtIdMaquina.setText("");
 	        }
 	    });
 
@@ -204,10 +204,11 @@ public class Tecnico extends Empleado implements Menu {
 	                    btnReparar.setEnabled(false);
 	                    btnEncender.setEnabled(false);
 	                    btnApagar.setEnabled(false);
-	                    JOptionPane.showMessageDialog(null, "La máquina número " + idMaquina + " no existe",
-	                            "Error", JOptionPane.ERROR_MESSAGE);
 	                }
+
 	            }
+
+
 	        }
 	    });
 

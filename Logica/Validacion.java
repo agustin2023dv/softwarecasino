@@ -179,6 +179,7 @@ public class Validacion {
 
 		if(idMaquina<1 || idMaquina>3) {
 
+			mostrarError("La máquina número " + idMaquina + " no existe");
 			return false;}
 		else{
 			return  true;
