@@ -199,9 +199,9 @@ public class Administrador extends Usuario implements Menu {
 	        return false;
 	    }
 	}
-	public String verCaja(int idCaja) {
+	public void verCaja(int idCaja) {
+		Conexion con = new Conexion();
 	    double sumaMontos = 0.0;
-	    Conexion con = new Conexion();
 
 	    try {
 	        Connection conexion = con.conectar();
@@ -217,10 +217,28 @@ public class Administrador extends Usuario implements Menu {
 
 	        ResultSet rs = stmt.executeQuery();
 
+	        if (rs.next()) {
+	            sumaMontos = rs.getDouble("suma_montos");
+	        }
+
+	        rs.close();
+	        stmt.close();
+	        conexion.close();
 	    } catch (Exception e) {
-	        System.out.println("Hubo un error: " + e.getMessage());
+	        mostrarError("Hubo un error al consultar la información de la caja.");
+	        return;
 	    }
-	    return "La caja " + idCaja + " tiene un saldo de " + sumaMontos;
+
+	    JFrame infoFrame = new JFrame("Información de la Caja");
+	    infoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    infoFrame.setSize(300, 100);
+	    infoFrame.setLayout(new FlowLayout());
+
+	    JLabel labelInfo = new JLabel("La caja " + idCaja + " tiene un saldo de " + sumaMontos);
+
+	    infoFrame.add(labelInfo);
+	    infoFrame.setLocationRelativeTo(null);
+	    infoFrame.setVisible(true);
 	}
 
 	public boolean login(String nombreUsuario, String contrasena){
@@ -378,12 +396,44 @@ public class Administrador extends Usuario implements Menu {
             }
         });
 
-        botonVerCaja.addActionListener(new ActionListener() {
+       botonVerCaja.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int idCaja = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Caja"));
-                if (validacion.validarVerCaja(idCaja)) {
-                    JOptionPane.showMessageDialog(null, verCaja(idCaja));
-                }
+                JFrame inputFrame = new JFrame("Ingreso del ID de la Caja");
+                inputFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                inputFrame.setSize(300, 150);
+                inputFrame.setLayout(new FlowLayout());
+
+                JLabel labelIdCaja = new JLabel("ID de la Caja:");
+                JTextField textFieldIdCaja = new JTextField(10);
+                JButton btnAceptar = new JButton("Aceptar");
+
+                inputFrame.add(labelIdCaja);
+                inputFrame.add(textFieldIdCaja);
+                inputFrame.add(btnAceptar);
+
+                btnAceptar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String inputIdCaja = textFieldIdCaja.getText();
+                        if (!inputIdCaja.isEmpty()) {
+                            try {
+                                int idCaja = Integer.parseInt(inputIdCaja);
+                                if (validacion.validarVerCaja(idCaja)) {
+                                    verCaja(idCaja);
+                                } else {
+                                    mostrarError("No se encontró la caja con el ID especificado.");
+                                }
+                            } catch (NumberFormatException ex) {
+                                mostrarError("Ingrese un valor numérico válido para el ID de la caja.");
+                            }
+                        } else {
+                            mostrarError("Por favor, ingrese el ID de la caja.");
+                        }
+
+                        inputFrame.dispose();
+                    }
+                });
+                inputFrame.setLocationRelativeTo(null);
+                inputFrame.setVisible(true);
             }
         });
 
