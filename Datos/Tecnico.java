@@ -190,9 +190,6 @@ public class Tecnico extends Empleado implements Menu {
 	        }
 	    });
 
-	    btnReparar.setEnabled(false);
-	    btnEncender.setEnabled(false);
-	    btnApagar.setEnabled(false);
 
 	    txtIdMaquina.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
