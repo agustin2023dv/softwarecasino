@@ -1,104 +1,76 @@
 package UI;
-
-import Datos.*;
 import Logica.*;
-
+import Datos.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 class Main {
 
+	private static Validacion validacion;
+	private static Administrador adm;
+	private static Cliente cliente;
+	private static EmpleadoCaja empCaja;
+	private static Tecnico tecnico;
+	private static EmpleadoMaquina empMaquina;
+
 	public static void main(String[] args) {
+		validacion = new Validacion();
+		adm = new Administrador();
+		cliente = new Cliente();
+		empCaja = new EmpleadoCaja();
+		tecnico = new Tecnico();
+		empMaquina = new EmpleadoMaquina();
 
-		JFrame ventana;
-		JLabel labelMensaje;
-		Validacion validacion = new Validacion();
+		mostrarPantallaBienvenida();
+		mostrarVentanaLogin();
+	}
 
-
-		Administrador adm = new Administrador();
-		Cliente cliente = new Cliente();
-		EmpleadoCaja empCaja = new EmpleadoCaja();
-		Tecnico tecnico = new Tecnico();
-		EmpleadoMaquina empMaquina = new EmpleadoMaquina();
-
-
-		// Pantalla de Bienvenida
-
-
-		String rutaImagenInicio = "img/casinoInicio.jpg";
-
-		ImageIcon iconoInicio = new ImageIcon(rutaImagenInicio);
-
-		ventana = new JFrame("Casino Jocker");
+	private static void mostrarPantallaBienvenida() {
+		JFrame ventana = new JFrame("Casino Jocker");
 		ventana.setSize(400, 300);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
 
+		String rutaImagenInicio = "img/casinoInicio.jpg";
+		ImageIcon iconoInicio = new ImageIcon(rutaImagenInicio);
 		JLabel labelImagen = new JLabel(iconoInicio);
-		labelMensaje = new JLabel("Bienvenido al casino Jocker");
+		JLabel labelMensaje = new JLabel("Bienvenido al casino Jocker");
 		labelMensaje.setFont(new Font("Arial", Font.PLAIN, 24));
 
 		panel.add(labelImagen);
 		panel.add(labelMensaje);
 
-
 		ventana.add(panel);
-
-
 		ventana.setVisible(true);
-
 
 		// FALTA AGREGARLE ALGO PARA QUE DESPUES DE UNOS SEGUNDOS SE CIERRE SOLO ANTES Q LO DEMAS SE ABRA
 		ventana.dispose();
+	}
 
-
-		// Pantalla pre login . Seleccion de tipo de usuario
-
-		String rutaImagenPreLogin = "img/userPreLogin.png";
-		ImageIcon iconoPreLogin = new ImageIcon(rutaImagenPreLogin);
-
-
-		// LOGIN
-
+	private static void mostrarVentanaLogin() {
 		JPanel panelLogin = new JPanel();
-		JFrame ventanaLogin;
-		ventanaLogin = new JFrame("Log in");
+		JFrame ventanaLogin = new JFrame("Log in");
 		ventanaLogin.setSize(500, 300);
 		ventanaLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventanaLogin.setLocationRelativeTo(null);
 
-		JLabel labelNombreUsuario;
-		JTextField textNombreUsuario;
+		JLabel labelNombreUsuario = new JLabel("Nombre usuario");
+		JTextField textNombreUsuario = new JTextField(10);
 
-		labelNombreUsuario = new JLabel("Nombre usuario");
-		textNombreUsuario = new JTextField(10);
-
-
-		ventanaLogin.setResizable(false);
-
-
-		JLabel labelContrasena;
-		JPasswordField textContrasena;
-		labelContrasena = new JLabel("Contraseña");
-		textContrasena = new JPasswordField(10);
-
+		JLabel labelContrasena = new JLabel("Contraseña");
+		JPasswordField textContrasena = new JPasswordField(10);
 
 		panelLogin.add(labelNombreUsuario);
 		panelLogin.add(textNombreUsuario);
 		panelLogin.add(labelContrasena);
 		panelLogin.add(textContrasena);
 
-
-		JButton btnLogin;
+		JButton btnLogin = new JButton("Iniciar sesión");
 		Font fontBtnLogin = new Font("Arial", Font.BOLD, 14);
-
-		btnLogin = new JButton("Iniciar sesion");
 		btnLogin.setPreferredSize(new Dimension(150, 30));
 		btnLogin.setFont(fontBtnLogin);
 		btnLogin.setBackground(Color.orange);
@@ -108,10 +80,8 @@ class Main {
 		panelBoton.setSize(30, 30);
 		panelLogin.add(panelBoton, BorderLayout.SOUTH);
 
-
 		btnLogin.addActionListener(new ActionListener() {
 			int intentosLogin = 0;
-
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -147,13 +117,31 @@ class Main {
 			}
 		});
 
-
 		ventanaLogin.add(panelLogin);
-
 		ventanaLogin.setVisible(true);
+	}
 
 
 
 
 
-	}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Pantalla pre login . Seleccion de tipo de usuario
+
+		String rutaImagenPreLogin = "img/userPreLogin.png";
+
+	}
