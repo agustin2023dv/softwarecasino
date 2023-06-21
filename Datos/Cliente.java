@@ -558,52 +558,37 @@ public class Cliente extends Usuario implements Menu {
                     String[] opcionesJuegos = nombresJuegos.toArray(new String[0]);
                     JComboBox<String> comboBoxJuegos = new JComboBox<>(opcionesJuegos);
 
-                    JFrame frame = new JFrame("Seleccione juego");
+                    JLabel labelApuesta = new JLabel("Monto de apuesta:");
+                    JTextField textApuesta = new JTextField(10);
+                    JButton btnJugar = new JButton("Jugar");
+
+                    JFrame frame = new JFrame("Seleccione juego y monto de apuesta");
                     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frame.setSize(300, 150);
+                    frame.setSize(300, 200);
                     frame.setLayout(new FlowLayout());
 
                     frame.add(comboBoxJuegos);
+                    frame.add(labelApuesta);
+                    frame.add(textApuesta);
+                    frame.add(btnJugar);
 
-                    JButton btnAceptar = new JButton("Aceptar");
-                    frame.add(btnAceptar);
-
-                    btnAceptar.addActionListener(new ActionListener() {
+                    btnJugar.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             int opcionSeleccionada = comboBoxJuegos.getSelectedIndex();
                             if (opcionSeleccionada != -1) {
                                 int idJuegoSeleccionado = opcionSeleccionada + 1;
-
-                                JFrame apuestaFrame = new JFrame("Ingrese la apuesta");
-                                apuestaFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                                apuestaFrame.setSize(300, 150);
-                                apuestaFrame.setLayout(new FlowLayout());
-
-                                JTextField textApuesta = new JTextField(10);
-                                JButton btnApuesta = new JButton("Apostar");
-
-                                apuestaFrame.add(textApuesta);
-                                apuestaFrame.add(btnApuesta);
-
-                                btnApuesta.addActionListener(new ActionListener() {
-                                    public void actionPerformed(ActionEvent e) {
-                                        String inputApuesta = textApuesta.getText();
-                                        if (!inputApuesta.isEmpty()) {
-                                            try {
-                                                double apuesta = Double.parseDouble(inputApuesta);
-                                                if (validar.validarJugar(apuesta, idCliente)) {
-                                                    jugar(idJuegoSeleccionado, id, apuesta);
-                                                }
-                                            } catch (NumberFormatException ex) {
-                                                JOptionPane.showMessageDialog(null, "Ingrese un valor numérico válido para la apuesta.",
-                                                        "Error", JOptionPane.ERROR_MESSAGE);
-                                            }
+                                String inputApuesta = textApuesta.getText();
+                                if (!inputApuesta.isEmpty()) {
+                                    try {
+                                        double apuesta = Double.parseDouble(inputApuesta);
+                                        if (validar.validarJugar(apuesta, idCliente)) {
+                                            jugar(idJuegoSeleccionado, id, apuesta);
                                         }
-                                        apuestaFrame.dispose();
+                                    } catch (NumberFormatException ex) {
+                                        JOptionPane.showMessageDialog(null, "Ingrese un valor numérico válido para la apuesta.",
+                                                "Error", JOptionPane.ERROR_MESSAGE);
                                     }
-                                });
-
-                                apuestaFrame.setVisible(true);
+                                }
                             }
                             frame.dispose();
                         }
@@ -619,6 +604,7 @@ public class Cliente extends Usuario implements Menu {
                 }
             }
         });
+
 
 
         botonVerHistorial.addActionListener(new ActionListener() {
