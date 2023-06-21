@@ -605,9 +605,30 @@ public class Cliente extends Usuario implements Menu {
 
         botonVerHistorial.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, getHistorialPartidas(id),
+                String historialPartidas = getHistorialPartidas(id);
+                JFrame historialFrame = new JFrame("Historial de partidas");
+                historialFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                historialFrame.setSize(500, 300);
+                historialFrame.setLayout(new BorderLayout());
+
+                JTextArea textAreaHistorial = new JTextArea();
+                textAreaHistorial.setEditable(false);
+                textAreaHistorial.setText(historialPartidas);
+
+                JScrollPane scrollPane = new JScrollPane(textAreaHistorial);
+                historialFrame.add(scrollPane, BorderLayout.CENTER);
+
+                historialFrame.setVisible(true);
+
+
+
+
+
+
+
+              /*  JOptionPane.showMessageDialog(null, getHistorialPartidas(id),
                         "Historial de partidas",
-                        JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.INFORMATION_MESSAGE);*/
             }
         });
 
