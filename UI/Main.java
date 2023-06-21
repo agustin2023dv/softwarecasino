@@ -24,7 +24,9 @@ class Main {
 		empMaquina = new EmpleadoMaquina();
 
 		mostrarPantallaBienvenida();
-		mostrarVentanaLogin();
+
+				mostrarVentanaLogin();
+
 	}
 
 	private static void mostrarPantallaBienvenida() {

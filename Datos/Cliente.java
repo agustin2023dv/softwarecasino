@@ -29,6 +29,11 @@ public class Cliente extends Usuario implements Menu {
     private JButton botonAgregarDinero;
     private JButton botonRetirarDinero;
     private JPanel panel;
+
+    private JButton botonVolver;
+    private JTextArea textAreaVerPerfil;
+
+    private JFrame perfil;
    
 	public Cliente() {
 			
@@ -477,7 +482,9 @@ public class Cliente extends Usuario implements Menu {
         ventana.setSize(400, 300);
         ventana.setLocationRelativeTo(null);
 
-        JFrame perfil = new JFrame("Detalles de cuenta");
+
+        // Para metodo verCuenta
+        perfil = new JFrame("Detalles de cuenta");
         perfil.setSize(500,300);
 
 
@@ -488,11 +495,11 @@ public class Cliente extends Usuario implements Menu {
         botonAgregarDinero = new JButton("Agregar dinero");
         botonRetirarDinero = new JButton("Retirar dinero");
 
-        JButton botonVolver = new JButton("Volver");
+        botonVolver = new JButton("Volver");
         botonVolver.setPreferredSize(new Dimension(150, 30));
         botonVolver.setFont(fontBtn);
 
-        JTextArea textAreaVerPerfil;
+
         textAreaVerPerfil = new JTextArea();
         textAreaVerPerfil.setEditable(false);
 
@@ -512,7 +519,7 @@ public class Cliente extends Usuario implements Menu {
         botonVolver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-perfil.dispose();
+                perfil.dispose();
                 ventana.setVisible(true);
             }
         });
