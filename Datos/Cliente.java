@@ -337,7 +337,7 @@ public class Cliente extends Usuario implements Menu {
                 infoCuenta = "El cliente no fue encontrado.";
             }
         } catch (Exception e) {
-            System.out.println("Hubo un error: " + e.getMessage());
+            mostrarError("Hubo un error: " + e.getMessage());
             infoCuenta = "Hubo un error al consultar la cuenta del cliente.";
         }
 
@@ -412,16 +412,14 @@ public class Cliente extends Usuario implements Menu {
                     caja = 3;
                 }
                 emp.agregarDinero(monto * (-1), "juancito23", caja);
+                mostrarOperacionExitosa("Felicitaciones! has ganado " + monto);
 
-                JOptionPane.showMessageDialog(null, "Felicitaciones! has ganado " + monto, "Ganaste",
-                        JOptionPane.INFORMATION_MESSAGE, iconoGano);
             } else {
                 this.cargarSaldoOnline(apuesta * (-1), nombre_usuario);
                 emp.agregarDinero(apuesta, "juancito23", caja);
 
 
-                JOptionPane.showMessageDialog(null, "LO SENTIMOS! has perdido ", "Perdiste",
-                        JOptionPane.INFORMATION_MESSAGE, iconoPerdio);
+                mostrarOperacionExitosa("LO SENTIMOS! has perdido ");
             }
 
             // Registrar la partida en la base de datos
