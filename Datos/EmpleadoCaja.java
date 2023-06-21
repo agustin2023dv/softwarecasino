@@ -140,9 +140,13 @@ public class EmpleadoCaja extends Empleado implements Menu {
                 if (validacion.validarAgregarDinero(monto, idCaja)) {
                     agregarDinero(monto, id, idCaja);
                     mostrarOperacionExitosa("Ha depositado $" + monto + " correctamente en la caja número " + idCaja);
+                     // Limpiar campo idCaja
                 }
+                textFieldMonto.setText(""); // Limpiar campo monto
+                textFieldIdCaja.setText("");
             }
         });
+
 
         panel = new JPanel();
         panel.add(labelMonto);
