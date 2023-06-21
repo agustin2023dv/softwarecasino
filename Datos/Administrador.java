@@ -340,16 +340,55 @@ public class Administrador extends Usuario implements Menu {
 
         botonEditarDatosCliente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
-                String email = JOptionPane.showInputDialog("Ingrese el correo del Cliente");
-                String direccion = JOptionPane.showInputDialog("Ingrese la dirección del Cliente");
-            	System.out.println(idCliente + direccion + email);
-               // if (validacion.validarActualizarCliente(email, direccion, idCliente)) {
+                JFrame inputFrame = new JFrame("Actualización de cliente");
+                inputFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                inputFrame.setSize(300, 200);
+                inputFrame.setLayout(new GridLayout(4, 2)); 
 
-                    actualizarCliente(email, direccion, idCliente);
-                //}
+                JLabel labelId = new JLabel("ID del cliente:");
+                JTextField textFieldId = new JTextField(10);
+                JLabel labelEmail = new JLabel("Nuevo email:");
+                JTextField textFieldEmail = new JTextField(10);
+                JLabel labelDireccion = new JLabel("Nueva dirección:");
+                JTextField textFieldDireccion = new JTextField(10);
+                JButton btnAceptar = new JButton("Aceptar");
+          
+                inputFrame.add(labelId);
+                inputFrame.add(textFieldId);
+                inputFrame.add(labelEmail);
+                inputFrame.add(textFieldEmail);
+                inputFrame.add(labelDireccion);
+                inputFrame.add(textFieldDireccion);
+                inputFrame.add(btnAceptar);
+
+                btnAceptar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                    	String inputId = textFieldId.getText();
+                        String nuevoEmail = textFieldEmail.getText();
+                        String nuevaDireccion = textFieldDireccion.getText();
+
+                        if (!inputId.isEmpty() && !nuevoEmail.isEmpty() && !nuevaDireccion.isEmpty()) {
+                            try {
+                                int idCliente = Integer.parseInt(inputId);
+                                if (validacion.validarActualizarCliente(nuevoEmail, nuevaDireccion, idCliente)) {
+                                    actualizarCliente(nuevoEmail, nuevaDireccion, idCliente);
+                                } else {
+                                    mostrarError("No se pudo actualizar el cliente.");
+                                }
+                            } catch (NumberFormatException ex) {
+                                mostrarError("Ingrese un valor numérico válido para el ID del cliente.");
+                            }
+                        } else {
+                            mostrarError("Por favor, complete todos los campos.");
+                        }
+
+                        inputFrame.dispose();
+                    }
+                });
+                inputFrame.setLocationRelativeTo(null);
+                inputFrame.setVisible(true);
             }
-        }); 
+        });
 	}
 
 }
