@@ -5,13 +5,15 @@ import Logica.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 class Main {
 
 	public static void main(String[] args) {
 
-		 JFrame ventana;
-		 JLabel labelMensaje;
+		JFrame ventana;
+		JLabel labelMensaje;
 		Validacion validacion = new Validacion();
 
 
@@ -20,7 +22,6 @@ class Main {
 		EmpleadoCaja empCaja = new EmpleadoCaja();
 		Tecnico tecnico = new Tecnico();
 		EmpleadoMaquina empMaquina = new EmpleadoMaquina();
-
 
 
 		// Pantalla de Bienvenida
@@ -48,8 +49,6 @@ class Main {
 		ventana.setVisible(true);
 
 
-
-
 		// Pantalla pre login . Seleccion de tipo de usuario
 
 		String rutaImagenPreLogin = "img/userPreLogin.png";
@@ -57,45 +56,75 @@ class Main {
 
 
 		// LOGIN
-		int intentosLogin = 0;
+
+		JPanel panelLogin = new JPanel();
+		JFrame ventanaLogin;
+		ventanaLogin = new JFrame("Log in");
+		ventanaLogin.setSize(500,300);
+		ventanaLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ventanaLogin.setLocationRelativeTo(null);
+
+		JLabel labelNombreUsuario;
+		JTextField textNombreUsuario;
+
+		labelNombreUsuario = new JLabel("Nombre usuario");
+		textNombreUsuario = new JTextField(10);
+		JLabel labelContrasena;
+		JPasswordField textContrasena;
+		labelContrasena = new JLabel("Nombre usuario");
+		textContrasena = new JPasswordField(10);
+
+		panelLogin.add(labelNombreUsuario);
+		panelLogin.add(textNombreUsuario);
+		panelLogin.add(labelContrasena);
+		panelLogin.add(textContrasena);
 
 
+		JButton btnLogin;
 
-		do {
+		btnLogin = new JButton("Login");
+		btnLogin.setPreferredSize(new Dimension(30, 30));
 
-			String	idUsuario = JOptionPane.showInputDialog(null, "Nombre de usuario:",
-					"Ingrese su usuario", JOptionPane.PLAIN_MESSAGE);
+		JPanel panelBoton = new JPanel();
+		panelBoton.add(btnLogin);
 
-			String contrasena = JOptionPane.showInputDialog(null, "Contraseña:",
-					"Ingrese su contraseña", JOptionPane.PLAIN_MESSAGE);
+		panelLogin.add(panelBoton, BorderLayout.SOUTH);
 
-			if (validacion.verificarUsuario(idUsuario, contrasena)) {
+		
+		btnLogin.addActionListener(new ActionListener() {
+				int intentosLogin = 0;
 
-				if (cliente.login(idUsuario,contrasena)) {
-					cliente.mostrarMenu(idUsuario);
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					String nombre_usuario = textNombreUsuario.getText();
+					String contrasena = new String(textContrasena.getPassword());
 
-				} else if (adm.login(idUsuario,contrasena)) {
-
-					adm.mostrarMenu(idUsuario);
-				} else if (empCaja.login(idUsuario,contrasena)) {
-
-					empCaja.mostrarMenu(idUsuario);
-				} else if (tecnico.login(idUsuario,contrasena)) {
-
-					tecnico.mostrarMenu(idUsuario);
-				} else if (empMaquina.login(idUsuario,contrasena)) {
-
-					empMaquina.mostrarMenu(idUsuario);
+					if (validacion.verificarUsuario(nombre_usuario, contrasena)) {
+						if (cliente.login(nombre_usuario, contrasena)) {
+							cliente.mostrarMenu(nombre_usuario);
+						} else if (adm.login(nombre_usuario, contrasena)) {
+							adm.mostrarMenu(nombre_usuario);
+						} else if (empCaja.login(nombre_usuario, contrasena)) {
+							empCaja.mostrarMenu(nombre_usuario);
+						} else if (tecnico.login(nombre_usuario, contrasena)) {
+							tecnico.mostrarMenu(nombre_usuario);
+						} else if (empMaquina.login(nombre_usuario, contrasena)) {
+							empMaquina.mostrarMenu(nombre_usuario);
+						}
+					} else {
+						// Usuario o contraseña incorrectos
+						intentosLogin++;
+						if (intentosLogin == 3) {
+							JOptionPane.showMessageDialog(null, "Ha excedido el número máximo de intentos. Saliendo del programa.", "Error", JOptionPane.ERROR_MESSAGE);
+							System.exit(0);
+						}
+					}
 				}
+			});
 
-			} else {
-				// Usuario o contraseña incorrectos
-				JOptionPane.showMessageDialog(null,
-						"Credenciales incorrectas. Por favor, inténtelo de nuevo. Le quedan "
-								+(2-intentosLogin)+" intentos", "Error", JOptionPane.ERROR_MESSAGE);
-				intentosLogin++;
-			}
-		} while (intentosLogin < 3);
+		ventanaLogin.add(panelLogin);
+
+		ventanaLogin.setVisible(true);
 
 
 
