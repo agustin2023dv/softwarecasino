@@ -179,19 +179,19 @@ public class Administrador extends Usuario implements Menu {
 		}
 	}
 
-	public boolean actualizarCliente(String email, String direccion, int idCliente) {
+	public boolean actualizarCliente(String email, String direccion, int id) {
 	    Conexion con = new Conexion();
 	    try {
 	        Connection conexion = con.conectar();
 	        String sql = "UPDATE usuario AS u INNER JOIN cliente AS c " +
 	                     "ON u.id_usuario = c.id_usuario " +
 	                     "SET u.email = ?, u.direccion = ? " +
-	                     "WHERE c.id_cliente = ?";
+	                     "WHERE u.id_usuario = ?";
 
 	        PreparedStatement stmt = conexion.prepareStatement(sql);
 	        stmt.setString(1, email);
 	        stmt.setString(2, direccion);
-	        stmt.setInt(3, idCliente);
+	        stmt.setInt(3, id);
 	        stmt.executeUpdate();
 	        return true;
 	    } catch (Exception e) {
