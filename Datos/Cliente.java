@@ -479,12 +479,18 @@ public class Cliente extends Usuario implements Menu {
         botonAgregarDinero = new JButton("Agregar dinero");
         botonRetirarDinero = new JButton("Retirar dinero");
 
+
+        JTextArea textAreaVerPerfil;
+        textAreaVerPerfil = new JTextArea();
+        textAreaVerPerfil.setEditable(false);
+
         panel = new JPanel();
         panel.add(botonVerPerfil);
         panel.add(botonJugar);
         panel.add(botonVerHistorial);
         panel.add(botonAgregarDinero);
         panel.add(botonRetirarDinero);
+
 
         ventana.add(panel);
         ventana.setVisible(true);
@@ -493,8 +499,12 @@ public class Cliente extends Usuario implements Menu {
 
         botonVerPerfil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, verCuenta(idCliente), "Información cuenta cliente",
-                        JOptionPane.INFORMATION_MESSAGE);
+
+
+                String informacionCuenta = verCuenta(idCliente);
+
+                textAreaVerPerfil.setText(informacionCuenta);
+                panel.add(textAreaVerPerfil);
             }
         });
 
