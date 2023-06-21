@@ -437,13 +437,42 @@ public class Administrador extends Usuario implements Menu {
             }
         });
 
-        botonEliminarJuego.addActionListener(new ActionListener() {
+ botonEliminarJuego.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int idJuego = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Juego"));
-                if (validacion.validarEliminarJuego(idJuego)) {
-                    eliminarJuego(idJuego);
-                    JOptionPane.showMessageDialog(null, "El juego ha sido eliminado con éxito");
-                }
+                JFrame inputFrame = new JFrame("Ingreso del ID del Juego");
+                inputFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                inputFrame.setSize(300, 150);
+                inputFrame.setLayout(new FlowLayout());
+
+                JLabel labelIdJuego = new JLabel("ID del Juego:");
+                JTextField textFieldIdJuego = new JTextField(10);
+                JButton btnAceptar = new JButton("Aceptar");
+
+                inputFrame.add(labelIdJuego);
+                inputFrame.add(textFieldIdJuego);
+                inputFrame.add(btnAceptar);
+
+                btnAceptar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String inputIdJuego = textFieldIdJuego.getText();
+                        if (!inputIdJuego.isEmpty()) {
+                            try {
+                                int idJuego = Integer.parseInt(inputIdJuego);
+                                if (validacion.validarEliminarJuego(idJuego)) {
+                                    eliminarJuego(idJuego);
+
+                                } else {
+                                    mostrarError("No se encontró el juego con el ID especificado.");
+                                }
+                            } catch (NumberFormatException ex) {
+                                mostrarError("Ingrese un valor numérico válido para el ID del juego.");
+                            }
+                        } 
+                        inputFrame.dispose();
+                    }
+                });
+                inputFrame.setLocationRelativeTo(null);
+                inputFrame.setVisible(true);
             }
         });
 
