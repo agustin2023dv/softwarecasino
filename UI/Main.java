@@ -53,7 +53,7 @@ class Main {
 		ventana.setVisible(true);
 
 
-		// FALTA AGREGARLE ALGO PARA QUE DESPUES DE UNOS SEGUNDOS SE CIERRE SOLO ANETS Q LO DEMAS SE ABRA
+		// FALTA AGREGARLE ALGO PARA QUE DESPUES DE UNOS SEGUNDOS SE CIERRE SOLO ANTES Q LO DEMAS SE ABRA
 		ventana.dispose();
 
 
@@ -77,10 +77,20 @@ class Main {
 
 		labelNombreUsuario = new JLabel("Nombre usuario");
 		textNombreUsuario = new JTextField(10);
+
+
+
+		ventanaLogin.setResizable(false);
+
+
+
+
+
 		JLabel labelContrasena;
 		JPasswordField textContrasena;
 		labelContrasena = new JLabel("Contraseña");
 		textContrasena = new JPasswordField(10);
+
 
 		panelLogin.add(labelNombreUsuario);
 		panelLogin.add(textNombreUsuario);
@@ -88,15 +98,23 @@ class Main {
 		panelLogin.add(textContrasena);
 
 
+
+
+
 		JButton btnLogin;
+		Font fontBtnLogin = new Font("Arial", Font.BOLD, 14);
 
 		btnLogin = new JButton("Iniciar sesion");
 		btnLogin.setPreferredSize(new Dimension(150, 30));
+		btnLogin.setFont(fontBtnLogin);
+		btnLogin.setBackground(Color.orange);
 
 		JPanel panelBoton = new JPanel();
 		panelBoton.add(btnLogin);
 		panelBoton.setSize(30,30);
 		panelLogin.add(panelBoton, BorderLayout.SOUTH);
+
+
 
 
 		btnLogin.addActionListener(new ActionListener() {

@@ -15,7 +15,7 @@ public class Validacion {
 		int longitudContrasena = contrasena.length();
 		int longitudID= idUsuario.length();
 
-		if (longitudID < 0 || longitudID > 99) {
+		if (longitudID < 0 || longitudID > 99 || idUsuario.isEmpty()) {
 			JOptionPane.showMessageDialog(null,"El usuario debe ser un numero entre 1 y 99","Error",
 					JOptionPane.ERROR_MESSAGE);
 			return false; // El ID de usuario debe estar entre 0 y 99
