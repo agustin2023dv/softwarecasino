@@ -289,10 +289,42 @@ public class Administrador extends Usuario implements Menu {
 
         botonVerCliente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del Cliente"));
-                if (validacion.validarExistenciaCliente(idCliente)) {
-                    JOptionPane.showMessageDialog(null, revisarCuentaCliente(idCliente));
-                }
+                JFrame inputFrame = new JFrame("Ingreso del ID del Cliente");
+                inputFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                inputFrame.setSize(300, 150);
+                inputFrame.setLayout(new FlowLayout());
+
+                JLabel labelIdCliente = new JLabel("ID del Cliente:");
+                JTextField textFieldIdCliente = new JTextField(10);
+                JButton btnAceptar = new JButton("Aceptar");
+
+                inputFrame.add(labelIdCliente);
+                inputFrame.add(textFieldIdCliente);
+                inputFrame.add(btnAceptar);
+
+                btnAceptar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String inputIdCliente = textFieldIdCliente.getText();
+                        if (!inputIdCliente.isEmpty()) {
+                            try {
+                                int idCliente = Integer.parseInt(inputIdCliente);
+                                if (validacion.validarExistenciaCliente(idCliente)) {
+                                    revisarCuentaCliente(idCliente);
+                                } else {
+                                    mostrarError("No se encontró información de la cuenta del cliente.");
+                                }
+                            } catch (NumberFormatException ex) {
+                                mostrarError("Ingrese un valor numérico válido para el ID del cliente.");
+                            }
+                        } else {
+                            mostrarError("Por favor, ingrese el ID del cliente.");
+                        }
+
+                        inputFrame.dispose();
+                    }
+                });
+                inputFrame.setLocationRelativeTo(null);
+                inputFrame.setVisible(true);
             }
         });
 
