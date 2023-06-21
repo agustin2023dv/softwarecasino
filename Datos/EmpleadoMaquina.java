@@ -6,10 +6,7 @@ import Logica.Validacion;
 import java.sql.SQLException;
 import java.util.Date;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,7 +55,7 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+            mostrarError("Hubo un error: " + e.getMessage());
 			return false;
 		}
 		return true;
@@ -77,7 +74,7 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 
             
         } catch (Exception e) {
-        	JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+            mostrarError("Hubo un error: " + e.getMessage());
 			return false;
         }
 		return true;
@@ -109,55 +106,94 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 				}
 			}
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error al validar el login: " + e.getMessage(), "Error",
-					JOptionPane.ERROR_MESSAGE);
+            mostrarError("Hubo un error al validar el login: " + e.getMessage());
 		}
 
 		return false;
 	}
 
 
-    public void mostrarMenu(String id){
-    	  String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Salir"};
+    public void mostrarMenu(String id) {
+        String[] opcionesEMaquina = {"Encender Maquina", "Apagar Maquina", "Salir"};
 
-          ventana = new JFrame("Empleado Maquina");
-          ventana.setSize(300, 200);
-          ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          ventana.setLocationRelativeTo(null);
+        ventana = new JFrame("Empleado Maquina");
+        ventana.setSize(300, 200);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setLocationRelativeTo(null);
 
-          botonEncender = new JButton("Encender Maquina");
-          botonApagar = new JButton("Apagar Maquina");
+        botonEncender = new JButton("Encender Maquina");
+        botonApagar = new JButton("Apagar Maquina");
 
-          panel = new JPanel();
-          panel.add(botonEncender);
-          panel.add(botonApagar);
+        panel = new JPanel();
+        panel.add(botonEncender);
+        panel.add(botonApagar);
 
-          ventana.add(panel);
-          ventana.setVisible(true);
+        ventana.add(panel);
+        ventana.setVisible(true);
 
-          Validacion validacion = new Validacion();
+        Validacion validacion = new Validacion();
 
-          botonEncender.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-                  int idMaquina = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Maquina a encender"));
-                  if (validacion.validarExistenciaMaquina(idMaquina)) {
-                      encenderMaquina(idMaquina);
-                      JOptionPane.showMessageDialog(null, "La maquina numero " + idMaquina +
-                              " ha sido encendida exitosamente", "Encendido exitoso", JOptionPane.INFORMATION_MESSAGE);
-                  }
-              }
-          });
+        botonEncender.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("Ingrese el ID de la Máquina");
+                JTextField textField = new JTextField(10);
+                JButton button = new JButton("Aceptar");
 
-          botonApagar.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-                  int idMaquina = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Maquina a apagar"));
-                  if (validacion.validarExistenciaMaquina(idMaquina)) {
-                      apagarMaquina(idMaquina);
-                      JOptionPane.showMessageDialog(null, "La maquina numero " + idMaquina +
-                              " ha sido apagada exitosamente", "Apagado exitoso", JOptionPane.INFORMATION_MESSAGE);
-                  }
-              }
-          });
-    }
-}
+                button.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String idMaquinaStr = textField.getText();
+
+                        if (idMaquinaStr != null && !idMaquinaStr.isEmpty()) {
+                            int idMaquina = Integer.parseInt(idMaquinaStr);
+                            if (validacion.validarExistenciaMaquina(idMaquina)) {
+                                encenderMaquina(idMaquina);
+                                mostrarOperacionExitosa("La máquina número " + idMaquina + " ha sido encendida exitosamente");
+                            }
+                        }
+
+                        frame.dispose();
+                    }
+                });
+
+                JPanel panel = new JPanel();
+                panel.add(textField);
+                panel.add(button);
+
+                frame.add(panel);
+                frame.setSize(300, 100);
+                frame.setVisible(true);
+            }
+        });
+
+        botonApagar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("Ingrese el ID de la Máquina");
+                JTextField textField = new JTextField(10);
+                JButton button = new JButton("Aceptar");
+
+                button.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String idMaquinaStr = textField.getText();
+
+                        if (idMaquinaStr != null && !idMaquinaStr.isEmpty()) {
+                            int idMaquina = Integer.parseInt(idMaquinaStr);
+                            if (validacion.validarExistenciaMaquina(idMaquina)) {
+                                apagarMaquina(idMaquina);
+                                mostrarOperacionExitosa("La máquina número " + idMaquina + " ha sido apagada exitosamente");
+                            }
+                        }
+
+                        frame.dispose();
+                    }
+                });
+
+                JPanel panel = new JPanel();
+                panel.add(textField);
+                panel.add(button);
+
+                frame.add(panel);
+                frame.setSize(300, 100);
+                frame.setVisible(true);
+            }
+        });
+    }}
