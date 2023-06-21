@@ -634,12 +634,37 @@ public class Cliente extends Usuario implements Menu {
 
         botonAgregarDinero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                double monto = Double.parseDouble(JOptionPane.showInputDialog(null,
-                        "Cuánto dinero desea cargar?", "Carga de dinero", JOptionPane.QUESTION_MESSAGE));
+                JFrame inputFrame = new JFrame("Carga de dinero");
+                inputFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                inputFrame.setSize(300, 150);
+                inputFrame.setLayout(new FlowLayout());
 
-                if (validar.validarCargaDinero(idCliente, monto)) {
-                    cargarSaldoOnline(monto, id);
-                }
+                JLabel labelMonto = new JLabel("Cuánto dinero desea cargar?");
+                JTextField textFieldMonto = new JTextField(10);
+                JButton btnAceptar = new JButton("Aceptar");
+
+                inputFrame.add(labelMonto);
+                inputFrame.add(textFieldMonto);
+                inputFrame.add(btnAceptar);
+
+                btnAceptar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String inputMonto = textFieldMonto.getText();
+                        if (!inputMonto.isEmpty()) {
+                            try {
+                                double monto = Double.parseDouble(inputMonto);
+                                if (validar.validarCargaDinero(idCliente, monto)) {
+                                    cargarSaldoOnline(monto, id);
+                                }
+                            } catch (NumberFormatException ex) {
+                                mostrarError("Ingrese un valor numérico válido para el monto.");
+                            }
+                        }
+                        inputFrame.dispose();
+                    }
+                });
+
+                inputFrame.setVisible(true);
             }
         });
 
