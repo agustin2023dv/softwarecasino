@@ -57,12 +57,10 @@ public class Validacion {
 		return true;
 	}
 
-	public boolean validarJugar(double monto, int idCliente){
-		Cliente cliente = new Cliente();
+	public boolean validarJugar(double monto){
 
-		double dineroDisponible = cliente.getDineroDisponible(idCliente);
 
-			if(monto<=0 || dineroDisponible<monto){
+			if(monto<=0){
 				return false;}
 			else{
 				return true;

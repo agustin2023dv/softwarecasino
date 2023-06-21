@@ -382,7 +382,11 @@ public class Cliente extends Usuario implements Menu {
         saldo3 = caja1.getSaldoActual(3);
 
 
-        if(juego.getMaquina().getDaniada(idJuego)){
+        if(this.getDineroDisponible(cliente)<apuesta){
+            mostrarError("Lo sentimos, no tiene saldo suficiente");
+            return false;
+        }
+        else if(juego.getMaquina().getDaniada(idJuego)){
             mostrarError("Lo sentimos, la maquina esta dañada");
             return false;
         }
@@ -584,7 +588,7 @@ public class Cliente extends Usuario implements Menu {
                                 if (!inputApuesta.isEmpty()) {
                                     try {
                                         double apuesta = Double.parseDouble(inputApuesta);
-                                        if (validar.validarJugar(apuesta, idCliente)) {
+                                        if (validar.validarJugar(apuesta)) {
                                             jugar(idJuegoSeleccionado, id, apuesta);
                                         }
                                     } catch (NumberFormatException ex) {
