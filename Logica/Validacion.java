@@ -162,6 +162,7 @@ public class Validacion {
 		if(montoAAgregar > 0 && idCaja >0 && idCaja<4) {
             return true;
 		}else {
+			mostrarError("El monto debe ser un valor mayor a 0 y el numero de la caja debe ser un numero entero entre 1 y 4");
             return false;
 		}	
 	}

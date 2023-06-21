@@ -84,8 +84,7 @@ public class EmpleadoCaja extends Empleado implements Menu {
 
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Hubo un error al agregar dinero: " + e.getMessage(),"Error",
-                    JOptionPane.ERROR_MESSAGE);
+            mostrarError("Hubo un error al agregar dinero: " + e.getMessage());
         }
     }
 
@@ -114,8 +113,7 @@ public class EmpleadoCaja extends Empleado implements Menu {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al validar el login: " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            mostrarError("Hubo un error al validar el login: " + e.getMessage());
         }
 
         return false;
@@ -141,8 +139,7 @@ public class EmpleadoCaja extends Empleado implements Menu {
                 int idCaja = Integer.parseInt(textFieldIdCaja.getText());
                 if (validacion.validarAgregarDinero(monto, idCaja)) {
                     agregarDinero(monto, id, idCaja);
-                    Label labelMensaje = null;
-                    labelMensaje.setText("Ha depositado $" + monto + " correctamente en la caja número " + idCaja);
+                    mostrarOperacionExitosa("Ha depositado $" + monto + " correctamente en la caja número " + idCaja);
                 }
             }
         });
