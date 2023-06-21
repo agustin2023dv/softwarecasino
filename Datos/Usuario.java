@@ -113,23 +113,6 @@ public abstract class Usuario {
     }
 
 
-  /**
-   *    CREO QUE ESTE CODIGO YA NO ES NECESARIO
-   *
-   * public void login(String password) {
-        if (password.equals(this.contrasena)) {
-            this.logueado = true;
-            System.out.println("Inicio de sesión exitoso para el usuario " + this.idUsuario);
-        } else {
-            System.out.println("Contraseña incorrecta para el usuario " + this.idUsuario);
-        }
-    }
-
-    public void logout() {
-        this.logueado = false;
-        System.out.println("El usuario " + this.idUsuario + " ha cerrado sesión");
-    }
-**/
 
 
 }

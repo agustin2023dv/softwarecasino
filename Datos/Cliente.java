@@ -70,8 +70,7 @@ public class Cliente extends Usuario implements Menu {
                 idCliente = rs.getInt("id_usuario");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al obtener el ID del usuario: " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            mostrarError("Hubo un error al obtener el ID del usuario: " + e.getMessage());
         }
 
         return idCliente;
@@ -96,8 +95,7 @@ public class Cliente extends Usuario implements Menu {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al obtener el ID del usuario: " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            mostrarError("Hubo un error al obtener el ID del usuario: " + e.getMessage());
             return nroCliente;
         }
 
