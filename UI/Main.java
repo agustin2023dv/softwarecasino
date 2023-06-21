@@ -45,8 +45,16 @@ class Main {
 		panel.add(labelImagen);
 		panel.add(labelMensaje);
 
+
 		ventana.add(panel);
+
+
+
 		ventana.setVisible(true);
+
+
+		// FALTA AGREGARLE ALGO PARA QUE DESPUES DE UNOS SEGUNDOS SE CIERRE SOLO ANETS Q LO DEMAS SE ABRA
+		ventana.dispose();
 
 
 		// Pantalla pre login . Seleccion de tipo de usuario
@@ -82,12 +90,12 @@ class Main {
 
 		JButton btnLogin;
 
-		btnLogin = new JButton("Login");
-		btnLogin.setPreferredSize(new Dimension(30, 30));
+		btnLogin = new JButton("Iniciar sesion");
+		btnLogin.setPreferredSize(new Dimension(150, 30));
 
 		JPanel panelBoton = new JPanel();
 		panelBoton.add(btnLogin);
-	panelBoton.setSize(30,30);
+		panelBoton.setSize(30,30);
 		panelLogin.add(panelBoton, BorderLayout.SOUTH);
 
 
