@@ -51,7 +51,7 @@ public class Tecnico extends Empleado implements Menu {
 
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+			mostrarError("Hubo un error: " + e.getMessage());
 			return false;
 		}
 		return true;
@@ -70,7 +70,7 @@ public class Tecnico extends Empleado implements Menu {
 
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+			mostrarError("Hubo un error: " + e.getMessage());
 			return false;
 		}
 		return true;
@@ -89,7 +89,7 @@ public class Tecnico extends Empleado implements Menu {
 
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Hubo un error: " + e.getMessage());
+			mostrarError("Hubo un error: " + e.getMessage());
 			return false;
 		}
 		return true;
@@ -121,9 +121,7 @@ public class Tecnico extends Empleado implements Menu {
 				}
 			}
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"Hubo un error al validar el login: " + e.getMessage(), "Error",
-					JOptionPane.ERROR_MESSAGE);
+			mostrarError("Hubo un error al validar el login: " + e.getMessage());
 		}
 
 		return false;
