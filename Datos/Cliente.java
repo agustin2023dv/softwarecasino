@@ -487,12 +487,9 @@ public class Cliente extends Usuario implements Menu {
         ventana.setSize(400, 300);
         ventana.setLocationRelativeTo(null);
 
-
         // Para metodo verCuenta
         perfil = new JFrame("Detalles de cuenta");
         perfil.setSize(500,300);
-
-
 
         botonVerPerfil = new JButton("Ver perfil");
         botonJugar = new JButton("Jugar");
@@ -508,26 +505,30 @@ public class Cliente extends Usuario implements Menu {
         textAreaVerPerfil = new JTextArea();
         textAreaVerPerfil.setEditable(false);
 
-        panel = new JPanel();
-        panel.add(botonVerPerfil);
-        panel.add(botonJugar);
-        panel.add(botonVerHistorial);
-        panel.add(botonAgregarDinero);
-        panel.add(botonRetirarDinero);
+        panel = new JPanel(new BorderLayout());
+        
+        // Crear el título del cliente
+        JLabel labelCliente = new JLabel("Cliente");
+        labelCliente.setFont(new Font("Arial", Font.BOLD, 18));
+        labelCliente.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(labelCliente, BorderLayout.NORTH);
 
+        // Crear el panel para los botones en el centro
+        JPanel panelBotones = new JPanel(new GridLayout(5, 1, 10, 10)); // GridLayout con 5 filas, 1 columna
+        panelBotones.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Agregar un margen al panel de botones
+        
+        panelBotones.add(botonVerPerfil);
+        panelBotones.add(botonJugar);
+        panelBotones.add(botonVerHistorial);
+        panelBotones.add(botonAgregarDinero);
+        panelBotones.add(botonRetirarDinero);
+        
+        panel.add(panelBotones, BorderLayout.CENTER);
 
         ventana.add(panel);
         ventana.setVisible(true);
 
         Validacion validar = new Validacion();
-
-        botonVolver.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                perfil.dispose();
-                ventana.setVisible(true);
-            }
-        });
 
         botonVerPerfil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -540,6 +541,7 @@ public class Cliente extends Usuario implements Menu {
 
                 perfil.add(textAreaVerPerfil);
                // perfil.add(botonVolver);
+                perfil.setLocationRelativeTo(null);
                 perfil.setVisible(true);
             }
         });
@@ -599,6 +601,7 @@ public class Cliente extends Usuario implements Menu {
                         }
                     });
 
+                    frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
 
                     resultSetJuegos.close();
@@ -609,7 +612,6 @@ public class Cliente extends Usuario implements Menu {
                 }
             }
         });
-
 
 
         botonVerHistorial.addActionListener(new ActionListener() {
@@ -627,13 +629,8 @@ public class Cliente extends Usuario implements Menu {
                 JScrollPane scrollPane = new JScrollPane(textAreaHistorial);
                 historialFrame.add(scrollPane, BorderLayout.CENTER);
 
+                historialFrame.setLocationRelativeTo(null);
                 historialFrame.setVisible(true);
-
-
-
-
-
-
 
               /*  JOptionPane.showMessageDialog(null, getHistorialPartidas(id),
                         "Historial de partidas",
@@ -672,7 +669,7 @@ public class Cliente extends Usuario implements Menu {
                         inputFrame.dispose();
                     }
                 });
-
+                inputFrame.setLocationRelativeTo(null);
                 inputFrame.setVisible(true);
             }
         });
@@ -708,7 +705,8 @@ public class Cliente extends Usuario implements Menu {
                         inputFrame.dispose();
                     }
                 });
-
+                
+                inputFrame.setLocationRelativeTo(null);
                 inputFrame.setVisible(true);
             }
         });
