@@ -129,9 +129,8 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 
         panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Agrega espaciado entre los componentes
+        gbc.insets = new Insets(10, 10, 10, 10); 
 
-        // Crear y agregar el título en un JLabel
         JLabel labelTitulo = new JLabel("Panel de Empleado Maquina");
         labelTitulo.setFont(new Font("Arial", Font.BOLD, 16));
         gbc.gridx = 0;
