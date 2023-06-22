@@ -100,46 +100,99 @@ class Main {
          gbc.anchor = GridBagConstraints.CENTER;
          panelLogin.add(btnLogin, gbc);
 	    
-		btnLogin.addActionListener(new ActionListener() {
-			int intentosLogin = 0;
+         JLabel labelError = new JLabel();
+         labelError.setForeground(Color.RED);
+         gbc.gridx = 0;
+         gbc.gridy = 3;
+         gbc.gridwidth = 2;
+         gbc.anchor = GridBagConstraints.CENTER;
+         panelLogin.add(labelError, gbc);
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String nombre_usuario = textNombreUsuario.getText();
-				String contrasena = new String(textContrasena.getPassword());
 
-				if (validacion.verificarUsuario(nombre_usuario, contrasena)) {
-					if (cliente.login(nombre_usuario, contrasena)) {
-						cliente.mostrarMenu(nombre_usuario);
-						ventanaLogin.dispose();
-					} else if (adm.login(nombre_usuario, contrasena)) {
-						adm.mostrarMenu(nombre_usuario);
-						ventanaLogin.dispose();
-					} else if (empCaja.login(nombre_usuario, contrasena)) {
-						empCaja.mostrarMenu(nombre_usuario);
-						ventanaLogin.dispose();
-					} else if (tecnico.login(nombre_usuario, contrasena)) {
-						tecnico.mostrarMenu(nombre_usuario);
-						ventanaLogin.dispose();
-					} else if (empMaquina.login(nombre_usuario, contrasena)) {
-						empMaquina.mostrarMenu(nombre_usuario);
-						ventanaLogin.dispose();
-					}
-				} else {
-					// Usuario o contraseña incorrectos
-					intentosLogin++;
-					if (intentosLogin == 3) {
-						JOptionPane.showMessageDialog(null, "Ha excedido el número máximo de intentos. Saliendo del programa.", "Error", JOptionPane.ERROR_MESSAGE);
-						System.exit(0);
-						ventanaLogin.dispose();
-					}
-				}
-			}
-		});
+         
+         btnLogin.addActionListener(new ActionListener() {
+             int intentosLogin = 0;
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 String nombre_usuario = textNombreUsuario.getText();
+                 String contrasena = new String(textContrasena.getPassword());
 
-		ventanaLogin.add(panelLogin);
-		ventanaLogin.setVisible(true);
-	}
+                 if (validacion.verificarUsuario(nombre_usuario, contrasena)) {
+                     if (cliente.login(nombre_usuario, contrasena)) {
+                         cliente.mostrarMenu(nombre_usuario);
+                         ventanaLogin.dispose();
+                     } else if (adm.login(nombre_usuario, contrasena)) {
+                         adm.mostrarMenu(nombre_usuario);
+                         ventanaLogin.dispose();
+                     } else if (empCaja.login(nombre_usuario, contrasena)) {
+                         empCaja.mostrarMenu(nombre_usuario);
+                         ventanaLogin.dispose();
+                     } else if (tecnico.login(nombre_usuario, contrasena)) {
+                         tecnico.mostrarMenu(nombre_usuario);
+                         ventanaLogin.dispose();
+                     } else if (empMaquina.login(nombre_usuario, contrasena)) {
+                         empMaquina.mostrarMenu(nombre_usuario);
+                         ventanaLogin.dispose();
+                     } else {
+                    	  JFrame ventanaError = new JFrame("Error");
+                          ventanaError.setSize(300, 150);
+                          ventanaError.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                          ventanaError.setLocationRelativeTo(null);
+
+                          JPanel panelError = new JPanel(new BorderLayout());
+
+                          JLabel labelMensaje = new JLabel("Tipo de usuario inválido");
+                          labelMensaje.setFont(new Font("Arial", Font.PLAIN,11));
+                          labelMensaje.setHorizontalAlignment(JLabel.CENTER);
+                          panelError.add(labelMensaje, BorderLayout.CENTER);
+
+                          ventanaError.add(panelError);
+                          ventanaError.setVisible(true);
+                     }
+                 } else {
+                     intentosLogin++;
+                     int intentosRestantes = 3 - intentosLogin;
+                     if (intentosRestantes > 0) {
+                   	  JFrame ventanaError = new JFrame("Error");
+                      ventanaError.setSize(300, 150);
+                      ventanaError.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                      ventanaError.setLocationRelativeTo(null);
+
+                      JPanel panelError = new JPanel(new BorderLayout());
+
+                      JLabel labelMensaje = new JLabel("Usuario o contraseña incorrectos. Intentos restantes: " + intentosRestantes);
+                      labelMensaje.setFont(new Font("Arial", Font.PLAIN, 11));
+                      labelMensaje.setHorizontalAlignment(JLabel.CENTER);
+                      panelError.add(labelMensaje, BorderLayout.CENTER);
+                      
+
+                      ventanaError.add(panelError);
+                      ventanaError.setVisible(true);
+                     } else {
+                    	  JFrame ventanaError = new JFrame("Error");
+                          ventanaError.setSize(300, 150);
+                          ventanaError.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                          ventanaError.setLocationRelativeTo(null);
+
+                          JPanel panelError = new JPanel(new BorderLayout());
+
+                          JLabel labelMensaje = new JLabel("Ha excedido el número máximo de intentos. Saliendo del programa.");
+                          labelMensaje.setFont(new Font("Arial", Font.PLAIN, 11));
+                          labelMensaje.setHorizontalAlignment(JLabel.CENTER);
+                          panelError.add(labelMensaje, BorderLayout.CENTER);
+
+                          ventanaError.add(panelError);
+                          ventanaError.setVisible(true);
+                         System.exit(0);
+                     }
+                 }
+             }
+         });
+
+         ventanaLogin.add(panelLogin);
+         ventanaLogin.setVisible(true);
+     }
+
 
 
 
