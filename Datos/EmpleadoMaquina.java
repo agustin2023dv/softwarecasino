@@ -185,6 +185,7 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 
                 frame.add(panel);
                 frame.setSize(300, 100);
+                frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }
         });
@@ -217,6 +218,7 @@ public class EmpleadoMaquina extends Empleado implements Menu{
 
                 frame.add(panel);
                 frame.setSize(300, 100);
+                frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }
         });
