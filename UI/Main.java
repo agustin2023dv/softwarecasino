@@ -23,7 +23,7 @@ class Main {
 		tecnico = new Tecnico();
 		empMaquina = new EmpleadoMaquina();
 
-		mostrarPantallaBienvenida();
+		        mostrarPantallaBienvenida();
         Timer timer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -32,10 +32,7 @@ class Main {
         });
         timer.setRepeats(false);
         timer.start();
-
-	}
-
-
+    }
 
     private static void mostrarPantallaBienvenida() {
         JFrame ventana = new JFrame("Casino Jocker");
@@ -58,35 +55,51 @@ class Main {
         ventana.setVisible(true);
     }
 
-	private static void mostrarVentanaLogin() {
-		JPanel panelLogin = new JPanel();
-		JFrame ventanaLogin = new JFrame("Log in");
-		ventanaLogin.setSize(500, 300);
-		ventanaLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ventanaLogin.setLocationRelativeTo(null);
+    private static void mostrarVentanaLogin() {
+    	 JFrame ventanaLogin = new JFrame("Inicio de sesión");
+         ventanaLogin.setSize(400, 300);
+         ventanaLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         ventanaLogin.setLocationRelativeTo(null);
 
-		JLabel labelNombreUsuario = new JLabel("Nombre usuario");
-		JTextField textNombreUsuario = new JTextField(10);
+         JPanel panelLogin = new JPanel(new GridBagLayout());
+         panelLogin.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-		JLabel labelContrasena = new JLabel("Contraseña");
-		JPasswordField textContrasena = new JPasswordField(10);
+         GridBagConstraints gbc = new GridBagConstraints();
+         gbc.anchor = GridBagConstraints.WEST;
+         gbc.insets = new Insets(5, 5, 5, 5);
 
-		panelLogin.add(labelNombreUsuario);
-		panelLogin.add(textNombreUsuario);
-		panelLogin.add(labelContrasena);
-		panelLogin.add(textContrasena);
+         JLabel labelNombreUsuario = new JLabel("Nombre de usuario:");
+         JTextField textNombreUsuario = new JTextField(15);
 
-		JButton btnLogin = new JButton("Iniciar sesión");
-		Font fontBtnLogin = new Font("Arial", Font.BOLD, 14);
-		btnLogin.setPreferredSize(new Dimension(150, 30));
-		btnLogin.setFont(fontBtnLogin);
-		btnLogin.setBackground(Color.orange);
+         JLabel labelContrasena = new JLabel("Contraseña:");
+         JPasswordField textContrasena = new JPasswordField(15);
 
-		JPanel panelBoton = new JPanel();
-		panelBoton.add(btnLogin);
-		panelBoton.setSize(30, 30);
-		panelLogin.add(panelBoton, BorderLayout.SOUTH);
+         JButton btnLogin = new JButton("Iniciar sesión");
+         btnLogin.setPreferredSize(new Dimension(150, 30));
+         btnLogin.setBackground(new Color(255, 165, 0));
+         btnLogin.setForeground(Color.white);
+         btnLogin.setFont(new Font("Arial", Font.BOLD, 14));
 
+         gbc.gridx = 0;
+         gbc.gridy = 0;
+         panelLogin.add(labelNombreUsuario, gbc);
+
+         gbc.gridx = 1;
+         panelLogin.add(textNombreUsuario, gbc);
+
+         gbc.gridx = 0;
+         gbc.gridy = 1;
+         panelLogin.add(labelContrasena, gbc);
+
+         gbc.gridx = 1;
+         panelLogin.add(textContrasena, gbc);
+
+         gbc.gridx = 0;
+         gbc.gridy = 2;
+         gbc.gridwidth = 2;
+         gbc.anchor = GridBagConstraints.CENTER;
+         panelLogin.add(btnLogin, gbc);
+	    
 		btnLogin.addActionListener(new ActionListener() {
 			int intentosLogin = 0;
 
