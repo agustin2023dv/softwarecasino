@@ -52,7 +52,8 @@ public class EmpleadoCaja extends Empleado implements Menu {
                 idEmpleadoCaja = rs.getInt("id_usuario");
             }
         } catch (Exception e) {
-            mostrarError("Hubo un error al obtener el ID del usuario: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error al obtener el ID del usuario: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
         return idEmpleadoCaja;
@@ -127,11 +128,51 @@ public class EmpleadoCaja extends Empleado implements Menu {
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setLocationRelativeTo(null);
 
+        panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); 
+
+        JLabel labelTitulo = new JLabel("Panel de Empleado Caja");
+        labelTitulo.setFont(new Font("Arial", Font.BOLD, 16));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(labelTitulo, gbc);
+
         labelMonto = new JLabel("Monto a agregar:");
         textFieldMonto = new JTextField(10);
         labelIdCaja = new JLabel("ID caja a depositar:");
         textFieldIdCaja = new JTextField(10);
         botonAgregarDinero = new JButton("Agregar dinero");
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.EAST;
+        panel.add(labelMonto, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel.add(textFieldMonto, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.EAST;
+        panel.add(labelIdCaja, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel.add(textFieldIdCaja, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(botonAgregarDinero, gbc);
+
         botonAgregarDinero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 double monto = Double.parseDouble(textFieldMonto.getText());
@@ -139,20 +180,11 @@ public class EmpleadoCaja extends Empleado implements Menu {
                 if (validacion.validarAgregarDinero(monto, idCaja)) {
                     agregarDinero(monto, id, idCaja);
                     mostrarOperacionExitosa("Ha depositado $" + monto + " correctamente en la caja número " + idCaja);
-                     // Limpiar campo idCaja
                 }
-                textFieldMonto.setText(""); // Limpiar campo monto
-                textFieldIdCaja.setText("");
+                textFieldMonto.setText(""); 
+                textFieldIdCaja.setText(""); 
             }
         });
-
-
-        panel = new JPanel();
-        panel.add(labelMonto);
-        panel.add(textFieldMonto);
-        panel.add(labelIdCaja);
-        panel.add(textFieldIdCaja);
-        panel.add(botonAgregarDinero);
 
         ventana.add(panel);
         ventana.setVisible(true);
