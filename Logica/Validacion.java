@@ -16,7 +16,7 @@ public class Validacion {
 
 		JLabel labelError = new JLabel(mensaje);
 		errorFrame.add(labelError);
-
+		errorFrame.setLocationRelativeTo(null);
 		errorFrame.setVisible(true);
 	}
     
