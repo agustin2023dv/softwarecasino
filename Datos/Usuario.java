@@ -122,7 +122,7 @@ public abstract class Usuario {
         JLabel labelExito = new JLabel(mensaje);
 
         exitoFrame.add(labelExito);
-
+	exitoFrame.setLocationRelativeTo(null);
         exitoFrame.setVisible(true);
     }
 
