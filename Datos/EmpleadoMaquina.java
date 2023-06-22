@@ -8,6 +8,12 @@ import java.util.Date;
 
 import javax.swing.*;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -121,16 +127,35 @@ public class EmpleadoMaquina extends Empleado implements Menu{
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setLocationRelativeTo(null);
 
+        panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); // Agrega espaciado entre los componentes
+
+        // Crear y agregar el título en un JLabel
+        JLabel labelTitulo = new JLabel("Panel de Empleado Maquina");
+        labelTitulo.setFont(new Font("Arial", Font.BOLD, 16));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(labelTitulo, gbc);
+
         botonEncender = new JButton("Encender Maquina");
         botonApagar = new JButton("Apagar Maquina");
 
-        panel = new JPanel();
-        panel.add(botonEncender);
-        panel.add(botonApagar);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(botonEncender, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(botonApagar, gbc);
 
         ventana.add(panel);
         ventana.setVisible(true);
-
         Validacion validacion = new Validacion();
 
         botonEncender.addActionListener(new ActionListener() {
