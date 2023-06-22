@@ -280,29 +280,59 @@ public class Administrador extends Usuario implements Menu {
 		String[] opcionesAdministrador = {"Ver cliente", "Eliminar cliente", "Ver caja", "Eliminar juego",
                 "Editar juego", "Editar datos cliente", "Salir"};
 
-        ventana = new JFrame("Administrador");
-        ventana.setSize(400, 300);
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setLocationRelativeTo(null);
+	    ventana = new JFrame("Administrador");
+	    ventana.setSize(400, 300);
+	    ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    ventana.setLocationRelativeTo(null);
 
-        botonVerCliente = new JButton("Ver cliente");
-        botonEliminarCliente = new JButton("Eliminar cliente");
-        botonVerCaja = new JButton("Ver caja");
-        botonEliminarJuego = new JButton("Eliminar juego");
-        botonEditarJuego = new JButton("Editar juego");
-        botonEditarDatosCliente = new JButton("Editar datos cliente");
+	    panel = new JPanel(new BorderLayout());
+	    panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
 
-        panel = new JPanel();
-        panel.add(botonVerCliente);
-        panel.add(botonEliminarCliente);
-        panel.add(botonVerCaja);
-        panel.add(botonEliminarJuego);
-        panel.add(botonEditarJuego);
-        panel.add(botonEditarDatosCliente);
+	    JLabel labelTitulo = new JLabel("Panel de Administrador");
+	    labelTitulo.setFont(new Font("Arial", Font.BOLD, 16));
+	    labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+	    panel.add(labelTitulo, BorderLayout.NORTH);
 
-        ventana.add(panel);
-        ventana.setVisible(true);
+	    JPanel panelBotones = new JPanel(new GridBagLayout());
 
+	    GridBagConstraints gbc = new GridBagConstraints();
+	    gbc.insets = new Insets(5, 5, 5, 5); 
+
+	    botonVerCliente = new JButton("Ver cliente");
+	    botonEliminarCliente = new JButton("Eliminar cliente");
+	    botonVerCaja = new JButton("Ver caja");
+	    botonEliminarJuego = new JButton("Eliminar juego");
+	    botonEditarJuego = new JButton("Editar juego");
+	    botonEditarDatosCliente = new JButton("Editar datos cliente");
+
+	    gbc.gridx = 0;
+	    gbc.gridy = 0;
+	    panelBotones.add(botonVerCliente, gbc);
+
+	    gbc.gridx = 0;
+	    gbc.gridy = 1;
+	    panelBotones.add(botonEliminarCliente, gbc);
+
+	    gbc.gridx = 0;
+	    gbc.gridy = 2;
+	    panelBotones.add(botonVerCaja, gbc);
+
+	    gbc.gridx = 1;
+	    gbc.gridy = 0;
+	    panelBotones.add(botonEliminarJuego, gbc);
+
+	    gbc.gridx = 1;
+	    gbc.gridy = 1;
+	    panelBotones.add(botonEditarJuego, gbc);
+
+	    gbc.gridx = 1;
+	    gbc.gridy = 2;
+	    panelBotones.add(botonEditarDatosCliente, gbc);
+
+	    panel.add(panelBotones, BorderLayout.CENTER);
+
+	    ventana.add(panel);
+	    ventana.setVisible(true);
         Validacion validacion = new Validacion();
 
         botonVerCliente.addActionListener(new ActionListener() {
