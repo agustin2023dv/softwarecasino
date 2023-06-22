@@ -24,36 +24,39 @@ class Main {
 		empMaquina = new EmpleadoMaquina();
 
 		mostrarPantallaBienvenida();
-
-		mostrarVentanaLogin();
+        Timer timer = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarVentanaLogin();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
 
 	}
 
 
 
-	private static void mostrarPantallaBienvenida() {
-		JFrame ventana = new JFrame("Casino Jocker");
-		ventana.setSize(400, 300);
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ventana.setLocationRelativeTo(null);
+    private static void mostrarPantallaBienvenida() {
+        JFrame ventana = new JFrame("Casino Jocker");
+        ventana.setSize(400, 300);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setLocationRelativeTo(null);
 
-		JPanel panel = new JPanel();
+        JPanel panel = new JPanel();
 
-		String rutaImagenInicio = "img/casinoInicio.jpg";
-		ImageIcon iconoInicio = new ImageIcon(rutaImagenInicio);
-		JLabel labelImagen = new JLabel(iconoInicio);
-		JLabel labelMensaje = new JLabel("Bienvenido al casino Jocker");
-		labelMensaje.setFont(new Font("Arial", Font.PLAIN, 24));
+        String rutaImagenInicio = "img/casinoInicio.jpg";
+        ImageIcon iconoInicio = new ImageIcon(rutaImagenInicio);
+        JLabel labelImagen = new JLabel(iconoInicio);
+        JLabel labelMensaje = new JLabel("Bienvenido al casino Jocker");
+        labelMensaje.setFont(new Font("Arial", Font.PLAIN, 24));
 
-		panel.add(labelImagen);
-		panel.add(labelMensaje);
+        panel.add(labelImagen);
+        panel.add(labelMensaje);
 
-		ventana.add(panel);
-		ventana.setVisible(true);
-
-		// FALTA AGREGARLE ALGO PARA QUE DESPUES DE UNOS SEGUNDOS SE CIERRE SOLO ANTES Q LO DEMAS SE ABRA
-		ventana.dispose();
-	}
+        ventana.add(panel);
+        ventana.setVisible(true);
+    }
 
 	private static void mostrarVentanaLogin() {
 		JPanel panelLogin = new JPanel();
